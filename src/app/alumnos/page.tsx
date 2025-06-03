@@ -89,7 +89,7 @@ export default function AlumnoPage() {
 
         <Separator className="my-12" />
         
-        <CalendarSection />
+        <CalendarSection isEditable={false} />
         
         <Separator className="my-12" />
         

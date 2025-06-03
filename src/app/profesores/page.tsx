@@ -89,7 +89,7 @@ export default function ProfesorPage() {
 
         <Separator className="my-12" />
 
-        <CalendarSection />
+        <CalendarSection isEditable={true} />
 
         <Separator className="my-12" />
 
