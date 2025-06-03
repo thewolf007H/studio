@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { School, BarChart3, UserCircle, MessageSquare } from 'lucide-react';
+import { CalendarSection } from '@/components/calendar/calendar-section';
+import { Separator } from '@/components/ui/separator';
 
 export default function AlumnoPage() {
   return (
@@ -84,6 +86,12 @@ export default function AlumnoPage() {
             </CardContent>
           </Card>
         </div>
+
+        <Separator className="my-12" />
+        
+        <CalendarSection />
+        
+        <Separator className="my-12" />
         
         <div className="text-center p-6 border border-dashed rounded-lg bg-secondary/30">
             <h3 className="text-xl font-semibold font-headline mb-2">Próximas Funcionalidades</h3>

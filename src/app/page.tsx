@@ -1,7 +1,6 @@
 
 import { Header } from '@/components/layout/header';
 import { CourseInfoSection } from '@/components/course/course-info-section';
-import { CalendarSection } from '@/components/calendar/calendar-section';
 import { QuizSection } from '@/components/quiz/quiz-section';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,11 +23,7 @@ export default function HomePage() {
         </div>
         
         <CourseInfoSection />
-        
-        <Separator className="my-12" />
-        
-        <CalendarSection />
-        
+                
         <Separator className="my-12" />
         
         <QuizSection />
