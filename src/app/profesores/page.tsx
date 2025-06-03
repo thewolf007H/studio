@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { FolderKanban, Users, UploadCloud, PieChart } from 'lucide-react';
+import { Users, UploadCloud, PieChart, Edit } from 'lucide-react';
 
 export default function ProfesorPage() {
   return (
@@ -23,15 +23,15 @@ export default function ProfesorPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
-                <FolderKanban className="mr-2 h-6 w-6 text-accent" />
-                Mis Cursos
+                <Edit className="mr-2 h-6 w-6 text-accent" />
+                Gestionar Aula Virtual
               </CardTitle>
-              <CardDescription>Administra tus cursos y crea nuevo contenido.</CardDescription>
+              <CardDescription>Define el temario, crea exámenes y administra el contenido del curso.</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Edita lecciones, tareas y materiales.</p>
-              <Button asChild variant="outline">
-                <Link href="#">Gestionar Cursos</Link>
+              <p className="text-sm text-muted-foreground mb-4">Configura los módulos de aprendizaje para tus alumnos.</p>
+              <Button asChild variant="default" className="w-full">
+                <Link href="/profesores/aula-virtual">Ir a Gestión del Aula</Link>
               </Button>
             </CardContent>
           </Card>
@@ -56,9 +56,9 @@ export default function ProfesorPage() {
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <UploadCloud className="mr-2 h-6 w-6 text-accent" />
-                Materiales
+                Materiales Adicionales
               </CardTitle>
-              <CardDescription>Sube y organiza recursos educativos.</CardDescription>
+              <CardDescription>Sube y organiza recursos educativos complementarios.</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Comparte archivos, videos y enlaces.</p>
@@ -88,7 +88,7 @@ export default function ProfesorPage() {
         <div className="text-center p-6 border border-dashed rounded-lg bg-secondary/30">
             <h3 className="text-xl font-semibold font-headline mb-2">Próximas Funcionalidades</h3>
             <ul className="list-disc list-inside text-muted-foreground text-sm">
-                <li>Creación avanzada de quizzes y exámenes.</li>
+                <li>Creación avanzada de quizzes y exámenes (dentro del Aula Virtual).</li>
                 <li>Integración con herramientas de videoconferencia.</li>
                 <li>Sistema de calificaciones y feedback automatizado.</li>
             </ul>

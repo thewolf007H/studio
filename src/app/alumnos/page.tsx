@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { BookOpen, BarChart3, UserCircle, MessageSquare } from 'lucide-react';
+import { School, BarChart3, UserCircle, MessageSquare } from 'lucide-react';
 
 export default function AlumnoPage() {
   return (
@@ -23,15 +23,15 @@ export default function AlumnoPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
-                <BookOpen className="mr-2 h-6 w-6 text-accent" />
-                Mis Cursos
+                <School className="mr-2 h-6 w-6 text-accent" />
+                Aula Virtual
               </CardTitle>
-              <CardDescription>Accede a los cursos en los que estás inscrito.</CardDescription>
+              <CardDescription>Accede a tus clases, temario y exámenes.</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Verás tus lecciones, materiales y tareas pendientes.</p>
-              <Button asChild variant="outline">
-                <Link href="#">Ver Cursos</Link>
+              <p className="text-sm text-muted-foreground mb-4">Encuentra lecciones, simuladores y el plan de estudios.</p>
+              <Button asChild variant="default" className="w-full">
+                <Link href="/alumnos/aula-virtual">Entrar al Aula Virtual</Link>
               </Button>
             </CardContent>
           </Card>
