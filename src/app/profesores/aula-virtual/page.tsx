@@ -3,14 +3,18 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ListPlus, FilePlus2, Eye, Settings } from 'lucide-react';
+import { ListPlus, FilePlus2, Eye, Settings, Video } from 'lucide-react';
+import { Input } from '@/components/ui/input'; // Placeholder
+import { Label } from '@/components/ui/label'; // Placeholder
 
 export default function AulaVirtualProfesorPage() {
   const temarioPlaceholder = [
     "Unidad 1: Introducción y Saludos",
     "Unidad 2: Verbo 'To Be' y Artículos",
     "Unidad 3: Presente Simple",
-    // ... más temas
+    "Unidad 4: Vocabulario: La Familia",
+    "Unidad 5: Preposiciones de Lugar",
+    "Repaso General y Práctica Conversacional",
   ];
 
   return (
@@ -31,7 +35,7 @@ export default function AulaVirtualProfesorPage() {
             Gestión del Aula Virtual
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Define el contenido del curso, crea evaluaciones y organiza los materiales para tus estudiantes.
+            Define el contenido del curso, crea evaluaciones, gestiona clases en vivo y organiza los materiales para tus estudiantes.
           </p>
         </div>
 
@@ -65,7 +69,7 @@ export default function AulaVirtualProfesorPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
-                Utiliza el generador de IA o crea preguntas manualmente.
+                Utiliza el generador de IA o crea preguntas manually.
               </p>
               <Button asChild className="w-full">
                 <Link href="#">Crear Nuevo Examen</Link>
@@ -75,6 +79,33 @@ export default function AulaVirtualProfesorPage() {
           </Card>
         </div>
 
+        <Card className="shadow-lg hover:shadow-xl transition-shadow mt-8">
+          <CardHeader>
+            <CardTitle className="flex items-center text-xl font-headline">
+              <Video className="mr-2 h-6 w-6 text-accent" />
+              Clase Virtual / Videoconferencia
+            </CardTitle>
+            <CardDescription>Administra tus sesiones de clase en vivo.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Genera y comparte enlaces para tus clases virtuales a través de Google Meet o Zoom.
+            </p>
+            <div>
+              <Label htmlFor="meeting-link" className="text-sm font-medium">Enlace de la Reunión (Google Meet/Zoom)</Label>
+              <Input id="meeting-link" type="text" placeholder="https://meet.google.com/abc-def-ghi" className="mt-1" disabled />
+            </div>
+            <div>
+              <Label htmlFor="meeting-password">Contraseña (opcional)</Label>
+              <Input id="meeting-password" type="text" placeholder="Contraseña de la reunión" className="mt-1" disabled />
+            </div>
+            <Button className="w-full">
+              Generar/Actualizar Enlace de Clase
+            </Button>
+            <p className="text-xs text-muted-foreground text-center">(Funcionalidad de integración con Google Meet/Zoom en desarrollo)</p>
+          </CardContent>
+        </Card>
+        
         <Card className="shadow-lg hover:shadow-xl transition-shadow mt-8">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
@@ -89,9 +120,6 @@ export default function AulaVirtualProfesorPage() {
                   {temarioPlaceholder.map((tema, index) => (
                     <li key={index}>{tema}</li>
                   ))}
-                  <li>Unidad 4: Vocabulario: La Familia</li>
-                  <li>Unidad 5: Preposiciones de Lugar</li>
-                  <li>Repaso General y Práctica Conversacional</li>
                 </ul>
               ) : (
                 <p className="text-sm text-muted-foreground">Aún no has definido ningún tema para el curso.</p>

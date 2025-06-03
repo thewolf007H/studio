@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ListOrdered, FileText, BookOpenCheck } from 'lucide-react';
+import { ListOrdered, FileText, BookOpenCheck, Video } from 'lucide-react';
 
 export default function AulaVirtualAlumnoPage() {
   const temarioPlaceholder = [
@@ -33,12 +33,12 @@ export default function AulaVirtualAlumnoPage() {
             Aula Virtual
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Aquí encontrarás el material de estudio, los temas del curso y acceso a los exámenes y simuladores.
+            Aquí encontrarás el material de estudio, los temas del curso, acceso a clases en vivo y a los exámenes y simuladores.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow lg:col-span-1">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <ListOrdered className="mr-2 h-6 w-6 text-accent" />
@@ -59,7 +59,7 @@ export default function AulaVirtualAlumnoPage() {
             </CardContent>
           </Card>
 
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow lg:col-span-1">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <FileText className="mr-2 h-6 w-6 text-accent" />
@@ -75,6 +75,25 @@ export default function AulaVirtualAlumnoPage() {
                 <Link href="#">Acceder a Exámenes</Link>
               </Button>
               <p className="text-xs text-muted-foreground mt-3 text-center">(Funcionalidad de exámenes y quiz en desarrollo)</p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow lg:col-span-1">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <Video className="mr-2 h-6 w-6 text-accent" />
+                Clase en Vivo
+              </CardTitle>
+              <CardDescription>Únete a las sesiones de videoconferencia programadas.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                El profesor compartirá aquí el enlace para unirse a la clase a través de Google Meet o Zoom.
+              </p>
+              <Button asChild className="w-full">
+                <Link href="#">Unirse a la Clase</Link>
+              </Button>
+              <p className="text-xs text-muted-foreground mt-3 text-center">(El enlace aparecerá cuando el profesor inicie una sesión)</p>
             </CardContent>
           </Card>
         </div>
