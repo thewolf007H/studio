@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Users, UploadCloud, PieChart, Edit, UserCog } from 'lucide-react';
+import { Users, UploadCloud, PieChart, Edit, UserCog, ClipboardCheck } from 'lucide-react';
 import { CalendarSection } from '@/components/calendar/calendar-section';
 import { Separator } from '@/components/ui/separator';
 
@@ -51,6 +51,7 @@ export default function ProfesorPage() {
               <Button asChild variant="outline">
                 <Link href="#">Ver Estudiantes</Link>
               </Button>
+               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
           
@@ -66,6 +67,23 @@ export default function ProfesorPage() {
               <p className="text-sm text-muted-foreground mb-4">Comparte archivos, videos y enlaces.</p>
               <Button asChild variant="outline">
                 <Link href="#">Subir Material</Link>
+              </Button>
+               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <ClipboardCheck className="mr-2 h-6 w-6 text-accent" />
+                Calificaciones y Feedback
+              </CardTitle>
+              <CardDescription>Revisa el rendimiento y proporciona comentarios a tus alumnos.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Accede al sistema de calificaciones y gestiona el feedback.</p>
+              <Button asChild variant="outline">
+                <Link href="/profesores/calificaciones">Gestionar Calificaciones</Link>
               </Button>
             </CardContent>
           </Card>
@@ -83,6 +101,7 @@ export default function ProfesorPage() {
               <Button asChild variant="outline">
                 <Link href="#">Ver Analíticas</Link>
               </Button>
+               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
 
@@ -112,9 +131,9 @@ export default function ProfesorPage() {
         <div className="text-center p-6 border border-dashed rounded-lg bg-secondary/30">
             <h3 className="text-xl font-semibold font-headline mb-2">Próximas Funcionalidades</h3>
             <ul className="list-disc list-inside text-muted-foreground text-sm">
-                <li>Creación avanzada de quizzes y exámenes (dentro del Aula Virtual).</li>
-                <li>Integración con herramientas de videoconferencia.</li>
-                <li>Sistema de calificaciones y feedback automatizado.</li>
+                <li>Foros de discusión específicos para cada curso.</li>
+                <li>Herramientas de seguimiento de asistencia.</li>
+                <li>Exportación de reportes de progreso detallados.</li>
             </ul>
         </div>
 

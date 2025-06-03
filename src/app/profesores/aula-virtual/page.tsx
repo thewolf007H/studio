@@ -123,7 +123,9 @@ export default function AulaVirtualProfesorPage() {
                 <Button asChild className="w-full md:w-auto font-semibold">
                   <Link href="#">Crear Nueva Evaluación</Link>
                 </Button>
-                <p className="text-xs text-muted-foreground mt-3">(Integración con IA y creación manual en desarrollo)</p>
+                <p className="text-xs text-muted-foreground mt-3">
+                  (Integración con IA y creación manual en desarrollo. Próximamente: bancos de preguntas, diferentes tipos de ítems y configuraciones avanzadas.)
+                </p>
               </CardContent>
             </Card>
              <Card className="shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-[1.02] bg-card">
@@ -180,7 +182,7 @@ export default function AulaVirtualProfesorPage() {
                 <Button className="w-full md:w-auto font-semibold" disabled>
                   Generar/Actualizar Enlace
                 </Button>
-                <p className="text-xs text-muted-foreground text-center mt-2">(Integración con plataformas en desarrollo)</p>
+                <p className="text-xs text-muted-foreground text-center mt-2">(Integración con plataformas de videoconferencia y opciones de programación en desarrollo)</p>
               </CardContent>
             </Card>
 
@@ -211,7 +213,7 @@ export default function AulaVirtualProfesorPage() {
                   <p className="text-sm text-muted-foreground text-center py-4">No hay alumnos inscritos.</p>
                 )}
                 <Button variant="outline" className="w-full mt-4 font-semibold" disabled>Gestionar Alumnos</Button>
-                <p className="text-xs text-muted-foreground mt-3 text-center">(Funcionalidad en desarrollo)</p>
+                <p className="text-xs text-muted-foreground mt-3 text-center">(Funcionalidad de gestión de alumnos y visualización de progreso detallado en desarrollo)</p>
               </CardContent>
             </Card>
 
@@ -251,5 +253,3 @@ export default function AulaVirtualProfesorPage() {
     </div>
   );
 }
-
-    
