@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { School, BarChart3, UserCircle, MessageSquare } from 'lucide-react';
+import { School, BarChart3, UserCircle, MessageSquare, CalendarCheck, Trophy } from 'lucide-react';
 import { CalendarSection } from '@/components/calendar/calendar-section';
 import { Separator } from '@/components/ui/separator';
 
@@ -51,6 +51,7 @@ export default function AlumnoPage() {
               <Button asChild variant="outline">
                 <Link href="#">Ver Progreso</Link>
               </Button>
+               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
           
@@ -83,6 +84,41 @@ export default function AlumnoPage() {
               <Button asChild variant="outline">
                 <Link href="#">Ir a Mensajes</Link>
               </Button>
+               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <CalendarCheck className="mr-2 h-6 w-6 text-accent" />
+                Calendario de Estudio
+              </CardTitle>
+              <CardDescription>Organiza tus sesiones de estudio y tareas.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Planifica tu aprendizaje y recibe recordatorios.</p>
+              <Button asChild variant="outline" disabled>
+                <Link href="#">Abrir Calendario</Link>
+              </Button>
+              <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <Trophy className="mr-2 h-6 w-6 text-accent" />
+                Gamificación y Recompensas
+              </CardTitle>
+              <CardDescription>Gana puntos y medallas por tu progreso.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Completa desafíos y desbloquea logros.</p>
+              <Button asChild variant="outline" disabled>
+                <Link href="#">Ver Mis Logros</Link>
+              </Button>
+              <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
         </div>
@@ -96,8 +132,6 @@ export default function AlumnoPage() {
         <div className="text-center p-6 border border-dashed rounded-lg bg-secondary/30">
             <h3 className="text-xl font-semibold font-headline mb-2">Próximas Funcionalidades</h3>
             <ul className="list-disc list-inside text-muted-foreground text-sm">
-                <li>Calendario de estudio personalizado.</li>
-                <li>Sistema de gamificación y recompensas.</li>
                 <li>Foros de discusión por curso.</li>
             </ul>
         </div>
