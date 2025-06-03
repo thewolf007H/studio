@@ -10,12 +10,15 @@ export function Header() {
           <GraduationCap className="h-8 w-8 mr-2 text-primary" />
           <Link href="/" className="text-2xl font-bold font-headline text-primary">LinguaMeet</Link>
         </div>
-        <nav className="flex items-center space-x-6">
+        <nav className="flex items-center space-x-4 md:space-x-6">
           <Link href="/alumnos" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
             Alumnos
           </Link>
           <Link href="/profesores" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
             Profesores
+          </Link>
+          <Link href="/direccion" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+            Dirección
           </Link>
         </nav>
       </div>

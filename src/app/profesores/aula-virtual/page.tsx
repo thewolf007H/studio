@@ -3,9 +3,10 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ListPlus, FilePlus2, Eye, Settings, Video } from 'lucide-react';
-import { Input } from '@/components/ui/input'; // Placeholder
-import { Label } from '@/components/ui/label'; // Placeholder
+import { ListPlus, FilePlus2, Eye, Settings, Video, Users as UsersIcon } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
 
 export default function AulaVirtualProfesorPage() {
   const temarioPlaceholder = [
@@ -15,6 +16,14 @@ export default function AulaVirtualProfesorPage() {
     "Unidad 4: Vocabulario: La Familia",
     "Unidad 5: Preposiciones de Lugar",
     "Repaso General y Práctica Conversacional",
+  ];
+
+  const alumnosPlaceholder = [
+    { id: "1", nombre: "Ana García Pérez" },
+    { id: "2", nombre: "Carlos López Martín" },
+    { id: "3", nombre: "Laura Fernández Ruiz" },
+    { id: "4", nombre: "Javier Sánchez Gómez" },
+    { id: "5", nombre: "Sofía Moreno Jiménez" },
   ];
 
   return (
@@ -35,11 +44,11 @@ export default function AulaVirtualProfesorPage() {
             Gestión del Aula Virtual
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Define el contenido del curso, crea evaluaciones, gestiona clases en vivo y organiza los materiales para tus estudiantes.
+            Define el contenido del curso, crea evaluaciones, gestiona clases en vivo, organiza los materiales y visualiza tus alumnos.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 mb-8">
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
@@ -69,7 +78,7 @@ export default function AulaVirtualProfesorPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
-                Utiliza el generador de IA o crea preguntas manually.
+                Utiliza el generador de IA o crea preguntas manualmente.
               </p>
               <Button asChild className="w-full">
                 <Link href="#">Crear Nuevo Examen</Link>
@@ -79,7 +88,7 @@ export default function AulaVirtualProfesorPage() {
           </Card>
         </div>
 
-        <Card className="shadow-lg hover:shadow-xl transition-shadow mt-8">
+        <Card className="shadow-lg hover:shadow-xl transition-shadow mb-8">
           <CardHeader>
             <CardTitle className="flex items-center text-xl font-headline">
               <Video className="mr-2 h-6 w-6 text-accent" />
@@ -102,11 +111,40 @@ export default function AulaVirtualProfesorPage() {
             <Button className="w-full">
               Generar/Actualizar Enlace de Clase
             </Button>
-            <p className="text-xs text-muted-foreground text-center">(Funcionalidad de integración con Google Meet/Zoom en desarrollo)</p>
+            <p className="text-xs text-muted-foreground text-center mt-2">(Funcionalidad de integración con Google Meet/Zoom en desarrollo)</p>
           </CardContent>
         </Card>
         
-        <Card className="shadow-lg hover:shadow-xl transition-shadow mt-8">
+        <div className="grid md:grid-cols-2 gap-8">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <UsersIcon className="mr-2 h-6 w-6 text-accent" />
+                Alumnos Inscritos
+              </CardTitle>
+              <CardDescription>Visualiza y gestiona los estudiantes de este curso.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {alumnosPlaceholder.length > 0 ? (
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  {alumnosPlaceholder.map((alumno, index) => (
+                    <li key={alumno.id} className="flex justify-between items-center py-1">
+                      <span>{alumno.nombre}</span>
+                      <Button variant="ghost" size="sm" asChild>
+                        <Link href="#">Ver Detalles</Link>
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-sm text-muted-foreground">Aún no hay alumnos inscritos en este curso.</p>
+              )}
+              <Button variant="outline" className="w-full mt-4">Gestionar Alumnos</Button>
+              <p className="text-xs text-muted-foreground mt-3 text-center">(Funcionalidad de gestión de alumnos en desarrollo)</p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <Eye className="mr-2 h-6 w-6 text-accent" />
@@ -127,6 +165,7 @@ export default function AulaVirtualProfesorPage() {
               <p className="text-xs text-muted-foreground mt-3">Esta es una vista previa estática. La gestión real se hace en "Gestionar Temario".</p>
             </CardContent>
           </Card>
+        </div>
 
       </main>
       <footer className="py-6 border-t mt-12">
