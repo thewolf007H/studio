@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Users, UploadCloud, PieChart, Edit } from 'lucide-react';
+import { Users, UploadCloud, PieChart, Edit, UserCog } from 'lucide-react';
 import { CalendarSection } from '@/components/calendar/calendar-section';
 import { Separator } from '@/components/ui/separator';
 
@@ -82,6 +82,22 @@ export default function ProfesorPage() {
               <p className="text-sm text-muted-foreground mb-4">Métricas de participación y rendimiento.</p>
               <Button asChild variant="outline">
                 <Link href="#">Ver Analíticas</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <UserCog className="mr-2 h-6 w-6 text-accent" />
+                Mi Perfil
+              </CardTitle>
+              <CardDescription>Actualiza tu información y gestiona tu cuenta.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Revisa tus datos personales y profesionales.</p>
+              <Button asChild variant="outline">
+                <Link href="/profesores/perfil">Ir a Mi Perfil</Link>
               </Button>
             </CardContent>
           </Card>

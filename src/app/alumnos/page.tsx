@@ -65,7 +65,7 @@ export default function AlumnoPage() {
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Gestiona los datos de tu cuenta.</p>
               <Button asChild variant="outline">
-                <Link href="#">Editar Perfil</Link>
+                <Link href="/alumnos/perfil">Editar Perfil</Link>
               </Button>
             </CardContent>
           </Card>
