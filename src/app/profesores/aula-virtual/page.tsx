@@ -3,20 +3,22 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ListPlus, FilePlus2, Eye, Settings, Video, Users as UsersIcon, ChevronLeft, UserCircle, Edit3 } from 'lucide-react';
+import { ListPlus, FilePlus2, Eye, Settings, Video, Users as UsersIcon, ChevronLeft, UserCircle, Edit3, UploadCloud, Trash2, FileText as FileTextIcon, MessageSquare, Send } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Textarea } from '@/components/ui/textarea';
 
 export default function AulaVirtualProfesorPage() {
   const temarioPlaceholder = [
-    "Unidad 1: Introducción y Saludos",
-    "Unidad 2: Verbo 'To Be' y Artículos",
-    "Unidad 3: Presente Simple (En progreso)",
-    "Unidad 4: Vocabulario: La Familia",
-    "Unidad 5: Preposiciones de Lugar",
-    "Repaso General y Práctica Conversacional",
+    { title: "Unidad 1: Introducción y Saludos", pdfFile: "unidad1_intro.pdf" },
+    { title: "Unidad 2: Verbo 'To Be' y Artículos", pdfFile: null },
+    { title: "Unidad 3: Presente Simple (En progreso)", pdfFile: "unidad3_presente_simple_ejercicios.pdf" },
+    { title: "Unidad 4: Vocabulario: La Familia", pdfFile: null },
+    { title: "Unidad 5: Preposiciones de Lugar", pdfFile: "unidad5_preposiciones.pdf" },
+    { title: "Repaso General y Práctica Conversacional", pdfFile: null },
   ];
 
   const alumnosPlaceholder = [
@@ -25,6 +27,12 @@ export default function AulaVirtualProfesorPage() {
     { id: "3", nombre: "Laura Fernández Ruiz", progreso: 60 },
     { id: "4", nombre: "Javier Sánchez Gómez", progreso: 82 },
     { id: "5", nombre: "Sofía Moreno Jiménez", progreso: 95 },
+  ];
+
+  const chatMessagesPlaceholder = [
+    { id: "1", sender: "Ana García", text: "Hello professor, I have a question about exercise 3.", time: "10:30 AM" },
+    { id: "2", sender: "Profesor Davis", text: "Hi Ana, sure, what's your question?", time: "10:31 AM" },
+    { id: "3", sender: "Carlos López", text: "Can we get the slides for Unit 2?", time: "10:35 AM" },
   ];
 
   return (
@@ -60,16 +68,43 @@ export default function AulaVirtualProfesorPage() {
                   <ListPlus className="mr-3 h-7 w-7 text-accent" />
                   Gestionar Temario del Curso
                 </CardTitle>
-                <CardDescription>Define y organiza los temas y unidades que se enseñarán. Los alumnos verán esto en tiempo real.</CardDescription>
+                <CardDescription>Define y organiza los temas. Sube materiales en PDF para cada unidad.</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Crea, edita, reordena y publica el plan de estudios.
-                </p>
-                <Button asChild className="w-full md:w-auto font-semibold">
-                  <Link href="#"><Edit3 className="mr-2 h-5 w-5" /> Editar Temario</Link>
+                 <ul className="space-y-4">
+                  {temarioPlaceholder.map((tema, index) => (
+                    <li key={index} className="p-4 border rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors">
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-semibold text-foreground">{tema.title}</h4>
+                        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
+                          <Edit3 className="mr-2 h-4 w-4" /> Editar Título
+                        </Button>
+                      </div>
+                      {tema.pdfFile ? (
+                        <div className="flex items-center justify-between p-2 bg-background rounded-md border">
+                          <div className="flex items-center">
+                            <FileTextIcon className="mr-2 h-5 w-5 text-primary" />
+                            <span className="text-sm text-muted-foreground">{tema.pdfFile}</span>
+                          </div>
+                          <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-700">
+                            <Trash2 className="h-4 w-4" />
+                            <span className="sr-only">Eliminar PDF</span>
+                          </Button>
+                        </div>
+                      ) : (
+                        <p className="text-sm text-muted-foreground italic mb-2">No hay PDF asignado a esta unidad.</p>
+                      )}
+                      <Button variant="outline" size="sm" className="w-full mt-2 hover:bg-primary/10 transition-colors">
+                        <UploadCloud className="mr-2 h-4 w-4" />
+                        {tema.pdfFile ? "Reemplazar PDF" : "Subir PDF"}
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+                <Button asChild className="w-full md:w-auto font-semibold mt-6">
+                  <Link href="#"><ListPlus className="mr-2 h-5 w-5" /> Añadir Nueva Unidad al Temario</Link>
                 </Button>
-                <p className="text-xs text-muted-foreground mt-3">(Funcionalidad de edición de temario en desarrollo)</p>
+                <p className="text-xs text-muted-foreground mt-3">(Funcionalidad de subida de PDFs y edición de temario en desarrollo)</p>
               </CardContent>
             </Card>
 
@@ -91,7 +126,37 @@ export default function AulaVirtualProfesorPage() {
                 <p className="text-xs text-muted-foreground mt-3">(Integración con IA y creación manual en desarrollo)</p>
               </CardContent>
             </Card>
+             <Card className="shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-[1.02] bg-card">
+              <CardHeader>
+                <CardTitle className="flex items-center text-xl font-headline">
+                  <MessageSquare className="mr-2 h-6 w-6 text-accent" />
+                  Chat del Curso
+                </CardTitle>
+                <CardDescription>Comunícate con tus alumnos en tiempo real.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-64 w-full border rounded-md p-4 mb-4 bg-secondary/20">
+                  {chatMessagesPlaceholder.map(message => (
+                    <div key={message.id} className={`mb-3 p-2 rounded-lg max-w-[80%] ${message.sender === "Profesor Davis" ? 'ml-auto bg-primary/80 text-primary-foreground' : 'bg-background shadow-sm'}`}>
+                      <p className="text-xs font-semibold mb-0.5">{message.sender} <span className="text-xs text-muted-foreground/80">({message.time})</span></p>
+                      <p className="text-sm">{message.text}</p>
+                    </div>
+                  ))}
+                   <p className="text-center text-xs text-muted-foreground py-2">--- Fin de los mensajes ---</p>
+                </ScrollArea>
+                <div className="flex space-x-2">
+                  <Textarea placeholder="Escribe tu mensaje aquí..." className="flex-1 bg-background focus-visible:ring-primary/50" rows={2}/>
+                  <Button className="self-end font-semibold">
+                    <Send className="mr-2 h-4 w-4" /> Enviar
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground mt-3 text-center">(Funcionalidad de chat en desarrollo)</p>
+              </CardContent>
+            </Card>
+          </div>
 
+          {/* Columna Lateral (Más estrecha) */}
+          <div className="lg:col-span-1 space-y-6 md:space-y-8">
             <Card className="shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-[1.02] bg-card">
               <CardHeader>
                 <CardTitle className="flex items-center text-xl font-headline">
@@ -106,22 +171,19 @@ export default function AulaVirtualProfesorPage() {
                 </p>
                 <div className="space-y-2">
                   <Label htmlFor="meeting-link" className="text-sm font-medium">Enlace de la Reunión</Label>
-                  <Input id="meeting-link" type="url" placeholder="https://meet.google.com/abc-def-ghi" className="bg-background" />
+                  <Input id="meeting-link" type="url" placeholder="https://meet.google.com/abc-def-ghi" className="bg-background" disabled/>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="meeting-password">Contraseña (opcional)</Label>
-                  <Input id="meeting-password" type="text" placeholder="Contraseña de la reunión" className="bg-background" />
+                  <Input id="meeting-password" type="text" placeholder="Contraseña de la reunión" className="bg-background" disabled/>
                 </div>
-                <Button className="w-full md:w-auto font-semibold">
+                <Button className="w-full md:w-auto font-semibold" disabled>
                   Generar/Actualizar Enlace
                 </Button>
                 <p className="text-xs text-muted-foreground text-center mt-2">(Integración con plataformas en desarrollo)</p>
               </CardContent>
             </Card>
-          </div>
 
-          {/* Columna Lateral (Más estrecha) */}
-          <div className="lg:col-span-1 space-y-6 md:space-y-8">
             <Card className="shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-[1.02] bg-card">
               <CardHeader>
                 <CardTitle className="flex items-center text-xl font-headline">
@@ -132,21 +194,23 @@ export default function AulaVirtualProfesorPage() {
               </CardHeader>
               <CardContent>
                 {alumnosPlaceholder.length > 0 ? (
-                  <ul className="space-y-3 max-h-80 overflow-y-auto pr-2">
+                  <ScrollArea className="h-60 pr-2">
+                  <ul className="space-y-3">
                     {alumnosPlaceholder.map((alumno) => (
                       <li key={alumno.id} className="flex items-center justify-between p-3 bg-secondary/30 hover:bg-secondary/60 rounded-lg transition-colors duration-200">
                         <div className="flex items-center">
                           <UserCircle className="mr-3 h-6 w-6 text-muted-foreground" />
                           <span className="text-sm font-medium">{alumno.nombre}</span>
                         </div>
-                        <Badge variant={alumno.progreso > 80 ? "default" : "secondary"} className={alumno.progreso > 80 ? "bg-green-500/80 text-white" : ""}>{alumno.progreso}%</Badge>
+                        <Badge variant={alumno.progreso > 80 ? "default" : "secondary"} className={alumno.progreso > 80 ? "bg-green-500/80 text-primary-foreground" : ""}>{alumno.progreso}%</Badge>
                       </li>
                     ))}
                   </ul>
+                  </ScrollArea>
                 ) : (
                   <p className="text-sm text-muted-foreground text-center py-4">No hay alumnos inscritos.</p>
                 )}
-                <Button variant="outline" className="w-full mt-4 font-semibold">Gestionar Alumnos</Button>
+                <Button variant="outline" className="w-full mt-4 font-semibold" disabled>Gestionar Alumnos</Button>
                 <p className="text-xs text-muted-foreground mt-3 text-center">(Funcionalidad en desarrollo)</p>
               </CardContent>
             </Card>
@@ -161,9 +225,13 @@ export default function AulaVirtualProfesorPage() {
               </CardHeader>
               <CardContent>
                 {temarioPlaceholder.length > 0 ? (
-                  <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
+                  <ul className="space-y-2 text-sm">
                     {temarioPlaceholder.map((tema, index) => (
-                      <li key={index}>{tema}</li>
+                      <li key={index} className="flex items-center text-muted-foreground">
+                        <FileTextIcon className={`mr-2 h-4 w-4 ${tema.pdfFile ? 'text-primary' : 'text-muted-foreground/50'}`} />
+                        {tema.title}
+                        {tema.pdfFile && <Badge variant="outline" className="ml-2 text-xs">PDF</Badge>}
+                      </li>
                     ))}
                   </ul>
                 ) : (
@@ -183,3 +251,5 @@ export default function AulaVirtualProfesorPage() {
     </div>
   );
 }
+
+    
