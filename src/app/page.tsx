@@ -1,8 +1,13 @@
+
 import { Header } from '@/components/layout/header';
 import { CourseInfoSection } from '@/components/course/course-info-section';
 import { CalendarSection } from '@/components/calendar/calendar-section';
 import { QuizSection } from '@/components/quiz/quiz-section';
 import { Separator } from '@/components/ui/separator';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { Users, Briefcase } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -27,6 +32,49 @@ export default function HomePage() {
         <Separator className="my-12" />
         
         <QuizSection />
+
+        <Separator className="my-12" />
+
+        <section id="portals" className="py-12">
+          <h2 className="text-3xl font-bold font-headline text-center mb-8">Explora Nuestros Portales</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center text-2xl font-headline">
+                  <Users className="mr-3 h-7 w-7 text-primary" />
+                  Portal del Alumno
+                </CardTitle>
+                <CardDescription>Tu espacio personalizado para aprender y crecer.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Accede a tus cursos, sigue tu progreso, interactúa con materiales de estudio y organiza tu calendario de aprendizaje.
+                </p>
+                <Button asChild className="w-full">
+                  <Link href="/alumnos">Acceder como Alumno</Link>
+                </Button>
+              </CardContent>
+            </Card>
+            <Card className="shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center text-2xl font-headline">
+                  <Briefcase className="mr-3 h-7 w-7 text-primary" />
+                  Portal del Profesor
+                </CardTitle>
+                <CardDescription>Herramientas para gestionar y enriquecer tus clases.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Administra tus cursos, gestiona estudiantes, sube materiales educativos y sigue el rendimiento de tus alumnos.
+                </p>
+                <Button asChild className="w-full">
+                  <Link href="/profesores">Acceder como Profesor</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
       </main>
       <footer className="py-6 border-t">
         <div className="container text-center text-sm text-muted-foreground">
