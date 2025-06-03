@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { School, BarChart3, UserCircle, MessageSquare, CalendarCheck, Trophy } from 'lucide-react';
+import { School, BarChart3, UserCircle, MessageSquare, CalendarCheck, Trophy, CalendarPlus } from 'lucide-react';
 import { CalendarSection } from '@/components/calendar/calendar-section';
 import { Separator } from '@/components/ui/separator';
 
@@ -91,17 +91,16 @@ export default function AlumnoPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
-                <CalendarCheck className="mr-2 h-6 w-6 text-accent" />
+                <CalendarPlus className="mr-2 h-6 w-6 text-accent" />
                 Calendario de Estudio
               </CardTitle>
               <CardDescription>Organiza tus sesiones de estudio y tareas.</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Planifica tu aprendizaje y recibe recordatorios.</p>
-              <Button asChild variant="outline" disabled>
-                <Link href="#">Abrir Calendario</Link>
+              <Button asChild variant="outline">
+                <Link href="/alumnos/calendario-estudio">Abrir Calendario</Link>
               </Button>
-              <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
 
