@@ -142,17 +142,8 @@ export default function AlumnoPage() {
         
         <CalendarSection isEditable={false} />
         
-        <Separator className="my-12" />
-        
-        <div className="text-center p-6 border border-dashed rounded-lg bg-secondary/30">
-            <h3 className="text-xl font-semibold font-headline mb-2">Próximas Funcionalidades</h3>
-            <ul className="list-disc list-inside text-muted-foreground text-sm">
-                <li>Foros de discusión por curso.</li>
-            </ul>
-        </div>
-
       </main>
-      <footer className="py-6 border-t">
+      <footer className="py-6 border-t mt-12">
         <div className="container text-center text-sm text-muted-foreground">
           © {new Date().getFullYear()} First Class Institute. Portal del Alumno.
         </div>

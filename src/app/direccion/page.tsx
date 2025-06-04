@@ -134,17 +134,8 @@ export default function DireccionPage() {
           </Card>
         </div>
         
-        <div className="text-center p-6 border border-dashed rounded-lg bg-secondary/30">
-            <h3 className="text-xl font-semibold font-headline mb-2">Más Herramientas de Gestión Próximamente</h3>
-            <ul className="list-disc list-inside text-muted-foreground text-sm">
-                <li>Integración avanzada con sistemas de pago.</li>
-                <li>Módulo de encuestas y feedback institucional.</li>
-                <li>Gestión de recursos y biblioteca digital.</li>
-            </ul>
-        </div>
-
       </main>
-      <footer className="py-6 border-t">
+      <footer className="py-6 border-t mt-12">
         <div className="container text-center text-sm text-muted-foreground">
           © {new Date().getFullYear()} First Class Institute. Portal de Dirección.
         </div>
