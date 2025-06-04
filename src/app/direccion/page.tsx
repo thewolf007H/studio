@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Landmark, Users, BookCheck, LineChart } from 'lucide-react';
+import { Landmark, Users, BookCheck, LineChart, UsersRound, FileSearch, BarChartBig } from 'lucide-react';
 
 export default function DireccionPage() {
   return (
@@ -24,15 +24,15 @@ export default function DireccionPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
-                <Users className="mr-2 h-6 w-6 text-accent" />
+                <UsersRound className="mr-2 h-6 w-6 text-accent" />
                 Gestión de Profesores
               </CardTitle>
               <CardDescription>Administra el personal docente y sus asignaciones.</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Visualiza la lista de profesores, añade nuevos perfiles y gestiona sus cursos.</p>
-              <Button asChild variant="outline">
-                <Link href="#">Administrar Profesores</Link>
+              <p className="text-sm text-muted-foreground mb-4">Visualiza, añade nuevos perfiles y gestiona los cursos asignados a cada profesor.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/gestion-profesores">Administrar Profesores</Link>
               </Button>
             </CardContent>
           </Card>
@@ -40,15 +40,15 @@ export default function DireccionPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
-                <BookCheck className="mr-2 h-6 w-6 text-accent" />
+                <FileSearch className="mr-2 h-6 w-6 text-accent" />
                 Supervisión de Cursos
               </CardTitle>
               <CardDescription>Revisa el contenido y el progreso de los cursos ofertados.</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Accede a los temarios, estadísticas de finalización y feedback de alumnos.</p>
-              <Button asChild variant="outline">
-                <Link href="#">Supervisar Cursos</Link>
+              <p className="text-sm text-muted-foreground mb-4">Accede a temarios, estadísticas de finalización y feedback general de los cursos.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/supervision-cursos">Supervisar Cursos</Link>
               </Button>
             </CardContent>
           </Card>
@@ -56,26 +56,27 @@ export default function DireccionPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
-                <LineChart className="mr-2 h-6 w-6 text-accent" />
+                <BarChartBig className="mr-2 h-6 w-6 text-accent" />
                 Reportes y Estadísticas
               </CardTitle>
               <CardDescription>Consulta informes detallados sobre el rendimiento académico.</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Genera reportes de inscripción, progreso de alumnos y efectividad de los cursos.</p>
-              <Button asChild variant="outline">
-                <Link href="#">Ver Reportes</Link>
+              <Button asChild className="w-full">
+                <Link href="/direccion/reportes-estadisticas">Ver Reportes</Link>
               </Button>
             </CardContent>
           </Card>
         </div>
         
         <div className="text-center p-6 border border-dashed rounded-lg bg-secondary/30">
-            <h3 className="text-xl font-semibold font-headline mb-2">Funcionalidades en Desarrollo</h3>
+            <h3 className="text-xl font-semibold font-headline mb-2">Funcionalidades Adicionales en Desarrollo</h3>
             <ul className="list-disc list-inside text-muted-foreground text-sm">
-                <li>Sistema de comunicación interna con profesores.</li>
-                <li>Gestión de matrículas y pagos.</li>
-                <li>Configuración de ciclos académicos.</li>
+                <li>Sistema de comunicación interna (Avisos y Notificaciones).</li>
+                <li>Gestión de matrículas y visión general de pagos.</li>
+                <li>Configuración de ciclos académicos y periodos lectivos.</li>
+                <li>Dashboard general con KPIs (Indicadores Clave de Rendimiento).</li>
             </ul>
         </div>
 
