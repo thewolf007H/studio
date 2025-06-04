@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Landmark, Users, BookCheck, LineChart, UsersRound, FileSearch, BarChartBig } from 'lucide-react';
+import { Landmark, UsersRound, FileSearch, BarChartBig, Megaphone, CreditCard, CalendarCog, LayoutDashboard } from 'lucide-react';
 
 export default function DireccionPage() {
   return (
@@ -20,7 +20,7 @@ export default function DireccionPage() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-12">
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
@@ -68,15 +68,78 @@ export default function DireccionPage() {
               </Button>
             </CardContent>
           </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <LayoutDashboard className="mr-2 h-6 w-6 text-accent" />
+                Dashboard General (KPIs)
+              </CardTitle>
+              <CardDescription>Visualiza indicadores clave de rendimiento de la institución.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Monitoriza métricas importantes en tiempo real para la toma de decisiones estratégicas.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/dashboard-kpi">Acceder al Dashboard</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <Megaphone className="mr-2 h-6 w-6 text-accent" />
+                Comunicaciones Internas
+              </CardTitle>
+              <CardDescription>Gestiona avisos y notificaciones para alumnos y profesores.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Envía comunicados importantes y gestiona plantillas de mensajes.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/comunicaciones">Gestionar Comunicaciones</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <CreditCard className="mr-2 h-6 w-6 text-accent" />
+                Matrículas y Pagos
+              </CardTitle>
+              <CardDescription>Supervisa el proceso de inscripción y el estado de los pagos.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Visualiza matrículas, gestiona cobros y accede a reportes financieros básicos.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/matriculas-pagos">Ver Matrículas y Pagos</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <CalendarCog className="mr-2 h-6 w-6 text-accent" />
+                Ciclos Académicos
+              </CardTitle>
+              <CardDescription>Configura periodos lectivos y la estructura académica.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Define semestres, trimestres, fechas importantes y la oferta de cursos por ciclo.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/ciclos-academicos">Configurar Ciclos</Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
         
         <div className="text-center p-6 border border-dashed rounded-lg bg-secondary/30">
-            <h3 className="text-xl font-semibold font-headline mb-2">Funcionalidades Adicionales en Desarrollo</h3>
+            <h3 className="text-xl font-semibold font-headline mb-2">Más Herramientas de Gestión Próximamente</h3>
             <ul className="list-disc list-inside text-muted-foreground text-sm">
-                <li>Sistema de comunicación interna (Avisos y Notificaciones).</li>
-                <li>Gestión de matrículas y visión general de pagos.</li>
-                <li>Configuración de ciclos académicos y periodos lectivos.</li>
-                <li>Dashboard general con KPIs (Indicadores Clave de Rendimiento).</li>
+                <li>Integración avanzada con sistemas de pago.</li>
+                <li>Módulo de encuestas y feedback institucional.</li>
+                <li>Gestión de recursos y biblioteca digital.</li>
             </ul>
         </div>
 
