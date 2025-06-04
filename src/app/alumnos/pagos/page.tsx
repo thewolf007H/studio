@@ -9,9 +9,9 @@ import { Badge } from '@/components/ui/badge';
 
 export default function AlumnoPagosPage() {
   const pagosPlaceholder = [
-    { id: "p1", fecha: "2024-07-01", concepto: "Mensualidad Julio", monto: "S/ 250.00", estado: "Pagado", metodo: "Tarjeta Crédito **** 1234" },
-    { id: "p2", fecha: "2024-06-01", concepto: "Mensualidad Junio", monto: "S/ 250.00", estado: "Pagado", metodo: "Transferencia Bancaria" },
-    { id: "p3", fecha: "2024-05-01", concepto: "Mensualidad Mayo", monto: "S/ 250.00", estado: "Pagado", metodo: "Yape" },
+    { id: "p1", fecha: "2024-07-01", concepto: "Mensualidad Julio", monto: "Bs 250.00", estado: "Pagado", metodo: "Tarjeta Crédito **** 1234" },
+    { id: "p2", fecha: "2024-06-01", concepto: "Mensualidad Junio", monto: "Bs 250.00", estado: "Pagado", metodo: "Transferencia Bancaria" },
+    { id: "p3", fecha: "2024-05-01", concepto: "Mensualidad Mayo", monto: "Bs 250.00", estado: "Pagado", metodo: "Pago Móvil" },
   ];
 
   return (
