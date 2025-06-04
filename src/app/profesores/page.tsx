@@ -140,7 +140,7 @@ export default function ProfesorPage() {
       </main>
       <footer className="py-6 border-t">
         <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} LinguaMeet. Portal del Profesor.
+          © {new Date().getFullYear()} First Class Institute. Portal del Profesor.
         </div>
       </footer>
     </div>

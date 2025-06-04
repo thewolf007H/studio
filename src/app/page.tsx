@@ -15,7 +15,7 @@ export default function HomePage() {
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold font-headline mb-4">
-            Bienvenido a <span className="text-primary">LinguaMeet</span>
+            Bienvenido a <span className="text-primary">First Class Institute</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Tu plataforma interactiva para aprender inglés, potenciada por inteligencia artificial. Explora cursos, organiza tu aprendizaje y ponte a prueba.
@@ -90,7 +90,7 @@ export default function HomePage() {
       </main>
       <footer className="py-6 border-t">
         <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} LinguaMeet. Todos los derechos reservados.
+          © {new Date().getFullYear()} First Class Institute. Todos los derechos reservados.
         </div>
       </footer>
     </div>

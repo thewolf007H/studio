@@ -123,7 +123,7 @@ export default function ProfesorPerfilPage() {
       </main>
       <footer className="py-8 border-t mt-16 bg-card">
         <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} LinguaMeet. Perfil del Profesor.
+          © {new Date().getFullYear()} First Class Institute. Perfil del Profesor.
         </div>
       </footer>
     </div>

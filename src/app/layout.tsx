@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'LinguaMeet - Aprende Inglés',
+  title: 'First Class Institute - Aprende Inglés',
   description: 'Plataforma interactiva para aprender inglés con IA.',
 };
 

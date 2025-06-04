@@ -101,7 +101,7 @@ export default function AlumnoPerfilPage() {
       </main>
       <footer className="py-8 border-t mt-16 bg-card">
         <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} LinguaMeet. Perfil del Alumno.
+          © {new Date().getFullYear()} First Class Institute. Perfil del Alumno.
         </div>
       </footer>
     </div>

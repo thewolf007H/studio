@@ -247,7 +247,7 @@ export default function AulaVirtualProfesorPage() {
       </main>
       <footer className="py-8 border-t mt-16 bg-card">
         <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} LinguaMeet. Gestión del Aula Virtual.
+          © {new Date().getFullYear()} First Class Institute. Gestión del Aula Virtual.
         </div>
       </footer>
     </div>

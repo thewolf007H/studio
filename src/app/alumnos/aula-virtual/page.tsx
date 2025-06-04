@@ -161,11 +161,9 @@ export default function AulaVirtualAlumnoPage() {
       </main>
       <footer className="py-8 border-t mt-16 bg-card">
         <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} LinguaMeet. Aula Virtual del Alumno.
+          © {new Date().getFullYear()} First Class Institute. Aula Virtual del Alumno.
         </div>
       </footer>
     </div>
   );
 }
-
-    

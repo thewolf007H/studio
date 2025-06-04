@@ -36,7 +36,7 @@ export default function AlumnoCalendarioEstudioPage() {
       </main>
       <footer className="py-8 border-t mt-16 bg-card">
         <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} LinguaMeet. Calendario de Estudio del Alumno.
+          © {new Date().getFullYear()} First Class Institute. Calendario de Estudio del Alumno.
         </div>
       </footer>
     </div>

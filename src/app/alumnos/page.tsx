@@ -138,7 +138,7 @@ export default function AlumnoPage() {
       </main>
       <footer className="py-6 border-t">
         <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} LinguaMeet. Portal del Alumno.
+          © {new Date().getFullYear()} First Class Institute. Portal del Alumno.
         </div>
       </footer>
     </div>

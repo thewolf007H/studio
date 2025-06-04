@@ -16,7 +16,7 @@ export default function DireccionPage() {
             Portal de Dirección
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Herramientas para la supervisión y gestión académica de LinguaMeet.
+            Herramientas para la supervisión y gestión académica de First Class Institute.
           </p>
         </div>
 
@@ -82,7 +82,7 @@ export default function DireccionPage() {
       </main>
       <footer className="py-6 border-t">
         <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} LinguaMeet. Portal de Dirección.
+          © {new Date().getFullYear()} First Class Institute. Portal de Dirección.
         </div>
       </footer>
     </div>
