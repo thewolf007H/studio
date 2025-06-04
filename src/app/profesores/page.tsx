@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Users, UploadCloud, PieChart, Edit, UserCog, ClipboardCheck } from 'lucide-react';
+import { Users, UploadCloud, PieChart, Edit, UserCog, ClipboardCheck, CalendarCheck } from 'lucide-react';
 import { CalendarSection } from '@/components/calendar/calendar-section';
 import { Separator } from '@/components/ui/separator';
 
@@ -91,6 +91,22 @@ export default function ProfesorPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
+                <CalendarCheck className="mr-2 h-6 w-6 text-accent" />
+                Seguimiento de Asistencia
+              </CardTitle>
+              <CardDescription>Registra y consulta la asistencia de tus alumnos a las clases.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Mantén un registro de la participación en las sesiones.</p>
+              <Button asChild variant="outline">
+                <Link href="/profesores/asistencia">Gestionar Asistencia</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
                 <PieChart className="mr-2 h-6 w-6 text-accent" />
                 Analíticas
               </CardTitle>
@@ -105,7 +121,7 @@ export default function ProfesorPage() {
             </CardContent>
           </Card>
 
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow md:col-span-2 lg:col-span-1">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <UserCog className="mr-2 h-6 w-6 text-accent" />
@@ -132,8 +148,8 @@ export default function ProfesorPage() {
             <h3 className="text-xl font-semibold font-headline mb-2">Próximas Funcionalidades</h3>
             <ul className="list-disc list-inside text-muted-foreground text-sm">
                 <li>Foros de discusión específicos para cada curso.</li>
-                <li>Herramientas de seguimiento de asistencia.</li>
                 <li>Exportación de reportes de progreso detallados.</li>
+                <li>Integración avanzada de herramientas de IA para creación de contenido.</li>
             </ul>
         </div>
 
