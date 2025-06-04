@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { School, BarChart3, UserCircle, MessageSquare, CalendarCheck, Trophy, CalendarPlus } from 'lucide-react';
+import { School, BarChart3, UserCircle, MessageSquare, CalendarCheck, Trophy, CalendarPlus, CreditCard } from 'lucide-react';
 import { CalendarSection } from '@/components/calendar/calendar-section';
 import { Separator } from '@/components/ui/separator';
 
@@ -118,6 +118,22 @@ export default function AlumnoPage() {
                 <Link href="#">Ver Mis Logros</Link>
               </Button>
               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <CreditCard className="mr-2 h-6 w-6 text-accent" />
+                Mis Pagos
+              </CardTitle>
+              <CardDescription>Consulta tu historial y realiza pagos de mensualidades.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Mantén al día tus pagos y revisa tus facturas.</p>
+              <Button asChild variant="outline">
+                <Link href="/alumnos/pagos">Gestionar Pagos</Link>
+              </Button>
             </CardContent>
           </Card>
         </div>
