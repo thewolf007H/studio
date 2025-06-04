@@ -6,17 +6,31 @@ import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Users, Briefcase, Landmark } from 'lucide-react';
+import { Users, Briefcase, Landmark, Sparkles } from 'lucide-react';
 
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
+
+        <section className="mb-16">
+          <div className="relative text-center p-8 md:p-12 bg-gradient-to-br from-primary via-primary/80 to-accent rounded-xl shadow-2xl overflow-hidden border border-primary/30">
+            <div className="absolute inset-0 opacity-[0.04] pattern-[0.8rem_0.8rem_#ffffff_radial-gradient(circle_at_center,_var(--tw-gradient-stops))]"></div>
+            <Sparkles className="mx-auto mb-4 h-14 w-14 md:h-16 md:w-16 text-white animate-pulse" />
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-headline mb-4 text-white drop-shadow-md">
+              ¡Hola Futuro Bilingüe!
+            </h1>
+            <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed drop-shadow-sm">
+              Estás a un paso de transformar tu mundo con el inglés. <span className="font-semibold">First Class Institute</span> te da la bienvenida a una experiencia de aprendizaje única y emocionante.
+            </p>
+          </div>
+        </section>
+
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold font-headline mb-4">
-            Bienvenido a <span className="text-primary">First Class Institute</span>
-          </h1>
+          <h2 className="text-4xl md:text-5xl font-bold font-headline mb-4">
+            Descubre <span className="text-primary">First Class Institute</span>
+          </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Tu plataforma interactiva para aprender inglés, potenciada por inteligencia artificial. Explora cursos, organiza tu aprendizaje y ponte a prueba.
           </p>
@@ -31,7 +45,7 @@ export default function HomePage() {
         <Separator className="my-12" />
 
         <section id="portals" className="py-12">
-          <h2 className="text-3xl font-bold font-headline text-center mb-8">Explora Nuestros Portales</h2>
+          <h2 className="text-3xl font-bold font-headline text-center mb-8">Tu Viaje al Dominio del Inglés Comienza Aquí</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>
@@ -88,7 +102,7 @@ export default function HomePage() {
         </section>
 
       </main>
-      <footer className="py-6 border-t">
+      <footer className="py-6 border-t mt-12">
         <div className="container text-center text-sm text-muted-foreground">
           © {new Date().getFullYear()} First Class Institute. Todos los derechos reservados.
         </div>
