@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { School, BarChart3, UserCircle, MessageSquare, CalendarCheck, Trophy, CalendarPlus, CreditCard } from 'lucide-react';
+import { School, BarChart3, UserCircle, MessageSquare, CalendarCheck, Trophy, CalendarPlus, CreditCard, ShoppingCart } from 'lucide-react';
 import { CalendarSection } from '@/components/calendar/calendar-section';
 import { Separator } from '@/components/ui/separator';
 
@@ -136,6 +136,23 @@ export default function AlumnoPage() {
               </Button>
             </CardContent>
           </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <ShoppingCart className="mr-2 h-6 w-6 text-accent" />
+                Tienda de Libros
+              </CardTitle>
+              <CardDescription>Adquiere los libros de texto exclusivos del instituto.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Materiales diseñados para tu aprendizaje.</p>
+              <Button asChild variant="outline" className="w-full">
+                <Link href="/alumnos/tienda">Ir a la Tienda</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
         </div>
 
         <Separator className="my-12" />
