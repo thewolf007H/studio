@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Users, Briefcase, Landmark, Sparkles } from 'lucide-react';
+import { WordSearchSection } from '@/components/word-search/word-search-section';
 
 export default function HomePage() {
   return (
@@ -39,6 +40,8 @@ export default function HomePage() {
         <CourseInfoSection />
                 
         <Separator className="my-12" />
+
+        <WordSearchSection />
         
         <QuizSection />
 
