@@ -1,5 +1,5 @@
 import type {Metadata} from 'next';
-import { Inter, Space_Grotesk } from 'next/font/google';
+import { Inter, Space_Grotesk, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { cn } from '@/lib/utils';
@@ -19,6 +19,10 @@ const fontHeadline = Space_Grotesk({
   variable: '--font-headline',
 });
 
+const fontCode = Roboto_Mono({
+  subsets: ['latin'],
+  variable: '--font-code',
+})
 
 export default function RootLayout({
   children,
@@ -27,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={cn("antialiased", fontBody.variable, fontHeadline.variable)}>
+      <body className={cn("antialiased", fontBody.variable, fontHeadline.variable, fontCode.variable)}>
         {children}
         <Toaster />
       </body>
