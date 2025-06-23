@@ -1,11 +1,24 @@
 import type {Metadata} from 'next';
+import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'First Class Institute - Aprende Inglés',
+  title: 'LinguaMeet - Aprende Inglés',
   description: 'Plataforma interactiva para aprender inglés con IA.',
 };
+
+const fontBody = Inter({
+  subsets: ['latin'],
+  variable: '--font-body',
+});
+
+const fontHeadline = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-headline',
+});
+
 
 export default function RootLayout({
   children,
@@ -13,14 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      </head>
-      <body className="font-body antialiased">
+    <html lang="es" suppressHydrationWarning>
+      <body className={cn("antialiased", fontBody.variable, fontHeadline.variable)}>
         {children}
         <Toaster />
       </body>
