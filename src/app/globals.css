@@ -10,68 +10,93 @@
     --card-foreground: 210 25% 25%;
     --popover: 210 20% 100%;
     --popover-foreground: 210 25% 25%;
-    --primary: 210 70% 50%;
-    --primary-foreground: 0 0% 100%;
+    
+    /* Bordo */
+    --primary: 350 70% 40%; 
+    --primary-foreground: 0 0% 100%; 
+    
     --secondary: 210 30% 90%;
     --secondary-foreground: 210 40% 30%;
     --muted: 210 25% 92%;
     --muted-foreground: 210 20% 45%;
-    --accent: 180 60% 40%;
-    --accent-foreground: 0 0% 100%;
+    
+    /* Amarillo */
+    --accent: 45 90% 55%; 
+    --accent-foreground: 210 25% 25%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 210 20% 88%;
     --input: 210 20% 97%;
-    --ring: 210 70% 50%;
-    --chart-1: 210 70% 50%;
-    --chart-2: 180 60% 40%;
-    --chart-3: 210 60% 60%;
-    --chart-4: 180 50% 50%;
-    --chart-5: 210 50% 70%;
+    
+    /* Ring should match primary */
+    --ring: 350 70% 40%;
+    
+    /* Chart colors based on new theme */
+    --chart-1: 350 70% 40%; /* Bordo */
+    --chart-2: 45 90% 55%;  /* Amarillo */
+    --chart-3: 350 60% 60%; /* Lighter Bordo */
+    --chart-4: 45 80% 45%;  /* Darker Amarillo */
+    --chart-5: 350 50% 50%; /* Medium Bordo */
+
     --radius: 0.5rem;
+
+    /* Sidebar colors to match new theme */
     --sidebar-background: 210 20% 95%; 
     --sidebar-foreground: 210 25% 25%;
-    --sidebar-primary: 210 70% 50%;
+    --sidebar-primary: 350 70% 40%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 180 60% 40%;
-    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-accent: 45 90% 55%;
+    --sidebar-accent-foreground: 210 25% 25%;
     --sidebar-border: 210 20% 88%;
-    --sidebar-ring: 210 70% 50%;
+    --sidebar-ring: 350 70% 40%;
   }
 
   .dark {
-    --background: 210 20% 10%;
+    --background: 220 20% 10%;
     --foreground: 210 20% 90%;
-    --card: 210 15% 15%;
+    --card: 220 15% 15%;
     --card-foreground: 210 20% 90%;
-    --popover: 210 15% 15%;
+    --popover: 220 15% 15%;
     --popover-foreground: 210 20% 90%;
-    --primary: 210 70% 50%;
-    --primary-foreground: 0 0% 100%;
+    
+    /* Lighter Bordo for dark mode */
+    --primary: 350 70% 55%; 
+    --primary-foreground: 0 0% 100%; 
+
     --secondary: 210 25% 25%;
     --secondary-foreground: 210 70% 60%;
     --muted: 210 20% 20%;
     --muted-foreground: 210 25% 70%;
-    --accent: 180 60% 40%;
-    --accent-foreground: 0 0% 100%;
+    
+    /* Same Amarillo */
+    --accent: 45 90% 55%;
+    --accent-foreground: 210 25% 25%;
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 210 20% 30%;
     --input: 210 20% 20%;
-    --ring: 210 70% 50%;
-    --chart-1: 210 70% 50%;
-    --chart-2: 180 60% 40%;
-    --chart-3: 210 60% 60%;
-    --chart-4: 180 50% 50%;
-    --chart-5: 210 50% 70%;
-    --sidebar-background: 210 15% 15%;
+    
+    /* Ring should match primary */
+    --ring: 350 70% 55%;
+
+    /* Chart colors for dark mode */
+    --chart-1: 350 70% 55%; /* Lighter Bordo */
+    --chart-2: 45 90% 55%;  /* Amarillo */
+    --chart-3: 350 60% 70%; /* Even Lighter Bordo */
+    --chart-4: 45 80% 65%;  /* Lighter Amarillo */
+    --chart-5: 350 50% 60%; /* Medium Bordo */
+    
+    /* Sidebar colors for dark mode */
+    --sidebar-background: 220 15% 15%;
     --sidebar-foreground: 210 20% 90%;
-    --sidebar-primary: 210 70% 50%;
+    --sidebar-primary: 350 70% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 180 60% 40%;
-    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-accent: 45 90% 55%;
+    --sidebar-accent-foreground: 210 25% 25%;
     --sidebar-border: 210 20% 25%;
-    --sidebar-ring: 210 70% 50%;
+    --sidebar-ring: 350 70% 55%;
   }
 }
 
