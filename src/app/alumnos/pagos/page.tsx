@@ -3,15 +3,23 @@ import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import Link from 'next/link';
-import { ChevronLeft, CreditCard, DollarSign, FileText, History } from 'lucide-react';
+import { ChevronLeft, CreditCard, History, FileText } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from '@/components/ui/badge';
 
+
+const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.861 9.861 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.204-1.634a11.802 11.802 0 005.785 1.634h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+);
+
+
 export default function AlumnoPagosPage() {
   const pagosPlaceholder = [
-    { id: "p1", fecha: "2024-07-01", concepto: "Mensualidad Julio", monto: "Bs 250.00", estado: "Pagado", metodo: "Tarjeta Crédito **** 1234" },
-    { id: "p2", fecha: "2024-06-01", concepto: "Mensualidad Junio", monto: "Bs 250.00", estado: "Pagado", metodo: "Transferencia Bancaria" },
-    { id: "p3", fecha: "2024-05-01", concepto: "Mensualidad Mayo", monto: "Bs 250.00", estado: "Pagado", metodo: "Pago Móvil" },
+    { id: "p1", fecha: "2024-07-01", concepto: "Mensualidad Julio", estado: "Pagado", metodo: "Tarjeta Crédito **** 1234" },
+    { id: "p2", fecha: "2024-06-01", concepto: "Mensualidad Junio", estado: "Pagado", metodo: "Transferencia Bancaria" },
+    { id: "p3", fecha: "2024-05-01", concepto: "Mensualidad Mayo", estado: "Pagado", metodo: "Pago Móvil" },
   ];
 
   return (
@@ -38,23 +46,24 @@ export default function AlumnoPagosPage() {
           </p>
         </div>
         
-        <Card className="shadow-lg bg-card mb-8">
+        <Card className="shadow-lg bg-card mb-8 border-green-500/50 border">
           <CardHeader>
             <CardTitle className="flex items-center text-xl font-headline">
-              <DollarSign className="mr-2 h-6 w-6 text-accent" />
-              Realizar Nuevo Pago
+              <WhatsappIcon className="h-6 w-6 mr-2 text-green-500" fill="currentColor" />
+              Contactar para Pagos
             </CardTitle>
-            <CardDescription>Paga tu próxima mensualidad o cualquier saldo pendiente.</CardDescription>
+            <CardDescription>Comunícate directamente con administración para gestionar tus pagos.</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground mb-4">
-              Actualmente, no tienes saldos pendientes. Si necesitas realizar un pago, el sistema te lo indicará aquí.
+              Para realizar un pago, consultar saldos o solicitar tu factura, por favor contáctanos a través de WhatsApp. Nuestro equipo te atenderá a la brevedad.
             </p>
-            <Button className="w-full md:w-auto font-semibold" disabled>
-              <CreditCard className="mr-2 h-5 w-5" />
-              Pagar Mensualidad
+            <Button asChild className="w-full md:w-auto font-semibold bg-green-600 hover:bg-green-700 text-white">
+              <Link href="https://wa.me/59100000000?text=Hola,%20quisiera%20consultar%20sobre%20mis%20pagos." target="_blank" rel="noopener noreferrer">
+                <WhatsappIcon className="h-5 w-5 mr-2" fill="currentColor"/>
+                Chatear por WhatsApp
+              </Link>
             </Button>
-            <p className="text-xs text-muted-foreground mt-3 text-center">(Funcionalidad de pasarela de pago en desarrollo)</p>
           </CardContent>
         </Card>
 
@@ -74,7 +83,6 @@ export default function AlumnoPagosPage() {
                     <TableRow>
                       <TableHead>Fecha</TableHead>
                       <TableHead>Concepto</TableHead>
-                      <TableHead>Monto</TableHead>
                       <TableHead>Estado</TableHead>
                       <TableHead>Método</TableHead>
                       <TableHead className="text-right">Acciones</TableHead>
@@ -85,7 +93,6 @@ export default function AlumnoPagosPage() {
                       <TableRow key={pago.id} className="hover:bg-secondary/50 transition-colors">
                         <TableCell className="text-muted-foreground">{pago.fecha}</TableCell>
                         <TableCell className="font-medium">{pago.concepto}</TableCell>
-                        <TableCell>{pago.monto}</TableCell>
                         <TableCell>
                           <Badge variant={pago.estado === "Pagado" ? "default" : "destructive"} className={pago.estado === "Pagado" ? "bg-green-500/80 text-primary-foreground" : "bg-red-500/80 text-primary-foreground"}>
                             {pago.estado}
