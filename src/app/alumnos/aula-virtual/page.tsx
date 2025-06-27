@@ -3,19 +3,19 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ListOrdered, FileText, BookOpenCheck, Video, ChevronLeft, CheckSquare, DownloadCloud, MessageSquare, Send } from 'lucide-react';
+import { ListOrdered, FileText, BookOpenCheck, Video, ChevronLeft, CheckSquare, BookText as BookTextIcon, MessageSquare, Send } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
 
 
 export default function AulaVirtualAlumnoPage() {
   const temarioPlaceholder = [
-    { title: "Unidad 1: Introducción y Saludos", completed: true, pdfFile: "unidad1_intro.pdf" },
-    { title: "Unidad 2: Verbo 'To Be' y Artículos", completed: true, pdfFile: null },
-    { title: "Unidad 3: Presente Simple", completed: false, pdfFile: "unidad3_presente_simple_ejercicios.pdf" },
-    { title: "Unidad 4: Vocabulario: La Familia", completed: false, pdfFile: null },
-    { title: "Unidad 5: Preposiciones de Lugar", completed: false, pdfFile: "unidad5_preposiciones.pdf" },
-    { title: "Repaso General y Práctica Conversacional", completed: false, pdfFile: null },
+    { title: "Unidad 1: Introducción y Saludos", completed: true, pdfFile: "unidad1_intro.pdf", slug: "introduccion-y-saludos" },
+    { title: "Unidad 2: Verbo 'To Be' y Artículos", completed: true, pdfFile: null, slug: "verbo-to-be" },
+    { title: "Unidad 3: Presente Simple", completed: false, pdfFile: "unidad3_presente_simple_ejercicios.pdf", slug: "presente-simple" },
+    { title: "Unidad 4: Vocabulario: La Familia", completed: false, pdfFile: null, slug: "vocabulario-familia" },
+    { title: "Unidad 5: Preposiciones de Lugar", completed: false, pdfFile: "unidad5_preposiciones.pdf", slug: "preposiciones-lugar" },
+    { title: "Repaso General y Práctica Conversacional", completed: false, pdfFile: null, slug: "repaso-general" },
   ];
 
   const chatMessagesPlaceholder = [
@@ -57,7 +57,7 @@ export default function AulaVirtualAlumnoPage() {
                 <ListOrdered className="mr-3 h-7 w-7 text-accent" />
                 Temario del Curso
               </CardTitle>
-              <CardDescription>Consulta los temas, descarga materiales y marca tu progreso.</CardDescription>
+              <CardDescription>Consulta los temas, accede a los materiales de lectura y marca tu progreso.</CardDescription>
             </CardHeader>
             <CardContent>
               {temarioPlaceholder.length > 0 ? (
@@ -70,14 +70,16 @@ export default function AulaVirtualAlumnoPage() {
                           <span className={`flex-1 ${tema.completed ? 'line-through text-muted-foreground' : 'text-foreground'}`}>{tema.title}</span>
                         </div>
                         {tema.pdfFile && (
-                          <Button variant="outline" size="sm" className="ml-4 whitespace-nowrap hover:bg-primary/10 transition-colors">
-                            <DownloadCloud className="mr-2 h-4 w-4" />
-                            Descargar PDF
+                          <Button asChild variant="outline" size="sm" className="ml-4 whitespace-nowrap hover:bg-primary/10 transition-colors">
+                            <Link href={`/alumnos/aula-virtual/material/${tema.slug}`}>
+                                <BookTextIcon className="mr-2 h-4 w-4" />
+                                Leer Material
+                            </Link>
                           </Button>
                         )}
                       </div>
                       {!tema.pdfFile && (
-                        <p className="text-xs text-muted-foreground ml-8 mt-1 italic">No hay material PDF para esta unidad.</p>
+                        <p className="text-xs text-muted-foreground ml-8 mt-1 italic">No hay material de lectura para esta unidad.</p>
                       )}
                     </li>
                   ))}
@@ -86,7 +88,7 @@ export default function AulaVirtualAlumnoPage() {
                 <p className="text-sm text-muted-foreground py-4 text-center">El temario aún no ha sido definido por el profesor.</p>
               )}
                <p className="text-xs text-muted-foreground mt-4 pt-3 border-t border-dashed">
-                (Funcionalidad de descarga de PDFs en desarrollo. Los archivos son placeholders.)
+                (Funcionalidad de visor de PDF y diccionario con IA en desarrollo. Los archivos son placeholders.)
               </p>
             </CardContent>
           </Card>
