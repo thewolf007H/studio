@@ -169,11 +169,11 @@ export default function AulaVirtualProfesorPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground">
-                  Genera y comparte enlaces para tus clases virtuales (ej. Google Meet, Zoom).
+                  Genera y comparte enlaces para tus clases virtuales (ej. Microsoft Teams, Zoom).
                 </p>
                 <div className="space-y-2">
                   <Label htmlFor="meeting-link" className="text-sm font-medium">Enlace de la Reunión</Label>
-                  <Input id="meeting-link" type="url" placeholder="https://meet.google.com/abc-def-ghi" className="bg-background" disabled/>
+                  <Input id="meeting-link" type="url" placeholder="https://teams.microsoft.com/l/meetup-join/..." className="bg-background" disabled/>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="meeting-password">Contraseña (opcional)</Label>
@@ -182,7 +182,7 @@ export default function AulaVirtualProfesorPage() {
                 <Button className="w-full md:w-auto font-semibold" disabled>
                   Generar/Actualizar Enlace
                 </Button>
-                <p className="text-xs text-muted-foreground text-center mt-2">(Integración con plataformas de videoconferencia y opciones de programación en desarrollo)</p>
+                <p className="text-xs text-muted-foreground text-center mt-2">(Integración con Microsoft Teams y otras plataformas, así como opciones de programación, en desarrollo)</p>
               </CardContent>
             </Card>
 

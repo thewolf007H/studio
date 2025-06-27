@@ -1,3 +1,4 @@
+
 import { BookOpenText, Forward } from 'lucide-react';
 import { CourseCard } from './course-card';
 
@@ -28,7 +29,7 @@ export function CourseInfoSection() {
       <div className="mt-8 text-center text-muted-foreground p-4 border border-dashed rounded-lg">
         <p className="font-medium">Funcionalidades Adicionales Planeadas:</p>
         <ul className="list-inside list-disc text-sm">
-          <li>Integración con Google Meet para aulas virtuales.</li>
+          <li>Integración con Microsoft Teams para aulas virtuales.</li>
           <li>Chat del curso para interacción en tiempo real.</li>
           <li>Carga de materiales por el profesor.</li>
         </ul>
