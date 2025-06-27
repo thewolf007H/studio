@@ -35,14 +35,14 @@ const initialStudents = [
 const attendanceDates = Array.from({ length: 27 - 11 + 1 }, (_, i) => 11 + i);
 const attendanceOptions = ['✓', 'A', 'P', 'L', 'D', 'C', 'H', 'X'];
 
-type AttendanceStatus = '✓' | 'A' | 'P' | 'L' | 'D' | 'C' | 'H' | 'X' | '';
+type AttendanceStatus = '✓' | 'A' | 'P' | 'L' | 'D' | 'C' | 'H' | 'X';
 
 interface Student {
   id: number;
   nombre: string;
   codigo: string;
   genero: 'Z' | 'V';
-  asistencia: Record<number, AttendanceStatus>;
+  asistencia: Record<number, AttendanceStatus | ''>;
   evaluacionEscrita: string;
   evaluacionOral: string;
   observaciones: string;
@@ -54,7 +54,7 @@ const initializeStudentData = (students: typeof initialStudents): Student[] => {
     asistencia: attendanceDates.reduce((acc, date) => {
       acc[date] = '';
       return acc;
-    }, {} as Record<number, AttendanceStatus>),
+    }, {} as Record<number, AttendanceStatus | ''>),
     evaluacionEscrita: '',
     evaluacionOral: '',
     observaciones: '',
@@ -64,11 +64,12 @@ const initializeStudentData = (students: typeof initialStudents): Student[] => {
 export default function ProfesorAsistenciaPage() {
   const [students, setStudents] = useState<Student[]>(() => initializeStudentData(initialStudents));
 
-  const handleAttendanceChange = (studentId: number, date: number, value: AttendanceStatus) => {
+  const handleAttendanceChange = (studentId: number, date: number, value: string) => {
+    const finalValue = value === 'unselected' ? '' : (value as AttendanceStatus);
     setStudents(prevStudents =>
       prevStudents.map(student =>
         student.id === studentId
-          ? { ...student, asistencia: { ...student.asistencia, [date]: value } }
+          ? { ...student, asistencia: { ...student.asistencia, [date]: finalValue } }
           : student
       )
     );
@@ -82,7 +83,7 @@ export default function ProfesorAsistenciaPage() {
     );
   }
 
-  const calculateTotalAttendance = (asistencia: Record<number, AttendanceStatus>) => {
+  const calculateTotalAttendance = (asistencia: Record<number, AttendanceStatus | ''>) => {
     return Object.values(asistencia).filter(status => status === '✓').length;
   };
 
@@ -159,13 +160,13 @@ export default function ProfesorAsistenciaPage() {
                       <TableCell key={date} className="p-1">
                         <Select
                           value={student.asistencia[date]}
-                          onValueChange={(value) => handleAttendanceChange(student.id, date, value as AttendanceStatus)}
+                          onValueChange={(value) => handleAttendanceChange(student.id, date, value)}
                         >
                           <SelectTrigger className="w-16 h-8 text-xs focus:ring-primary/50">
                             <SelectValue placeholder="-" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="">-</SelectItem>
+                            <SelectItem value="unselected">-</SelectItem>
                             {attendanceOptions.map(opt => (
                               <SelectItem key={opt} value={opt}>{opt}</SelectItem>
                             ))}
