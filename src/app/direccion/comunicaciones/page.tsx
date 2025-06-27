@@ -3,9 +3,32 @@ import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
-import { ChevronLeft, Megaphone, MessageSquarePlus, BellRing } from 'lucide-react';
+import { ChevronLeft, Megaphone, Send, History } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
 
 export default function DireccionComunicacionesPage() {
+
+  const comunicacionesPlaceholder = [
+    {
+      id: "comm1",
+      asunto: "Recordatorio: Inicio del Semestre 2024-II",
+      fecha: "2024-08-20",
+      destinatarios: "General",
+      mensaje: "Les recordamos que el segundo semestre académico del 2024 comenzará el próximo lunes. ¡Esperamos verlos a todos listos para un nuevo ciclo de aprendizaje!"
+    },
+    {
+      id: "comm2",
+      asunto: "Mantenimiento de la Plataforma",
+      fecha: "2024-07-15",
+      destinatarios: "General",
+      mensaje: "El sistema estará en mantenimiento este fin de semana para aplicar mejoras. El servicio se restaurará el lunes por la mañana."
+    }
+  ];
+
   return (
     <div className="flex flex-col min-h-screen bg-secondary/20">
       <Header />
@@ -30,29 +53,72 @@ export default function DireccionComunicacionesPage() {
           </p>
         </div>
         
-        <Card className="shadow-lg bg-card">
-          <CardHeader>
-            <CardTitle className="flex items-center text-xl font-headline">
-              Panel de Comunicaciones
-            </CardTitle>
-            <CardDescription>Crea nuevos avisos, programa notificaciones y revisa el historial.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-                <Button variant="outline" className="py-8 text-lg hover:bg-primary/10" disabled>
-                    <MessageSquarePlus className="mr-3 h-6 w-6"/>
-                    Crear Nuevo Aviso General
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+            <Card className="shadow-lg bg-card">
+              <CardHeader>
+                <CardTitle className="flex items-center text-xl font-headline">
+                  Enviar Nuevo Comunicado
+                </CardTitle>
+                <CardDescription>Redacta y envía un mensaje a un grupo de destinatarios.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                    <Label htmlFor="destinatarios">Destinatarios</Label>
+                    <Select defaultValue="general" disabled>
+                        <SelectTrigger id="destinatarios">
+                            <SelectValue placeholder="Seleccionar grupo..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="general">General (Todos los usuarios)</SelectItem>
+                            <SelectItem value="alumnos" disabled>Solo Alumnos</SelectItem>
+                            <SelectItem value="profesores" disabled>Solo Profesores</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="asunto">Asunto</Label>
+                    <Input id="asunto" placeholder="Ej: Recordatorio de Feriado" className="bg-background"/>
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="mensaje">Mensaje</Label>
+                    <Textarea id="mensaje" placeholder="Escribe tu mensaje aquí..." rows={6} className="bg-background"/>
+                </div>
+                <Button className="w-full font-semibold" disabled>
+                    <Send className="mr-2 h-4 w-4" />
+                    Enviar Comunicado
                 </Button>
-                <Button variant="outline" className="py-8 text-lg hover:bg-primary/10" disabled>
-                    <BellRing className="mr-3 h-6 w-6"/>
-                    Programar Notificación
-                </Button>
-            </div>
-            <p className="text-center text-muted-foreground p-6 border border-dashed rounded-md">
-              Funcionalidad de creación, segmentación y envío de comunicaciones en desarrollo. Próximamente: plantillas de mensajes, historial de envíos y confirmaciones de lectura.
-            </p>
-          </CardContent>
-        </Card>
+                 <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad de envío y segmentación en desarrollo)</p>
+              </CardContent>
+            </Card>
+
+            <Card className="shadow-lg bg-card">
+              <CardHeader>
+                <CardTitle className="flex items-center text-xl font-headline">
+                  <History className="mr-2 h-6 w-6 text-accent" />
+                  Historial de Comunicados
+                </CardTitle>
+                <CardDescription>Revisa los últimos comunicados enviados.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {comunicacionesPlaceholder.length > 0 ? (
+                  <div className="space-y-4">
+                    {comunicacionesPlaceholder.map(comm => (
+                      <div key={comm.id} className="p-3 border rounded-lg bg-secondary/30">
+                        <div className="flex justify-between items-center mb-1">
+                          <h4 className="font-semibold">{comm.asunto}</h4>
+                          <Badge variant="outline">{comm.destinatarios}</Badge>
+                        </div>
+                        <p className="text-xs text-muted-foreground mb-2">Enviado: {comm.fecha}</p>
+                        <p className="text-sm text-muted-foreground line-clamp-2">{comm.mensaje}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground text-center py-6">No se han enviado comunicados.</p>
+                )}
+              </CardContent>
+            </Card>
+        </div>
 
       </main>
       <footer className="py-8 border-t mt-16 bg-card">
