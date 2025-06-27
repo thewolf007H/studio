@@ -42,7 +42,7 @@ export default function AlumnoPagosPage() {
             Mis Pagos
           </h1>
           <p className="text-md md:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Consulta tu historial de pagos, descarga facturas y realiza los pagos de tus mensualidades.
+            Consulta tu historial de pagos y realiza los pagos de tus mensualidades.
           </p>
         </div>
         
@@ -56,7 +56,7 @@ export default function AlumnoPagosPage() {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground mb-4">
-              Para realizar un pago, consultar saldos o solicitar tu factura, por favor contáctanos a través de WhatsApp. Nuestro equipo te atenderá a la brevedad.
+              Para realizar un pago o consultar saldos, por favor contáctanos a través de WhatsApp. Nuestro equipo te atenderá a la brevedad.
             </p>
             <Button asChild className="w-full md:w-auto font-semibold bg-green-600 hover:bg-green-700 text-white">
               <Link href="https://wa.me/59100000000?text=Hola,%20quisiera%20consultar%20sobre%20mis%20pagos." target="_blank" rel="noopener noreferrer">
@@ -85,7 +85,6 @@ export default function AlumnoPagosPage() {
                       <TableHead>Concepto</TableHead>
                       <TableHead>Estado</TableHead>
                       <TableHead>Método</TableHead>
-                      <TableHead className="text-right">Acciones</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -99,12 +98,6 @@ export default function AlumnoPagosPage() {
                           </Badge>
                         </TableCell>
                         <TableCell className="text-xs text-muted-foreground">{pago.metodo}</TableCell>
-                        <TableCell className="text-right">
-                          <Button variant="outline" size="sm" className="hover:bg-primary/10" disabled>
-                            <FileText className="mr-1 h-4 w-4" />
-                            Ver Factura
-                          </Button>
-                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -114,7 +107,7 @@ export default function AlumnoPagosPage() {
               <p className="text-sm text-muted-foreground text-center py-6">No hay pagos registrados.</p>
             )}
             <p className="text-xs text-muted-foreground mt-6 pt-4 border-t border-dashed">
-              (La generación y descarga de facturas, así como la visualización de pagos reales, está en desarrollo.)
+              (La visualización de pagos reales está en desarrollo. Los datos mostrados son un ejemplo.)
             </p>
           </CardContent>
         </Card>
