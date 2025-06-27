@@ -8,11 +8,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CalendarDays, Clock, PlusCircle, Trash2 } from "lucide-react";
-import { format, parse, isValid, isSameDay } from 'date-fns';
+import { format, isSameDay } from 'date-fns';
 
 interface CalendarSectionProps {
   isEditable?: boolean;
 }
+
+// Configuration for class schedules
+const IN_PERSON_CLASS_DAYS = [2]; // Tuesday
+const VIRTUAL_CLASS_DAYS = [4]; // Thursday
 
 // Helper function to calculate the next occurrence of a specific weekday and time
 const getNextRecurrentClassDateTime = (dayOfWeek: number, hour: number, minute: number): Date => {
@@ -22,42 +26,40 @@ const getNextRecurrentClassDateTime = (dayOfWeek: number, hour: number, minute: 
   result.setDate(now.getDate() + (dayOfWeek + 7 - now.getDay()) % 7);
   result.setHours(hour, minute, 0, 0);
 
+  // If the calculated time is in the past for today, move to next week
   if (result.getTime() < now.getTime()) {
     result.setDate(result.getDate() + 7);
-  }
-  if (result.getDay() === now.getDay() && result.getTime() < now.getTime()) {
-     result.setDate(result.getDate() + 7);
   }
   return result;
 };
 
-
 export function CalendarSection({ isEditable = false }: CalendarSectionProps) {
   const [selectedDateForCalendar, setSelectedDateForCalendar] = useState<Date | undefined>(undefined);
   const [nextClassTime, setNextClassTime] = useState<Date | null>(null);
+  const [nextClassType, setNextClassType] = useState<"Presencial" | "Virtual" | null>(null);
   const [timeRemaining, setTimeRemaining] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
   
-  const [customClasses, setCustomClasses] = useState<Date[]>([]);
-  const [isAddClassDialogOpen, setIsAddClassDialogOpen] = useState(false);
-  const [newClassDate, setNewClassDate] = useState<Date | undefined>(new Date());
-  const [newClassTimeInput, setNewClassTimeInput] = useState<string>("10:00");
-
-  // Example: Recurring classes are on Tuesdays and Thursdays
-  const recurrentClassDaysOfWeek = [2, 4]; // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+  const [personalEvents, setPersonalEvents] = useState<Date[]>([]);
+  const [isAddEventDialogOpen, setIsAddEventDialogOpen] = useState(false);
+  const [newEventDate, setNewEventDate] = useState<Date | undefined>(new Date());
+  const [newEventTimeInput, setNewEventTimeInput] = useState<string>("10:00");
 
   useEffect(() => {
     setSelectedDateForCalendar(new Date()); // Initialize on client
 
-    // Determine the very next RECURRENT class session from today
-    const potentialNextRecurrentClasses = [
-      getNextRecurrentClassDateTime(2, 10, 0), // Next Tuesday 10:00 AM
-      getNextRecurrentClassDateTime(4, 14, 0)  // Next Thursday 2:00 PM
+    // Determine the next class session (in-person or virtual)
+    const potentialNextClasses = [
+      { date: getNextRecurrentClassDateTime(2, 10, 0), type: "Presencial" as const }, // Next Tuesday 10:00 AM
+      { date: getNextRecurrentClassDateTime(4, 14, 0), type: "Virtual" as const }    // Next Thursday 2:00 PM
     ];
-    potentialNextRecurrentClasses.sort((a, b) => a.getTime() - b.getTime());
-    const actualNextRecurrentClass = potentialNextRecurrentClasses[0];
-    setNextClassTime(actualNextRecurrentClass);
+    
+    potentialNextClasses.sort((a, b) => a.date.getTime() - b.date.getTime());
+    
+    const nextClass = potentialNextClasses[0];
+    setNextClassTime(nextClass.date);
+    setNextClassType(nextClass.type);
 
-  }, []); // Only on mount for recurrent classes
+  }, []); // Only on mount
 
   useEffect(() => {
     if (!nextClassTime) return;
@@ -83,47 +85,32 @@ export function CalendarSection({ isEditable = false }: CalendarSectionProps) {
     return () => clearInterval(interval);
   }, [nextClassTime]);
 
-  const isRecurrentClassDay = (date: Date): boolean => {
-    return recurrentClassDaysOfWeek.includes(date.getDay());
-  };
+  const isInPersonDay = (date: Date): boolean => IN_PERSON_CLASS_DAYS.includes(date.getDay());
+  const isVirtualDay = (date: Date): boolean => VIRTUAL_CLASS_DAYS.includes(date.getDay());
+  const isPersonalEventDay = (date: Date): boolean => personalEvents.some(event => isSameDay(event, date));
 
-  const isCustomClassDay = (date: Date): boolean => {
-    return customClasses.some(customClass => isSameDay(customClass, date));
-  };
-
-  const classDayStyle = (date: Date) => {
-    let styles = {};
-    if (isRecurrentClassDay(date)) {
-      styles = { ...styles, border: '2px solid hsl(var(--primary))', borderRadius: 'var(--radius)' };
-    }
-    if (isCustomClassDay(date)) {
-      styles = { ...styles, backgroundColor: 'hsl(var(--accent) / 0.3)', borderRadius: 'var(--radius)', fontWeight: 'bold' };
-    }
-    return styles;
-  };
-  
-  const handleAddClass = () => {
-    if (newClassDate) {
-      const [hours, minutes] = newClassTimeInput.split(':').map(Number);
+  const handleAddEvent = () => {
+    if (newEventDate) {
+      const [hours, minutes] = newEventTimeInput.split(':').map(Number);
       if (!isNaN(hours) && !isNaN(minutes)) {
-        const newClassDateTime = new Date(newClassDate);
-        newClassDateTime.setHours(hours, minutes, 0, 0);
+        const newEventDateTime = new Date(newEventDate);
+        newEventDateTime.setHours(hours, minutes, 0, 0);
         
-        if (!customClasses.find(d => d.getTime() === newClassDateTime.getTime())) {
-          setCustomClasses([...customClasses, newClassDateTime]);
+        if (!personalEvents.find(d => d.getTime() === newEventDateTime.getTime())) {
+          setPersonalEvents([...personalEvents, newEventDateTime]);
         }
       } else {
         alert("Formato de hora inválido. Use HH:MM");
         return;
       }
     }
-    setNewClassDate(new Date());
-    setNewClassTimeInput("10:00");
-    setIsAddClassDialogOpen(false);
+    setNewEventDate(new Date());
+    setNewEventTimeInput("10:00");
+    setIsAddEventDialogOpen(false);
   };
 
-  const handleRemoveCustomClass = (dateToRemove: Date) => {
-    setCustomClasses(prev => prev.filter(customClass => !isSameDay(customClass, dateToRemove)));
+  const handleRemovePersonalEvent = (dateToRemove: Date) => {
+    setPersonalEvents(prev => prev.filter(event => !isSameDay(event, dateToRemove)));
   };
 
   return (
@@ -132,45 +119,45 @@ export function CalendarSection({ isEditable = false }: CalendarSectionProps) {
         <div className="flex flex-col sm:flex-row justify-between items-center mb-10">
             <h2 className="text-3xl font-bold font-headline text-center sm:text-left mb-4 sm:mb-0">Calendario y Próxima Clase</h2>
             {isEditable && (
-            <Dialog open={isAddClassDialogOpen} onOpenChange={setIsAddClassDialogOpen}>
+            <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
                 <DialogTrigger asChild>
                 <Button variant="outline" className="bg-card hover:bg-primary/10">
                     <PlusCircle className="mr-2 h-5 w-5" />
-                    Añadir Nueva Clase
+                    Añadir Sesión de Estudio
                 </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px] bg-card">
                 <DialogHeader>
-                    <DialogTitle>Añadir Nueva Clase</DialogTitle>
+                    <DialogTitle>Añadir Sesión de Estudio</DialogTitle>
                     <DialogDescription>
-                    Selecciona la fecha y hora para la nueva clase.
+                    Selecciona la fecha y hora para tu sesión de estudio personalizada.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <div className="grid gap-2 items-center">
-                    <Label htmlFor="new-class-date">Fecha</Label>
+                    <Label htmlFor="new-event-date">Fecha</Label>
                     <Calendar
                         mode="single"
-                        selected={newClassDate}
-                        onSelect={setNewClassDate}
+                        selected={newEventDate}
+                        onSelect={setNewEventDate}
                         className="rounded-md border"
                         disabled={(day) => day < new Date(new Date().setDate(new Date().getDate() -1 )) }
                     />
                     </div>
                     <div className="grid gap-2 items-center">
-                    <Label htmlFor="new-class-time">Hora (HH:MM)</Label>
+                    <Label htmlFor="new-event-time">Hora (HH:MM)</Label>
                     <Input 
-                        id="new-class-time" 
+                        id="new-event-time" 
                         type="time" 
-                        value={newClassTimeInput}
-                        onChange={(e) => setNewClassTimeInput(e.target.value)}
+                        value={newEventTimeInput}
+                        onChange={(e) => setNewEventTimeInput(e.target.value)}
                         className="bg-background"
                     />
                     </div>
                 </div>
                 <DialogFooter>
-                    <Button type="button" variant="outline" onClick={() => setIsAddClassDialogOpen(false)}>Cancelar</Button>
-                    <Button type="submit" onClick={handleAddClass}>Añadir Clase</Button>
+                    <Button type="button" variant="outline" onClick={() => setIsAddEventDialogOpen(false)}>Cancelar</Button>
+                    <Button type="submit" onClick={handleAddEvent}>Añadir Sesión</Button>
                 </DialogFooter>
                 </DialogContent>
             </Dialog>
@@ -197,40 +184,43 @@ export function CalendarSection({ isEditable = false }: CalendarSectionProps) {
                   className="rounded-md border p-0"
                   disabled={(day) => day < new Date(new Date().setDate(new Date().getDate() -1 )) }
                   modifiers={{ 
-                    recurrentClass: isRecurrentClassDay,
-                    customClass: isCustomClassDay 
+                    inPerson: isInPersonDay,
+                    virtual: isVirtualDay,
+                    personal: isPersonalEventDay 
                   }}
                   modifiersStyles={{ 
-                    recurrentClass: { border: '2px solid hsl(var(--primary))', borderRadius: 'var(--radius)' },
-                    customClass: { backgroundColor: 'hsl(var(--accent) / 0.4)', color: 'hsl(var(--accent-foreground))', fontWeight: '600', borderRadius: 'var(--radius)' }
+                    inPerson: { border: '2px solid hsl(var(--primary))', borderRadius: 'var(--radius)' },
+                    virtual: { border: '2px solid hsl(var(--accent))', borderRadius: 'var(--radius)' },
+                    personal: { backgroundColor: 'hsl(var(--secondary))', color: 'hsl(var(--secondary-foreground))', fontWeight: '600', borderRadius: 'var(--radius)' }
                   }}
                   footer={
-                    <div className="text-xs text-muted-foreground pt-3 px-3 text-center">
-                      <p className="mb-1"><span className="inline-block w-3 h-3 rounded-full border-2 border-primary mr-1 align-middle"></span> Días de clase recurrentes.</p>
-                      <p><span className="inline-block w-3 h-3 rounded-full bg-accent/40 mr-1 align-middle"></span> Clases personalizadas añadidas.</p>
+                    <div className="text-xs text-muted-foreground pt-3 px-3 text-center space-y-1">
+                      <p><span className="inline-block w-3 h-3 rounded-full border-2 border-primary mr-1 align-middle"></span> Clases Presenciales</p>
+                      <p><span className="inline-block w-3 h-3 rounded-full border-2 border-accent mr-1 align-middle"></span> Clases Virtuales</p>
+                      <p><span className="inline-block w-3 h-3 rounded-full bg-secondary mr-1 align-middle"></span> Sesiones de estudio</p>
                     </div>
                   }
                   components={isEditable ? {
                     Day: ({ date, displayMonth }) => {
-                      const isCustom = isCustomClassDay(date);
+                      const isPersonal = isPersonalEventDay(date);
                       if (date.getMonth() !== displayMonth.getMonth()) {
                         return <div className="h-9 w-9 p-0 relative flex items-center justify-center text-muted-foreground opacity-50"> {format(date, "d")} </div>;
                       }
                       return (
                         <div className="relative h-9 w-9 p-0 flex items-center justify-center">
                           {format(date, "d")}
-                          {isCustom && (
+                          {isPersonal && (
                             <Button
                               variant="ghost"
                               size="icon"
                               className="absolute top-0 right-0 h-4 w-4 p-0 text-red-500 hover:text-red-700 opacity-50 hover:opacity-100"
                               onClick={(e) => {
                                 e.stopPropagation(); // Prevent day selection
-                                handleRemoveCustomClass(date);
+                                handleRemovePersonalEvent(date);
                               }}
                             >
                               <Trash2 className="h-3 w-3" />
-                              <span className="sr-only">Eliminar clase</span>
+                              <span className="sr-only">Eliminar sesión</span>
                             </Button>
                           )}
                         </div>
@@ -244,13 +234,16 @@ export function CalendarSection({ isEditable = false }: CalendarSectionProps) {
 
           <Card className="w-full shadow-lg bg-card">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-headline font-medium">Próxima Sesión Recurrente</CardTitle>
+              <CardTitle className="text-xl font-headline font-medium">Próxima Clase Programada</CardTitle>
               <Clock className="h-6 w-6 text-accent" />
             </CardHeader>
             <CardContent className="flex flex-col items-center justify-center min-h-[280px] text-center">
-              {timeRemaining ? (
+              {timeRemaining && nextClassType ? (
                 <div>
-                  <p className="text-lg text-muted-foreground mb-2">Tu próxima clase recurrente comienza en:</p>
+                  <div className={`text-sm font-semibold px-3 py-1 rounded-full mb-3 inline-block ${nextClassType === 'Presencial' ? 'bg-primary/20 text-primary' : 'bg-accent/20 text-accent-foreground'}`}>
+                    Clase {nextClassType}
+                  </div>
+                  <p className="text-lg text-muted-foreground mb-2">Tu próxima clase comienza en:</p>
                   <div className="text-4xl font-bold text-primary mb-4">
                     {timeRemaining.days > 0 && `${timeRemaining.days}d `}
                     {`${String(timeRemaining.hours).padStart(2, '0')}h `}
@@ -265,16 +258,14 @@ export function CalendarSection({ isEditable = false }: CalendarSectionProps) {
                      </p>
                   )}
                 </div>
-              ) : nextClassTime && new Date().getTime() > nextClassTime.getTime() ? (
-                 <p className="text-xl text-muted-foreground">La sesión recurrente programada ya ha pasado. Consultando el próximo horario...</p>
               ) : (
                 <div className="flex flex-col items-center">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mb-3"></div>
-                  <p className="text-lg text-muted-foreground">Calculando próxima clase recurrente...</p>
+                  <p className="text-lg text-muted-foreground">Calculando próxima clase...</p>
                 </div>
               )}
                <CardDescription className="mt-6 text-xs">
-                (El contador se basa en clases recurrentes predefinidas. Las clases personalizadas añadidas no afectan este contador por ahora. La gestión es visual y local a esta sesión.)
+                (El contador se basa en las clases programadas del instituto. La gestión de sesiones personalizadas es visual y local a esta sesión.)
               </CardDescription>
             </CardContent>
           </Card>
@@ -283,4 +274,3 @@ export function CalendarSection({ isEditable = false }: CalendarSectionProps) {
     </section>
   );
 }
-
