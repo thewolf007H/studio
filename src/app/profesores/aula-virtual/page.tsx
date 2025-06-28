@@ -1,17 +1,100 @@
+'use client';
 
+import { useState } from 'react';
 import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ListPlus, FilePlus2, Eye, Settings, Video, Users as UsersIcon, ChevronLeft, UserCircle, Edit3, UploadCloud, Trash2, FileText as FileTextIcon, MessageSquare, Send } from 'lucide-react';
+import { ListPlus, FilePlus2, Eye, Settings, Video, Users as UsersIcon, ChevronLeft, UserCircle, Edit3, UploadCloud, Trash2, FileText as FileTextIcon, MessageSquare, Send, CalendarCheck } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
+
+// --- Data for Attendance ---
+const courseInfo = {
+  facilitador: "Ariel Berrios",
+  horario: "07:00 - 08:15",
+  modalidad: "VIRTUAL",
+  nivel: "EF 4.4",
+  mes: "Junio",
+  claseId: "13370777",
+};
+
+const initialStudents = [
+  { id: 1, nombre: "ARRIGA FLORES EVELIN", codigo: "9285", genero: "Z" },
+  { id: 2, nombre: "QUISPE LICONA ROSA", codigo: "9282", genero: "Z" },
+  { id: 3, nombre: "CONDORI MAMANI TATIANA", codigo: "9991", genero: "Z" },
+  { id: 4, nombre: "ARAGONDOÑA ZULEMA", codigo: "9984", genero: "Z" },
+  { id: 5, nombre: "ZEGARRA CAERO DANTZA", codigo: "10416", genero: "Z" },
+  { id: 6, nombre: "SALAZAR PARDO JUAN VICTOR", codigo: "8887", genero: "V" },
+  { id: 7, nombre: "TUCO DANA LAURA", codigo: "10308", genero: "Z" },
+];
+
+const attendanceDates = Array.from({ length: 27 - 11 + 1 }, (_, i) => 11 + i);
+const attendanceOptions = ['✓', 'A', 'P', 'L', 'D', 'C', 'H', 'X'];
+
+type AttendanceStatus = '✓' | 'A' | 'P' | 'L' | 'D' | 'C' | 'H' | 'X';
+
+interface Student {
+  id: number;
+  nombre: string;
+  codigo: string;
+  genero: 'Z' | 'V';
+  asistencia: Record<number, AttendanceStatus | ''>;
+  evaluacionEscrita: string;
+  evaluacionOral: string;
+  observaciones: string;
+}
+
+const initializeStudentData = (students: typeof initialStudents): Student[] => {
+  return students.map(s => ({
+    ...s,
+    asistencia: attendanceDates.reduce((acc, date) => {
+      acc[date] = '';
+      return acc;
+    }, {} as Record<number, AttendanceStatus | ''>),
+    evaluacionEscrita: '',
+    evaluacionOral: '',
+    observaciones: '',
+  }));
+};
+// --- End Data for Attendance ---
+
 
 export default function AulaVirtualProfesorPage() {
+  
+  // --- State and Handlers for Attendance ---
+  const [students, setStudents] = useState<Student[]>(() => initializeStudentData(initialStudents));
+
+  const handleAttendanceChange = (studentId: number, date: number, value: string) => {
+    const finalValue = value === 'unselected' ? '' : (value as AttendanceStatus);
+    setStudents(prevStudents =>
+      prevStudents.map(student =>
+        student.id === studentId
+          ? { ...student, asistencia: { ...student.asistencia, [date]: finalValue } }
+          : student
+      )
+    );
+  };
+  
+  const handleInputChange = (studentId: number, field: 'evaluacionEscrita' | 'evaluacionOral' | 'observaciones', value: string) => {
+     setStudents(prevStudents =>
+      prevStudents.map(student =>
+        student.id === studentId ? { ...student, [field]: value } : student
+      )
+    );
+  }
+
+  const calculateTotalAttendance = (asistencia: Record<number, AttendanceStatus | ''>) => {
+    return Object.values(asistencia).filter(status => status === '✓').length;
+  };
+  // --- End State and Handlers for Attendance ---
+
   const temarioPlaceholder = [
     { title: "Unidad 1: Introducción y Saludos", pdfFile: "unidad1_intro.pdf" },
     { title: "Unidad 2: Verbo 'To Be' y Artículos", pdfFile: null },
@@ -55,13 +138,94 @@ export default function AulaVirtualProfesorPage() {
             Gestión del Aula Virtual
           </h1>
           <p className="text-md md:text-lg text-muted-foreground max-w-3xl mx-auto">
-            Administra el contenido del curso, crea evaluaciones, programa clases en vivo y supervisa el progreso de tus alumnos.
+            Administra el contenido del curso, toma asistencia, crea evaluaciones y supervisa el progreso de tus alumnos.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
           {/* Columna Principal (Más ancha) */}
           <div className="lg:col-span-2 space-y-6 md:space-y-8">
+            <Card className="shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-[1.02] bg-card">
+              <CardHeader>
+                <CardTitle className="flex items-center text-2xl font-headline">
+                  <CalendarCheck className="mr-3 h-7 w-7 text-accent" />
+                  Registro de Asistencia - {courseInfo.mes}
+                </CardTitle>
+                <CardDescription>Haz clic en cada celda para registrar la asistencia diaria de tus alumnos.</CardDescription>
+              </CardHeader>
+              <CardContent className="overflow-x-auto">
+                <Table className="min-w-max">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="sticky left-0 bg-card z-10 w-12">Nº</TableHead>
+                      <TableHead className="sticky left-12 bg-card z-10 min-w-[250px]">Nombre Completo</TableHead>
+                      <TableHead>Código</TableHead>
+                      {attendanceDates.map(date => (
+                        <TableHead key={date} className="text-center">{date}</TableHead>
+                      ))}
+                      <TableHead className="text-center font-bold text-primary">Total</TableHead>
+                      <TableHead>Eval. Escrita</TableHead>
+                      <TableHead>Eval. Oral</TableHead>
+                      <TableHead>Observaciones</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {students.map((student, index) => (
+                      <TableRow key={student.id} className="hover:bg-secondary/50">
+                        <TableCell className="sticky left-0 bg-card z-10">{index + 1}</TableCell>
+                        <TableCell className="sticky left-12 bg-card z-10 font-medium">{student.nombre}</TableCell>
+                        <TableCell>{student.codigo}</TableCell>
+                        {attendanceDates.map(date => (
+                          <TableCell key={date} className="p-1">
+                            <Select
+                              value={student.asistencia[date]}
+                              onValueChange={(value) => handleAttendanceChange(student.id, date, value)}
+                            >
+                              <SelectTrigger className="w-16 h-8 text-xs focus:ring-primary/50">
+                                <SelectValue placeholder="-" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="unselected">-</SelectItem>
+                                {attendanceOptions.map(opt => (
+                                  <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </TableCell>
+                        ))}
+                        <TableCell className="text-center font-bold text-lg text-primary">{calculateTotalAttendance(student.asistencia)}</TableCell>
+                        <TableCell className="p-1">
+                          <Input 
+                            className="w-24 h-8"
+                            value={student.evaluacionEscrita}
+                            onChange={(e) => handleInputChange(student.id, 'evaluacionEscrita', e.target.value)}
+                          />
+                        </TableCell>
+                        <TableCell className="p-1">
+                          <Input 
+                             className="w-24 h-8"
+                             value={student.evaluacionOral}
+                             onChange={(e) => handleInputChange(student.id, 'evaluacionOral', e.target.value)}
+                          />
+                        </TableCell>
+                         <TableCell className="p-1">
+                          <Input
+                            className="w-48 h-8"
+                            placeholder="Anotaciones..."
+                            value={student.observaciones}
+                            onChange={(e) => handleInputChange(student.id, 'observaciones', e.target.value)}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                 <p className="text-xs text-muted-foreground mt-4 pt-3 border-t border-dashed">
+                    Leyenda: ✓ (presente), A (ausente), P (permiso), L (tarde), D (retirado), C (cambio), H (feriado), X (bloqueado).
+                  </p>
+              </CardContent>
+            </Card>
+
             <Card className="shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-[1.02] bg-card">
               <CardHeader>
                 <CardTitle className="flex items-center text-2xl font-headline">

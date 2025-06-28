@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Users, UploadCloud, PieChart, Edit, UserCog, ClipboardCheck, CalendarCheck } from 'lucide-react';
+import { Users, UploadCloud, PieChart, Edit, UserCog, ClipboardCheck } from 'lucide-react';
 import { CalendarSection } from '@/components/calendar/calendar-section';
 import { Separator } from '@/components/ui/separator';
 
@@ -28,7 +28,7 @@ export default function ProfesorPage() {
                 <Edit className="mr-2 h-6 w-6 text-accent" />
                 Gestionar Aula Virtual
               </CardTitle>
-              <CardDescription>Define el temario, crea exámenes y administra el contenido del curso.</CardDescription>
+              <CardDescription>Define el temario, toma asistencia y administra el contenido.</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Configura los módulos de aprendizaje para tus alumnos.</p>
@@ -84,22 +84,6 @@ export default function ProfesorPage() {
               <p className="text-sm text-muted-foreground mb-4">Accede al sistema de calificaciones y gestiona el feedback.</p>
               <Button asChild variant="outline">
                 <Link href="/profesores/calificaciones">Gestionar Calificaciones</Link>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl font-headline">
-                <CalendarCheck className="mr-2 h-6 w-6 text-accent" />
-                Seguimiento de Asistencia
-              </CardTitle>
-              <CardDescription>Registra y consulta la asistencia de tus alumnos a las clases.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Mantén un registro de la participación en las sesiones.</p>
-              <Button asChild variant="outline">
-                <Link href="/profesores/asistencia">Gestionar Asistencia</Link>
               </Button>
             </CardContent>
           </Card>
