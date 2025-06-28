@@ -192,10 +192,9 @@ export default function DireccionPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Asigna un curso, horario y tarifa a un estudiante para un nuevo ciclo académico.</p>
-              <Button asChild className="w-full" disabled>
+              <Button asChild className="w-full">
                 <Link href="/direccion/inscripcion-alumnos">Inscribir Alumno</Link>
               </Button>
-               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
 
