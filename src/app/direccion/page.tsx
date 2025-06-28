@@ -14,7 +14,7 @@ import {
   LayoutDashboard, 
   Banknote,
   UserPlus,
-  ClipboardUser,
+  ClipboardList,
   Replace,
   CalendarClock,
   PiggyBank,
@@ -185,7 +185,7 @@ export default function DireccionPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
-                <ClipboardUser className="mr-2 h-6 w-6 text-accent" />
+                <ClipboardList className="mr-2 h-6 w-6 text-accent" />
                 Inscripción de Alumnos
               </CardTitle>
               <CardDescription>Inscribe a personas registradas en cursos específicos.</CardDescription>
