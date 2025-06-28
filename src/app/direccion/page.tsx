@@ -3,7 +3,23 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Landmark, UsersRound, FileSearch, BarChartBig, Megaphone, CreditCard, CalendarCog, LayoutDashboard, Banknote } from 'lucide-react';
+import { 
+  Landmark, 
+  UsersRound, 
+  FileSearch, 
+  BarChartBig, 
+  Megaphone, 
+  CreditCard, 
+  CalendarCog, 
+  LayoutDashboard, 
+  Banknote,
+  UserPlus,
+  ClipboardUser,
+  Replace,
+  CalendarClock,
+  PiggyBank,
+  Snowflake
+} from 'lucide-react';
 
 export default function DireccionPage() {
   return (
@@ -148,6 +164,109 @@ export default function DireccionPage() {
               </Button>
             </CardContent>
           </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <UserPlus className="mr-2 h-6 w-6 text-accent" />
+                Registro de Personas
+              </CardTitle>
+              <CardDescription>Registra nuevos estudiantes o personal en el sistema.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Crea un perfil base para cualquier persona que interactuará con el instituto.</p>
+              <Button asChild className="w-full" disabled>
+                <Link href="/direccion/registro-personas">Registrar Persona</Link>
+              </Button>
+               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <ClipboardUser className="mr-2 h-6 w-6 text-accent" />
+                Inscripción de Alumnos
+              </CardTitle>
+              <CardDescription>Inscribe a personas registradas en cursos específicos.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Asigna un curso, horario y tarifa a un estudiante para un nuevo ciclo académico.</p>
+              <Button asChild className="w-full" disabled>
+                <Link href="/direccion/inscripcion-alumnos">Inscribir Alumno</Link>
+              </Button>
+               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <Replace className="mr-2 h-6 w-6 text-accent" />
+                Cambio de Status
+              </CardTitle>
+              <CardDescription>Modifica el estado de un alumno (activo, retirado, etc.).</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Actualiza la condición académica o administrativa de un estudiante en el sistema.</p>
+              <Button asChild className="w-full" disabled>
+                <Link href="/direccion/cambio-status">Cambiar Status</Link>
+              </Button>
+               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <CalendarClock className="mr-2 h-6 w-6 text-accent" />
+                Cambio de Fecha
+              </CardTitle>
+              <CardDescription>Ajusta fechas de inicio o fin de cursos para un alumno.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Modifica las fechas de cursada de un estudiante por motivos excepcionales.</p>
+              <Button asChild className="w-full" disabled>
+                <Link href="/direccion/cambio-fecha">Cambiar Fecha</Link>
+              </Button>
+               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <PiggyBank className="mr-2 h-6 w-6 text-accent" />
+                Pago de Rehabilitación
+              </CardTitle>
+              <CardDescription>Registra pagos para reactivar cuentas o cursos.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Gestiona los pagos de estudiantes que desean reincorporarse tras una pausa.</p>
+              <Button asChild className="w-full" disabled>
+                <Link href="/direccion/pago-rehabilitacion">Registrar Pago</Link>
+              </Button>
+               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <Snowflake className="mr-2 h-6 w-6 text-accent" />
+                Congelación de Cuentas
+              </CardTitle>
+              <CardDescription>Pausa temporalmente la cuenta de un estudiante.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Administra las solicitudes de congelación de matrícula de los estudiantes.</p>
+              <Button asChild className="w-full" disabled>
+                <Link href="/direccion/congelacion-cuentas">Congelar Cuenta</Link>
+              </Button>
+               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
+            </CardContent>
+          </Card>
+
         </div>
         
       </main>
