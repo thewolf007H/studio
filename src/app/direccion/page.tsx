@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Landmark, UsersRound, FileSearch, BarChartBig, Megaphone, CreditCard, CalendarCog, LayoutDashboard } from 'lucide-react';
+import { Landmark, UsersRound, FileSearch, BarChartBig, Megaphone, CreditCard, CalendarCog, LayoutDashboard, Banknote } from 'lucide-react';
 
 export default function DireccionPage() {
   return (
@@ -113,6 +113,22 @@ export default function DireccionPage() {
               <p className="text-sm text-muted-foreground mb-4">Visualiza matrículas, gestiona cobros y accede a reportes financieros básicos.</p>
               <Button asChild className="w-full">
                 <Link href="/direccion/matriculas-pagos">Ver Matrículas y Pagos</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <Banknote className="mr-2 h-6 w-6 text-accent" />
+                Registro de Pagos
+              </CardTitle>
+              <CardDescription>Ingresa nuevos pagos de mensualidades de los estudiantes.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Accede al formulario para registrar un nuevo pago y generar el recibo correspondiente.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/registro-pagos">Registrar Pago</Link>
               </Button>
             </CardContent>
           </Card>
