@@ -258,10 +258,9 @@ export default function DireccionPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Administra las solicitudes de congelación de matrícula de los estudiantes.</p>
-              <Button asChild className="w-full" disabled>
+              <Button asChild className="w-full">
                 <Link href="/direccion/congelacion-cuentas">Congelar Cuenta</Link>
               </Button>
-               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
 
