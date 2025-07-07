@@ -208,10 +208,9 @@ export default function DireccionPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Actualiza la condición académica o administrativa de un estudiante en el sistema.</p>
-              <Button asChild className="w-full" disabled>
+              <Button asChild className="w-full">
                 <Link href="/direccion/cambio-status">Cambiar Status</Link>
               </Button>
-               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
           
