@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import Link from 'next/link';
-import { ChevronLeft, ClipboardCheck, TrendingUp, MessageCircle, FileEdit } from 'lucide-react';
+import { ChevronLeft, ClipboardCheck, TrendingUp, MessageCircle, FileEdit, FileText } from 'lucide-react';
 
 export default function ProfesorCalificacionesPage() {
   const cursosPlaceholder = [
@@ -47,12 +47,20 @@ export default function ProfesorCalificacionesPage() {
         </div>
         
         <Card className="shadow-lg bg-card mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center text-xl font-headline">
-              <FileEdit className="mr-2 h-6 w-6 text-accent" />
-              Seleccionar Curso
-            </CardTitle>
-            <CardDescription>Elige el curso para ver las calificaciones de los alumnos.</CardDescription>
+          <CardHeader className="flex flex-row justify-between items-center">
+            <div>
+                <CardTitle className="flex items-center text-xl font-headline">
+                <FileEdit className="mr-2 h-6 w-6 text-accent" />
+                Seleccionar Curso
+                </CardTitle>
+                <CardDescription>Elige el curso para ver las calificaciones de los alumnos.</CardDescription>
+            </div>
+             <Button asChild variant="outline">
+                <Link href="/profesores/boletin-notas">
+                    <FileText className="mr-2 h-4 w-4"/>
+                    Ver Boletín de Ejemplo
+                </Link>
+            </Button>
           </CardHeader>
           <CardContent>
             <Select>
