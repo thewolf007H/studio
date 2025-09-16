@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import Link from 'next/link';
-import { ChevronLeft, ClipboardCheck, TrendingUp, MessageCircle, FileEdit, FileText } from 'lucide-react';
+import { ChevronLeft, ClipboardCheck, TrendingUp, MessageCircle, FileEdit, FileText, GraduationCap } from 'lucide-react';
 
 export default function ProfesorCalificacionesPage() {
   const cursosPlaceholder = [
@@ -47,7 +47,7 @@ export default function ProfesorCalificacionesPage() {
         </div>
         
         <Card className="shadow-lg bg-card mb-8">
-          <CardHeader className="flex flex-row justify-between items-center">
+          <CardHeader className="flex flex-row flex-wrap justify-between items-center gap-4">
             <div>
                 <CardTitle className="flex items-center text-xl font-headline">
                 <FileEdit className="mr-2 h-6 w-6 text-accent" />
@@ -55,12 +55,20 @@ export default function ProfesorCalificacionesPage() {
                 </CardTitle>
                 <CardDescription>Elige el curso para ver las calificaciones de los alumnos.</CardDescription>
             </div>
-             <Button asChild variant="outline">
-                <Link href="/profesores/boletin-notas">
-                    <FileText className="mr-2 h-4 w-4"/>
-                    Ver Boletín de Ejemplo
-                </Link>
-            </Button>
+            <div className='flex gap-2 flex-wrap'>
+                <Button asChild variant="outline">
+                    <Link href="/profesores/boletin-notas">
+                        <FileText className="mr-2 h-4 w-4"/>
+                        Ver Boletín
+                    </Link>
+                </Button>
+                <Button asChild>
+                    <Link href="/profesores/evaluacion-desempeno">
+                        <GraduationCap className="mr-2 h-4 w-4"/>
+                        Registrar Notas
+                    </Link>
+                </Button>
+            </div>
           </CardHeader>
           <CardContent>
             <Select>

@@ -18,7 +18,8 @@ import {
   Replace,
   CalendarClock,
   PiggyBank,
-  Snowflake
+  Snowflake,
+  GraduationCap
 } from 'lucide-react';
 
 export default function DireccionPage() {
@@ -97,6 +98,22 @@ export default function DireccionPage() {
               <p className="text-sm text-muted-foreground mb-4">Monitoriza métricas importantes en tiempo real para la toma de decisiones estratégicas.</p>
               <Button asChild className="w-full">
                 <Link href="/direccion/dashboard-kpi">Acceder al Dashboard</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+           <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <GraduationCap className="mr-2 h-6 w-6 text-accent" />
+                Evaluaciones y Calificaciones
+              </CardTitle>
+              <CardDescription>Supervisa todas las evaluaciones y notas de los estudiantes.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Busca por alumno, revisa y descarga los boletines de notas y evaluaciones.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/evaluaciones">Supervisar Evaluaciones</Link>
               </Button>
             </CardContent>
           </Card>
