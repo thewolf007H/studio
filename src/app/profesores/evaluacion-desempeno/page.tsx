@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ChevronLeft, GraduationCap, Save, Printer, Download, Calculator } from 'lucide-react';
+import { ChevronLeft, GraduationCap, Save, Calculator } from 'lucide-react';
 import { WorkAssessmentCard, type WorkAssessmentData, type Criterio } from '@/components/assessment/WorkAssessmentCard';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -123,16 +123,6 @@ export default function EvaluacionDesempenoPage() {
                 Volver a Calificaciones
                 </Link>
             </Button>
-            <div className="flex gap-2">
-                <Button variant="outline" disabled>
-                    <Printer className="mr-2 h-4 w-4"/>
-                    Imprimir Boletín
-                </Button>
-                <Button disabled>
-                    <Download className="mr-2 h-4 w-4"/>
-                    Descargar PDF
-                </Button>
-            </div>
         </div>
         
         <div className="grid lg:grid-cols-2 gap-8 items-start">
