@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Users, UploadCloud, PieChart, Edit, UserCog, ClipboardCheck, Clock, CalendarCheck } from 'lucide-react';
+import { UploadCloud, PieChart, Edit, UserCog, ClipboardCheck, Clock, CalendarCheck } from 'lucide-react';
 import { CalendarSection } from '@/components/calendar/calendar-section';
 import { Separator } from '@/components/ui/separator';
 
@@ -51,40 +51,6 @@ export default function ProfesorPage() {
               <Button asChild variant="outline" className="w-full">
                 <Link href="/profesores/aula-virtual">Ir a Gestión del Aula</Link>
               </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl font-headline">
-                <Users className="mr-2 h-6 w-6 text-accent" />
-                Estudiantes
-              </CardTitle>
-              <CardDescription>Consulta el listado de tus estudiantes y su progreso.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Realiza seguimiento individual y grupal.</p>
-              <Button asChild variant="outline">
-                <Link href="#">Ver Estudiantes</Link>
-              </Button>
-               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl font-headline">
-                <UploadCloud className="mr-2 h-6 w-6 text-accent" />
-                Materiales Adicionales
-              </CardTitle>
-              <CardDescription>Sube y organiza recursos educativos complementarios.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Comparte archivos, videos y enlaces.</p>
-              <Button asChild variant="outline">
-                <Link href="#">Subir Material</Link>
-              </Button>
-               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
 
