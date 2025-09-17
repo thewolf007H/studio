@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Users, UploadCloud, PieChart, Edit, UserCog, ClipboardCheck, Clock } from 'lucide-react';
+import { Users, UploadCloud, PieChart, Edit, UserCog, ClipboardCheck, Clock, CalendarCheck } from 'lucide-react';
 import { CalendarSection } from '@/components/calendar/calendar-section';
 import { Separator } from '@/components/ui/separator';
 
@@ -25,14 +25,30 @@ export default function ProfesorPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
+                <CalendarCheck className="mr-2 h-6 w-6 text-accent" />
+                Registro de Asistencia
+              </CardTitle>
+              <CardDescription>Toma lista, registra notas y gestiona el informe mensual.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Accede a la lista de tus alumnos para el registro diario.</p>
+              <Button asChild variant="default" className="w-full">
+                <Link href="/profesores/asistencia">Pasar Lista</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
                 <Edit className="mr-2 h-6 w-6 text-accent" />
                 Gestionar Aula Virtual
               </CardTitle>
-              <CardDescription>Define el temario, toma asistencia y administra el contenido.</CardDescription>
+              <CardDescription>Define el temario y administra el contenido del curso.</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Configura los módulos de aprendizaje para tus alumnos.</p>
-              <Button asChild variant="default" className="w-full">
+              <Button asChild variant="outline" className="w-full">
                 <Link href="/profesores/aula-virtual">Ir a Gestión del Aula</Link>
               </Button>
             </CardContent>
