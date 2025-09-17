@@ -1,15 +1,11 @@
 
 import { Header } from '@/components/layout/header';
 import { CourseInfoSection } from '@/components/course/course-info-section';
-import { QuizSection } from '@/components/quiz/quiz-section';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Users, Briefcase, Landmark, Sparkles, Languages, BookMarked } from 'lucide-react';
-import { WordSearchSection } from '@/components/word-search/word-search-section';
-import { TranslatorSection } from '@/components/translator/TranslatorSection';
-import { DictionarySection } from '@/components/dictionary/DictionarySection';
+import { Briefcase, Landmark, Sparkles } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -43,24 +39,8 @@ export default function HomePage() {
                 
         <Separator className="my-12" />
 
-        <section id="ai-tools" className="py-12">
-           <h2 className="text-3xl font-bold font-headline text-center mb-8">Herramientas de IA para tu Aprendizaje</h2>
-           <div className="grid lg:grid-cols-2 gap-8 items-start">
-             <DictionarySection />
-             <TranslatorSection />
-           </div>
-        </section>
-        
-        <Separator className="my-12" />
-
-        <WordSearchSection />
-        
-        <QuizSection />
-
-        <Separator className="my-12" />
-
         <section id="portals" className="py-12">
-          <h2 className="text-3xl font-bold font-headline text-center mb-8">Tu Viaje al Dominio del Inglés Comienza Aquí</h2>
+          <h2 className="text-3xl font-bold font-headline text-center mb-8">Nuestros Portales</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>

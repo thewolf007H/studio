@@ -3,8 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { UploadCloud, PieChart, Edit, UserCog, ClipboardCheck, Clock, CalendarCheck } from 'lucide-react';
-import { CalendarSection } from '@/components/calendar/calendar-section';
+import { UserCog, ClipboardCheck, Clock, CalendarCheck } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 export default function ProfesorPage() {
@@ -86,11 +85,6 @@ export default function ProfesorPage() {
             </CardContent>
           </Card>
         </div>
-
-        <Separator className="my-12" />
-
-        <CalendarSection isEditable={true} />
-
       </main>
       <footer className="py-6 border-t mt-12">
         <div className="container text-center text-sm text-muted-foreground">
