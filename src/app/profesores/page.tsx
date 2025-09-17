@@ -70,23 +70,6 @@ export default function ProfesorPage() {
             </CardContent>
           </Card>
 
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl font-headline">
-                <PieChart className="mr-2 h-6 w-6 text-accent" />
-                Analíticas
-              </CardTitle>
-              <CardDescription>Visualiza estadísticas de tus cursos.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Métricas de participación y rendimiento.</p>
-              <Button asChild variant="outline">
-                <Link href="#">Ver Analíticas</Link>
-              </Button>
-               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
-            </CardContent>
-          </Card>
-
           <Card className="shadow-lg hover:shadow-xl transition-shadow md:col-span-2 lg:col-span-1">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
