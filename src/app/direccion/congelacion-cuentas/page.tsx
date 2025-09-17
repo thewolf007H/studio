@@ -77,6 +77,7 @@ export default function DireccionCongelacionCuentasPage() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Nombre del Alumno</TableHead>
+                      <TableHead>Curso</TableHead>
                       <TableHead>Último Pago</TableHead>
                       <TableHead>Días de Retraso</TableHead>
                       <TableHead>Deuda Pendiente</TableHead>
@@ -87,6 +88,7 @@ export default function DireccionCongelacionCuentasPage() {
                     {alumnosConDeuda.map(alumno => (
                       <TableRow key={alumno.id} className="hover:bg-secondary/50 transition-colors">
                         <TableCell className="font-medium">{alumno.nombre}</TableCell>
+                        <TableCell className="text-muted-foreground">{alumno.curso}</TableCell>
                         <TableCell className="text-muted-foreground">{alumno.ultimoPago}</TableCell>
                         <TableCell>
                           <Badge variant="destructive">{alumno.diasRetraso} días</Badge>
