@@ -7,13 +7,10 @@ import {
   Landmark, 
   UsersRound, 
   FileSearch, 
-  BarChartBig, 
   Megaphone, 
   CreditCard, 
   CalendarCog, 
-  LayoutDashboard, 
   Banknote,
-  UserPlus,
   ClipboardList,
   Replace,
   CalendarClock,
@@ -72,38 +69,6 @@ export default function DireccionPage() {
           </Card>
           
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl font-headline">
-                <BarChartBig className="mr-2 h-6 w-6 text-accent" />
-                Reportes y Estadísticas
-              </CardTitle>
-              <CardDescription>Consulta informes detallados sobre el rendimiento académico.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Genera reportes de inscripción, progreso de alumnos y efectividad de los cursos.</p>
-              <Button asChild className="w-full">
-                <Link href="/direccion/reportes-estadisticas">Ver Reportes</Link>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl font-headline">
-                <LayoutDashboard className="mr-2 h-6 w-6 text-accent" />
-                Dashboard General (KPIs)
-              </CardTitle>
-              <CardDescription>Visualiza indicadores clave de rendimiento de la institución.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Monitoriza métricas importantes en tiempo real para la toma de decisiones estratégicas.</p>
-              <Button asChild className="w-full">
-                <Link href="/direccion/dashboard-kpi">Acceder al Dashboard</Link>
-              </Button>
-            </CardContent>
-          </Card>
-
-           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <GraduationCap className="mr-2 h-6 w-6 text-accent" />
@@ -276,23 +241,6 @@ export default function DireccionPage() {
               <Button asChild className="w-full">
                 <Link href="/direccion/congelacion-cuentas">Congelar Cuenta</Link>
               </Button>
-            </CardContent>
-          </Card>
-
-           <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl font-headline">
-                <UserPlus className="mr-2 h-6 w-6 text-accent" />
-                Registro de Personas
-              </CardTitle>
-              <CardDescription>Registra nuevos estudiantes o personal en el sistema.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Crea un perfil base para cualquier persona que interactuará con el instituto.</p>
-              <Button asChild className="w-full" disabled>
-                <Link href="/direccion/registro-personas">Registrar Persona</Link>
-              </Button>
-               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
 
