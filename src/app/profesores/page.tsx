@@ -57,19 +57,35 @@ export default function ProfesorPage() {
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <Clock className="mr-2 h-6 w-6 text-accent" />
-                Registro de Horas
+                Registro de Horas (Semanal)
               </CardTitle>
-              <CardDescription>Registra y valida tus horas de clase y actividades.</CardDescription>
+              <CardDescription>Completa tu informe de clases de lunes a viernes.</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Completa tu informe semanal de horas para la gestión administrativa.</p>
+              <p className="text-sm text-muted-foreground mb-4">Registra tu avance y horas para la gestión administrativa.</p>
               <Button asChild variant="outline">
-                <Link href="/profesores/registro-horas">Registrar Horas</Link>
+                <Link href="/profesores/registro-horas">Registrar Horas (L-V)</Link>
               </Button>
             </CardContent>
           </Card>
 
-          <Card className="shadow-lg hover:shadow-xl transition-shadow md:col-span-2 lg:col-span-1">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <Clock className="mr-2 h-6 w-6 text-accent" />
+                Registro de Horas (Sábados)
+              </CardTitle>
+              <CardDescription>Completa tu informe de clases de los sábados.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Registra tus actividades y horas de las clases sabatinas.</p>
+              <Button asChild variant="outline">
+                <Link href="/profesores/registro-horas-sabado">Registrar Horas (Sáb.)</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <UserCog className="mr-2 h-6 w-6 text-accent" />

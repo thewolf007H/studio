@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import Link from 'next/link';
 import { ChevronLeft, Clock, Save, PlusCircle } from 'lucide-react';
-import { WeekdayClassReportCard, type WeekdayClassReportData } from '@/components/reports/WeekdayClassReportCard';
+import { SaturdayClassReportCard, type SaturdayClassReportData } from '@/components/reports/SaturdayClassReportCard';
 import { useToast } from '@/hooks/use-toast';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -18,37 +18,21 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-
-const reportData: WeekdayClassReportData = {
-  tipo_documento: "Weekday Class Report",
-  facilitador: "Pamela Altamirano Pozo",
-  nivel: "EF 1A",
-  modalidad: "Accelerated",
-  horario: "20:45–22:00",
-  fecha_inicio: "2024-08-25",
-  fecha_fin: "2024-10-22",
+const reportData: SaturdayClassReportData = {
+  tipo_documento: "Saturday Class Report",
+  facilitador: "Roger Urrutia",
+  nivel: "EF 5A",
+  horario: "09:00 - 12:00",
   mes: "September",
-  estructura_semanal: {
-    lunes: [
-      { tema: "Verbs", pagina: 1 }, { tema: "Time", pagina: 6 }, { pagina: 11 }, { pagina: 16 }, { pagina: 21 }, { pagina: 26 }
-    ],
-    martes: [
-      { tema: "School Stuff", pagina: 2 }, { tema: "Days & Months", pagina: 7 }, { pagina: 12 }, { pagina: 17 }, { pagina: 22 }, { pagina: 27 }
-    ],
-    miércoles: [
-      { tema: "Subject Pronouns", pagina: 3 }, { tema: "The Weather", pagina: 8 }, { pagina: 13 }, { pagina: 18 }, { pagina: 23 }, { pagina: 28 }
-    ],
-    jueves: [
-      { tema: "Clothes and Accessories", pagina: 4 }, { tema: "Computers and More", pagina: 9 }, { pagina: 14 }, { pagina: 19 }, { pagina: 24 }, { pagina: 29 }
-    ],
-    viernes: [
-      { tema: "The Sentence", pagina: 5 }, { tema: "Definite & Indefinite Articles", pagina: 10 }, { pagina: 15 }, { pagina: 20 }, { pagina: 25 }, { pagina: 30 }
-    ]
-  },
+  gestion: "2024",
+  estructura_semanal: [
+    { semana: 1, fecha: "2024-09-07", tema: "Review Unit 1-3", paginas: "15-20" },
+    { semana: 2, fecha: "2024-09-14", tema: "Present Perfect", paginas: "21-25" },
+    { semana: 3, fecha: "2024-09-21", tema: "Mid-Term Exam", paginas: "N/A" },
+    { semana: 4, fecha: "2024-09-28", tema: "Passive Voice", paginas: "26-30" },
+  ],
   observaciones: "",
-  registro_horas: {
-    lunes: "1.25", martes: "1.25", miércoles: "1.25", jueves: "1.25", viernes: "1.25"
-  }
+  total_horas_mes: 12
 };
 
 interface ActividadDiaria {
@@ -57,7 +41,7 @@ interface ActividadDiaria {
     horas: number;
 }
 
-export default function ProfesorRegistroHorasPage() {
+export default function ProfesorRegistroHorasSabadoPage() {
     const { toast } = useToast();
     const [observaciones, setObservaciones] = useState('');
     
@@ -69,10 +53,10 @@ export default function ProfesorRegistroHorasPage() {
     const [actividadesRegistradas, setActividadesRegistradas] = useState<ActividadDiaria[]>([]);
 
     const handleSave = () => {
-        console.log("Guardando registro de horas con observaciones:", observaciones);
+        console.log("Guardando registro de horas (sábados) con observaciones:", observaciones);
         toast({
-            title: "Registro de Horas Guardado",
-            description: "Tu informe de horas para el mes ha sido enviado para revisión.",
+            title: "Registro de Horas (Sábados) Guardado",
+            description: "Tu informe de horas sabatinas ha sido enviado para revisión.",
         });
     };
     
@@ -123,10 +107,10 @@ export default function ProfesorRegistroHorasPage() {
           <div className="absolute inset-0 opacity-[0.03] pattern-[0.8rem_0.8rem_#000000_radial-gradient(circle_at_center,_var(--tw-gradient-stops))] dark:opacity-[0.05] dark:pattern-[0.8rem_0.8rem_#ffffff_radial-gradient(circle_at_center,_var(--tw-gradient-stops))]"></div>
           <Clock className="mx-auto mb-4 h-14 w-14 md:h-16 md:w-16 text-primary" />
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-headline mb-3 text-primary">
-            Registro de Horas y Actividades (Semanal)
+            Registro de Horas (Sábados)
           </h1>
           <p className="text-md md:text-lg text-muted-foreground max-w-3xl mx-auto">
-            Registra tus actividades diarias y envía tu informe de horas de Lunes a Viernes a la administración.
+            Registra tus actividades y envía tu informe de horas para las clases de los sábados.
           </p>
         </div>
 
@@ -134,7 +118,7 @@ export default function ProfesorRegistroHorasPage() {
             <CardHeader className="flex-row justify-between items-center">
                 <div>
                     <CardTitle>Registro de Actividad Diaria</CardTitle>
-                    <CardDescription>Añade un nuevo registro por cada día trabajado.</CardDescription>
+                    <CardDescription>Añade un nuevo registro por cada sábado trabajado.</CardDescription>
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
@@ -142,9 +126,9 @@ export default function ProfesorRegistroHorasPage() {
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px] bg-card">
                         <DialogHeader>
-                            <DialogTitle>Registrar Nueva Actividad</DialogTitle>
+                            <DialogTitle>Registrar Nueva Actividad Sabatina</DialogTitle>
                             <DialogDescription>
-                                Selecciona la fecha y describe la actividad realizada y las horas trabajadas.
+                                Selecciona la fecha y describe la actividad y horas trabajadas.
                             </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
@@ -162,7 +146,7 @@ export default function ProfesorRegistroHorasPage() {
                                 <Label htmlFor="actividad">Actividad Realizada</Label>
                                 <Textarea 
                                     id="actividad"
-                                    placeholder="Ej: Preparación de clase, corrección de exámenes..."
+                                    placeholder="Ej: Taller de conversación, clase de refuerzo..."
                                     value={descripcionActividad}
                                     onChange={(e) => setDescripcionActividad(e.target.value)}
                                 />
@@ -172,7 +156,7 @@ export default function ProfesorRegistroHorasPage() {
                                 <Input 
                                     id="horas"
                                     type="number"
-                                    placeholder="Ej: 2.5"
+                                    placeholder="Ej: 3"
                                     value={horasActividad}
                                     onChange={(e) => setHorasActividad(e.target.value === '' ? '' : parseFloat(e.target.value))}
                                 />
@@ -209,26 +193,26 @@ export default function ProfesorRegistroHorasPage() {
                     </div>
                 ) : (
                     <div className="text-center py-6 border border-dashed rounded-md">
-                        <p className="text-muted-foreground">Aún no has registrado actividades.</p>
+                        <p className="text-muted-foreground">Aún no has registrado actividades sabatinas.</p>
                         <p className="text-sm text-muted-foreground">Usa el botón "Registrar Actividad" para empezar.</p>
                     </div>
                 )}
             </CardContent>
         </Card>
         
-        <Card className="shadow-lg bg-card max-w-6xl mx-auto">
+        <Card className="shadow-lg bg-card max-w-4xl mx-auto">
             <CardHeader>
-                <CardTitle>Informe Planificado de Clases - {reportData.mes}</CardTitle>
+                <CardTitle>Informe Planificado de Clases de Sábado - {reportData.mes}</CardTitle>
                 <CardDescription>Este es un resumen de tu planificación y horas para el mes actual.</CardDescription>
             </CardHeader>
             <CardContent>
-                <WeekdayClassReportCard data={reportData} />
+                <SaturdayClassReportCard data={reportData} />
 
                 <div className="mt-6">
                     <Label htmlFor="observaciones" className="font-semibold">Observaciones Generales del Informe</Label>
                     <Textarea 
                         id="observaciones"
-                        placeholder="Añade aquí cualquier comentario relevante sobre el informe mensual en general..."
+                        placeholder="Añade aquí cualquier comentario relevante sobre el informe mensual..."
                         value={observaciones}
                         onChange={(e) => setObservaciones(e.target.value)}
                         className="mt-2"
@@ -244,11 +228,10 @@ export default function ProfesorRegistroHorasPage() {
             </CardFooter>
         </Card>
 
-
       </main>
       <footer className="py-8 border-t mt-16 bg-card">
         <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} First Class Institute. Registro de Horas.
+          © {new Date().getFullYear()} First Class Institute. Registro de Horas (Sábados).
         </div>
       </footer>
     </div>
