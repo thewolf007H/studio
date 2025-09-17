@@ -28,6 +28,7 @@ const formSchema = z.object({
     nombres: z.string().min(2, "El nombre debe tener al menos 2 caracteres."),
     apellidos: z.string().min(2, "El apellido debe tener al menos 2 caracteres."),
     fecha_nacimiento: z.date({ required_error: "La fecha de nacimiento es requerida." }),
+    mayor_de_edad: z.enum(['Sí', 'No'], { required_error: "Selecciona una opción." }),
     cedula_identidad: z.string().min(5, "La cédula de identidad parece muy corta."),
     expedido: z.string().min(1, "Selecciona un departamento."),
     celular: z.string().regex(/^\d{7,8}$/, "Número de celular inválido (debe tener 7-8 dígitos)."),
@@ -36,7 +37,8 @@ const formSchema = z.object({
     telefono_referencia: z.string().optional(),
     profesion_ocupacion: z.string().optional(),
     nivel_estudios: z.string().optional(),
-    email: z.string().email("Email inválido.").optional().or(z.literal('')),
+    email_alumno: z.string().email("Email de alumno inválido.").optional().or(z.literal('')),
+    email_tutor: z.string().email("Email de tutor inválido.").optional().or(z.literal('')),
     nombre_padre_tutor: z.string().optional(),
     medio_entero: z.string().optional(),
     turno: z.enum(['Mañana', 'Tarde', 'Noche'], { required_error: "Selecciona un turno." }),
@@ -132,6 +134,12 @@ export default function InscripcionAlumnosPage() {
                                     </PopoverContent>
                                     </Popover><FormMessage /></FormItem>
                                 )} />
+                                 <FormField control={form.control} name="mayor_de_edad" render={({ field }) => (
+                                    <FormItem><FormLabel>¿Mayor de Edad?</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Selecciona..." /></SelectTrigger></FormControl>
+                                    <SelectContent><SelectItem value="Sí">Sí</SelectItem><SelectItem value="No">No</SelectItem></SelectContent>
+                                    </Select><FormMessage /></FormItem>
+                                )} />
                                 <FormField control={form.control} name="cedula_identidad" render={({ field }) => (
                                     <FormItem><FormLabel>Cédula de Identidad</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                                 )} />
@@ -172,8 +180,11 @@ export default function InscripcionAlumnosPage() {
                                 <FormField control={form.control} name="direccion" render={({ field }) => (
                                     <FormItem className="md:col-span-2"><FormLabel>Dirección</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                                 )} />
-                                <FormField control={form.control} name="email" render={({ field }) => (
-                                    <FormItem><FormLabel>Email</FormLabel><FormControl><Input type="email" {...field} /></FormControl><FormMessage /></FormItem>
+                               <FormField control={form.control} name="email_alumno" render={({ field }) => (
+                                    <FormItem><FormLabel>Email del Alumno</FormLabel><FormControl><Input type="email" {...field} /></FormControl><FormMessage /></FormItem>
+                                )} />
+                                <FormField control={form.control} name="email_tutor" render={({ field }) => (
+                                    <FormItem><FormLabel>Email del Padre/Tutor</FormLabel><FormControl><Input type="email" {...field} /></FormControl><FormMessage /></FormItem>
                                 )} />
                                 <FormField control={form.control} name="nombre_padre_tutor" render={({ field }) => (
                                     <FormItem><FormLabel>Nombre del Padre/Tutor</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
@@ -239,4 +250,3 @@ export default function InscripcionAlumnosPage() {
         </div>
     );
 }
-
