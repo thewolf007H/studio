@@ -19,7 +19,8 @@ import {
   CalendarClock,
   PiggyBank,
   Snowflake,
-  GraduationCap
+  GraduationCap,
+  Clock
 } from 'lucide-react';
 
 export default function DireccionPage() {
@@ -185,17 +186,16 @@ export default function DireccionPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
-                <UserPlus className="mr-2 h-6 w-6 text-accent" />
-                Registro de Personas
+                <Clock className="mr-2 h-6 w-6 text-accent" />
+                Horas Profesores
               </CardTitle>
-              <CardDescription>Registra nuevos estudiantes o personal en el sistema.</CardDescription>
+              <CardDescription>Supervisa los registros de horas y actividades de los profesores.</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Crea un perfil base para cualquier persona que interactuará con el instituto.</p>
-              <Button asChild className="w-full" disabled>
-                <Link href="/direccion/registro-personas">Registrar Persona</Link>
+              <p className="text-sm text-muted-foreground mb-4">Visualiza y filtra los informes de horas de clase del personal docente.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/horas-profesores">Supervisar Horas</Link>
               </Button>
-               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
 
@@ -278,6 +278,23 @@ export default function DireccionPage() {
               <Button asChild className="w-full">
                 <Link href="/direccion/congelacion-cuentas">Congelar Cuenta</Link>
               </Button>
+            </CardContent>
+          </Card>
+
+           <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <UserPlus className="mr-2 h-6 w-6 text-accent" />
+                Registro de Personas
+              </CardTitle>
+              <CardDescription>Registra nuevos estudiantes o personal en el sistema.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Crea un perfil base para cualquier persona que interactuará con el instituto.</p>
+              <Button asChild className="w-full" disabled>
+                <Link href="/direccion/registro-personas">Registrar Persona</Link>
+              </Button>
+               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
 

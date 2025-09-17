@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Users, UploadCloud, PieChart, Edit, UserCog, ClipboardCheck } from 'lucide-react';
+import { Users, UploadCloud, PieChart, Edit, UserCog, ClipboardCheck, Clock } from 'lucide-react';
 import { CalendarSection } from '@/components/calendar/calendar-section';
 import { Separator } from '@/components/ui/separator';
 
@@ -84,6 +84,22 @@ export default function ProfesorPage() {
               <p className="text-sm text-muted-foreground mb-4">Accede al sistema de calificaciones y gestiona el feedback.</p>
               <Button asChild variant="outline">
                 <Link href="/profesores/calificaciones">Gestionar Calificaciones</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <Clock className="mr-2 h-6 w-6 text-accent" />
+                Registro de Horas
+              </CardTitle>
+              <CardDescription>Registra y valida tus horas de clase y actividades.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Completa tu informe semanal de horas para la gestión administrativa.</p>
+              <Button asChild variant="outline">
+                <Link href="/profesores/registro-horas">Registrar Horas</Link>
               </Button>
             </CardContent>
           </Card>
