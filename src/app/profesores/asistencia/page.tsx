@@ -5,32 +5,51 @@ import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
-import { ChevronLeft, CalendarCheck, Check, Edit2 } from 'lucide-react';
+import { ChevronLeft, CalendarCheck, Check, Send } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
 
-const courseInfo = {
-  facilitador: "Ariel Berrios",
-  horario: "07:00 - 08:15",
-  modalidad: "VIRTUAL",
-  nivel: "EF 4.4",
-  mes: "Junio",
-  inicio: "19 de mayo de 2025",
-  examenFinal: "11 de julio de 2025",
-  entregaKardex: "14 de julio de 2025",
-  claseId: "13370777",
-};
 
-const initialStudents = [
-  { id: 1, nombre: "ARRIGA FLORES EVELIN", codigo: "9285", genero: "Z" },
-  { id: 2, nombre: "QUISPE LICONA ROSA", codigo: "9282", genero: "Z" },
-  { id: 3, nombre: "CONDORI MAMANI TATIANA", codigo: "9991", genero: "Z" },
-  { id: 4, nombre: "ARAGONDOÑA ZULEMA", codigo: "9984", genero: "Z" },
-  { id: 5, nombre: "ZEGARRA CAERO DANTZA", codigo: "10416", genero: "Z" },
-  { id: 6, nombre: "SALAZAR PARDO JUAN VICTOR", codigo: "8887", genero: "V" },
-  { id: 7, nombre: "TUCO DANA LAURA", codigo: "10308", genero: "Z" },
+const coursesData = [
+  {
+    id: "c1",
+    info: {
+      facilitador: "Ariel Berrios",
+      horario: "07:00 - 08:15",
+      modalidad: "VIRTUAL",
+      nivel: "EF 4.4",
+      mes: "Junio",
+      examenFinal: "11 de julio de 2025",
+      claseId: "13370777",
+    },
+    students: [
+      { id: 1, nombre: "ARRIGA FLORES EVELIN", codigo: "9285", genero: "Z" },
+      { id: 2, nombre: "QUISPE LICONA ROSA", codigo: "9282", genero: "Z" },
+      { id: 3, nombre: "CONDORI MAMANI TATIANA", codigo: "9991", genero: "Z" },
+      { id: 4, nombre: "ARAGONDOÑA ZULEMA", codigo: "9984", genero: "Z" },
+    ]
+  },
+  {
+    id: "c2",
+    info: {
+      facilitador: "Ariel Berrios",
+      horario: "08:30 - 09:45",
+      modalidad: "PRESENCIAL",
+      nivel: "EF 2.1",
+      mes: "Junio",
+      examenFinal: "12 de julio de 2025",
+      claseId: "13370888",
+    },
+    students: [
+      { id: 5, nombre: "ZEGARRA CAERO DANTZA", codigo: "10416", genero: "Z" },
+      { id: 6, nombre: "SALAZAR PARDO JUAN VICTOR", codigo: "8887", genero: "V" },
+      { id: 7, nombre: "TUCO DANA LAURA", codigo: "10308", genero: "Z" },
+    ]
+  }
 ];
+
 
 const attendanceDates = Array.from({ length: 27 - 11 + 1 }, (_, i) => 11 + i);
 const attendanceOptions = ['✓', 'A', 'P', 'L', 'D', 'C', 'H', 'X'];
@@ -48,8 +67,8 @@ interface Student {
   observaciones: string;
 }
 
-const initializeStudentData = (students: typeof initialStudents): Student[] => {
-  return students.map(s => ({
+const initializeStudentData = (studentsList: { id: number; nombre: string; codigo: string; genero: "Z" | "V" }[]): Student[] => {
+  return studentsList.map(s => ({
     ...s,
     asistencia: attendanceDates.reduce((acc, date) => {
       acc[date] = '';
@@ -62,7 +81,18 @@ const initializeStudentData = (students: typeof initialStudents): Student[] => {
 };
 
 export default function ProfesorAsistenciaPage() {
-  const [students, setStudents] = useState<Student[]>(() => initializeStudentData(initialStudents));
+  const { toast } = useToast();
+  const [selectedCourseId, setSelectedCourseId] = useState(coursesData[0].id);
+  
+  const selectedCourse = coursesData.find(c => c.id === selectedCourseId) || coursesData[0];
+  
+  const [students, setStudents] = useState<Student[]>(() => initializeStudentData(selectedCourse.students));
+
+  const handleCourseChange = (courseId: string) => {
+    const newCourse = coursesData.find(c => c.id === courseId)!;
+    setSelectedCourseId(courseId);
+    setStudents(initializeStudentData(newCourse.students));
+  };
 
   const handleAttendanceChange = (studentId: number, date: number, value: string) => {
     const finalValue = value === 'unselected' ? '' : (value as AttendanceStatus);
@@ -85,6 +115,15 @@ export default function ProfesorAsistenciaPage() {
 
   const calculateTotalAttendance = (asistencia: Record<number, AttendanceStatus | ''>) => {
     return Object.values(asistencia).filter(status => status === '✓').length;
+  };
+  
+  const handleSendReport = () => {
+    console.log("Enviando reporte para el curso:", selectedCourse.info.nivel);
+    console.log("Datos de estudiantes:", students);
+    toast({
+        title: "Reporte Enviado (Simulación)",
+        description: `El reporte de asistencia para el curso ${selectedCourse.info.nivel} ha sido enviado a dirección.`,
+    });
   };
 
   return (
@@ -110,26 +149,45 @@ export default function ProfesorAsistenciaPage() {
             Selecciona el estado de cada estudiante para registrar la asistencia diaria. Los totales se calculan automáticamente.
           </p>
         </div>
+        
+         <Card className="shadow-lg bg-card mb-8 max-w-sm">
+            <CardHeader>
+                <CardTitle>Seleccionar Curso</CardTitle>
+                <CardDescription>Elige el curso del cual deseas pasar lista.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Select value={selectedCourseId} onValueChange={handleCourseChange}>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Selecciona un curso..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {coursesData.map(course => (
+                            <SelectItem key={course.id} value={course.id}>{course.info.nivel} ({course.info.horario})</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </CardContent>
+        </Card>
 
         <Card className="shadow-lg bg-card mb-8">
           <CardHeader>
             <CardTitle>Información del Curso</CardTitle>
-            <CardDescription>Detalles generales del curso actual.</CardDescription>
+            <CardDescription>Detalles generales del curso seleccionado.</CardDescription>
           </CardHeader>
           <CardContent className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-sm">
-            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">Facilitador:</span> {courseInfo.facilitador}</div>
-            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">Horario:</span> {courseInfo.horario}</div>
-            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">Modalidad:</span> {courseInfo.modalidad}</div>
-            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">Nivel:</span> {courseInfo.nivel}</div>
-            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">Mes:</span> {courseInfo.mes}</div>
-            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">Examen Final:</span> {courseInfo.examenFinal}</div>
-            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">ID Clase:</span> {courseInfo.claseId}</div>
+            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">Facilitador:</span> {selectedCourse.info.facilitador}</div>
+            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">Horario:</span> {selectedCourse.info.horario}</div>
+            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">Modalidad:</span> {selectedCourse.info.modalidad}</div>
+            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">Nivel:</span> {selectedCourse.info.nivel}</div>
+            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">Mes:</span> {selectedCourse.info.mes}</div>
+            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">Examen Final:</span> {selectedCourse.info.examenFinal}</div>
+            <div className="p-3 bg-secondary/30 rounded-md"><span className="font-semibold text-muted-foreground">ID Clase:</span> {selectedCourse.info.claseId}</div>
           </CardContent>
         </Card>
 
         <Card className="shadow-lg bg-card">
           <CardHeader>
-            <CardTitle>Lista de Estudiantes - {courseInfo.mes}</CardTitle>
+            <CardTitle>Lista de Estudiantes - {selectedCourse.info.mes}</CardTitle>
             <CardDescription>Haz clic en cada celda para registrar la asistencia.</CardDescription>
           </CardHeader>
           <CardContent className="overflow-x-auto">
@@ -206,6 +264,13 @@ export default function ProfesorAsistenciaPage() {
               </p>
           </CardContent>
         </Card>
+        
+        <div className="mt-8 flex justify-end">
+            <Button size="lg" onClick={handleSendReport}>
+                <Send className="mr-2 h-5 w-5"/>
+                Enviar Reporte de Asistencia
+            </Button>
+        </div>
       </main>
       <footer className="py-8 border-t mt-16 bg-card">
         <div className="container text-center text-sm text-muted-foreground">
@@ -215,3 +280,5 @@ export default function ProfesorAsistenciaPage() {
     </div>
   );
 }
+
+    
