@@ -41,22 +41,6 @@ export default function ProfesorPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
-                <Edit className="mr-2 h-6 w-6 text-accent" />
-                Gestionar Aula Virtual
-              </CardTitle>
-              <CardDescription>Define el temario y administra el contenido del curso.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Configura los módulos de aprendizaje para tus alumnos.</p>
-              <Button asChild variant="outline" className="w-full">
-                <Link href="/profesores/aula-virtual">Ir a Gestión del Aula</Link>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl font-headline">
                 <ClipboardCheck className="mr-2 h-6 w-6 text-accent" />
                 Calificaciones y Feedback
               </CardTitle>
