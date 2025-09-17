@@ -11,9 +11,6 @@ export function Header() {
           <Link href="/" className="text-2xl font-bold font-headline text-primary">First Class Institute</Link>
         </div>
         <nav className="flex items-center space-x-4 md:space-x-6">
-          <Link href="/alumnos" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-            Alumnos
-          </Link>
           <Link href="/profesores" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
             Profesores
           </Link>

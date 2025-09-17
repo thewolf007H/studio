@@ -61,24 +61,7 @@ export default function HomePage() {
 
         <section id="portals" className="py-12">
           <h2 className="text-3xl font-bold font-headline text-center mb-8">Tu Viaje al Dominio del Inglés Comienza Aquí</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="shadow-lg hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <CardTitle className="flex items-center text-2xl font-headline">
-                  <Users className="mr-3 h-7 w-7 text-primary" />
-                  Portal del Alumno
-                </CardTitle>
-                <CardDescription>Tu espacio personalizado para aprender y crecer.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  Accede a tus cursos, sigue tu progreso, interactúa con materiales de estudio y organiza tu calendario de aprendizaje.
-                </p>
-                <Button asChild className="w-full">
-                  <Link href="/alumnos">Acceder como Alumno</Link>
-                </Button>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-2 gap-8">
             <Card className="shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>
                 <CardTitle className="flex items-center text-2xl font-headline">
