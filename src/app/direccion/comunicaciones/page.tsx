@@ -78,7 +78,6 @@ export default function DireccionComunicacionesPage() {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="general">General (Todos los usuarios)</SelectItem>
-                                <SelectItem value="alumnos">Solo Alumnos</SelectItem>
                                 <SelectItem value="profesores">Solo Profesores</SelectItem>
                             </SelectContent>
                         </Select>
