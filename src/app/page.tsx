@@ -1,90 +1,77 @@
 
-import { Header } from '@/components/layout/header';
-import { CourseInfoSection } from '@/components/course/course-info-section';
-import { Separator } from '@/components/ui/separator';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Briefcase, Landmark, Sparkles } from 'lucide-react';
+import { Briefcase, Landmark, Apple } from 'lucide-react';
 
-export default function HomePage() {
+export default function LoginPage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow container mx-auto px-4 py-8">
-
-        <section className="mb-16">
-          <div className="relative text-center p-8 md:p-12 bg-gradient-to-br from-primary via-primary/80 to-accent rounded-xl shadow-2xl overflow-hidden border border-primary/30">
-            <div className="absolute inset-0 opacity-[0.04] pattern-[0.8rem_0.8rem_#ffffff_radial-gradient(circle_at_center,_var(--tw-gradient-stops))]"></div>
-            <Sparkles className="mx-auto mb-4 h-14 w-14 md:h-16 md:w-16 text-white animate-pulse" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-headline mb-4 text-white drop-shadow-md">
-              ¡Hola Futuro Bilingüe!
+    <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-background via-secondary to-secondary/80 p-4">
+      <div className="w-full max-w-md mx-auto">
+        <Card className="shadow-2xl border-primary/10">
+          <CardHeader className="text-center p-8 bg-gradient-to-br from-primary via-primary/90 to-accent rounded-t-lg">
+            <div className="mx-auto bg-white/20 p-4 rounded-full w-fit mb-4 backdrop-blur-sm">
+                <Apple className="h-12 w-12 text-white" />
+            </div>
+            <h1 className="text-3xl font-bold font-headline text-white drop-shadow-md">
+              First Class Institute
             </h1>
-            <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed drop-shadow-sm">
-              Estás a un paso de transformar tu mundo con el inglés. <span className="font-semibold">First Class Institute</span> te da la bienvenida a una experiencia de aprendizaje única y emocionante.
+            <p className="text-primary-foreground/90 drop-shadow-sm">
+              Plataforma de Gestión Académica
             </p>
-          </div>
-        </section>
-
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold font-headline mb-4">
-            Descubre <span className="text-primary">First Class Institute</span>
-          </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Tu plataforma interactiva para aprender inglés, potenciada por inteligencia artificial. Explora cursos, organiza tu aprendizaje y ponte a prueba.
-          </p>
-        </div>
-        
-        <CourseInfoSection />
-                
-        <Separator className="my-12" />
-
-        <section id="portals" className="py-12">
-          <h2 className="text-3xl font-bold font-headline text-center mb-8">Nuestros Portales</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="shadow-lg hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <CardTitle className="flex items-center text-2xl font-headline">
-                  <Briefcase className="mr-3 h-7 w-7 text-primary" />
-                  Portal del Profesor
-                </CardTitle>
-                <CardDescription>Herramientas para gestionar y enriquecer tus clases.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  Administra tus cursos, gestiona estudiantes, sube materiales educativos y sigue el rendimiento de tus alumnos.
-                </p>
-                <Button asChild className="w-full">
-                  <Link href="/profesores">Acceder como Profesor</Link>
+          </CardHeader>
+          <CardContent className="p-8 space-y-6">
+            <p className="text-center text-muted-foreground">
+              Selecciona tu rol para continuar
+            </p>
+            <div className="flex flex-col space-y-4">
+                <Button asChild size="lg" className="h-14 text-lg font-semibold transform hover:scale-105 transition-transform duration-300">
+                    <Link href="/profesores">
+                        <Briefcase className="mr-3 h-6 w-6" />
+                        Acceder como Profesor
+                    </Link>
                 </Button>
-              </CardContent>
-            </Card>
-            <Card className="shadow-lg hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <CardTitle className="flex items-center text-2xl font-headline">
-                  <Landmark className="mr-3 h-7 w-7 text-primary" />
-                  Portal de Dirección
-                </CardTitle>
-                <CardDescription>Supervisión y gestión académica general.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  Accede a reportes, gestiona personal docente y supervisa el progreso general de la institución.
-                </p>
-                <Button asChild className="w-full">
-                  <Link href="/direccion">Acceder como Dirección</Link>
+                <Button asChild size="lg" variant="outline" className="h-14 text-lg font-semibold transform hover:scale-105 transition-transform duration-300">
+                    <Link href="/direccion">
+                        <Landmark className="mr-3 h-6 w-6" />
+                        Acceder como Dirección
+                    </Link>
                 </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-      </main>
-      <footer className="py-6 border-t mt-12">
-        <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} First Class Institute. Todos los derechos reservados.
-        </div>
-      </footer>
-    </div>
+            </div>
+          </CardContent>
+           <CardFooter>
+            <p className="text-xs text-muted-foreground text-center w-full">
+              © {new Date().getFullYear()} First Class Institute. Todos los derechos reservados.
+            </p>
+          </CardFooter>
+        </Card>
+      </div>
+    </main>
   );
 }
+
+// Re-usando componentes de ShadCN para mantener consistencia
+// Estos componentes no se importan directamente pero se asume su estilo y estructura
+const Card = ({ children, className }: { children: React.ReactNode, className?: string }) => (
+  <div className={`rounded-xl bg-card text-card-foreground overflow-hidden ${className}`}>{children}</div>
+);
+
+const CardHeader = ({ children, className }: { children: React.ReactNode, className?: string }) => (
+  <div className={`p-6 ${className}`}>{children}</div>
+);
+
+const CardContent = ({ children, className }: { children: React.ReactNode, className?: string }) => (
+  <div className={`p-6 ${className}`}>{children}</div>
+);
+
+const CardFooter = ({ children, className }: { children: React.ReactNode, className?: string }) => (
+  <div className={`p-4 border-t ${className}`}>{children}</div>
+);
+
+const Button = ({ children, asChild, size, variant, className }: { children: React.ReactNode, asChild?: boolean, size?: string, variant?: string, className?: string }) => {
+  const Comp = asChild ? 'div' : 'button';
+  // Esta es una simulación del estilo de los botones de ShadCN para que funcione en este contexto
+  const baseStyle = "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+  const variantStyle = variant === 'outline'
+    ? "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+    : "bg-primary text-primary-foreground hover:bg-primary/90";
+  return <Comp className={`${baseStyle} ${variantStyle} ${className}`}>{children}</Comp>;
+};
