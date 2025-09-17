@@ -241,10 +241,9 @@ export default function DireccionPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Modifica las fechas de cursada de un estudiante por motivos excepcionales.</p>
-              <Button asChild className="w-full" disabled>
+              <Button asChild className="w-full">
                 <Link href="/direccion/cambio-fecha">Cambiar Fecha</Link>
               </Button>
-               <p className="text-xs text-muted-foreground mt-2 text-center">(Funcionalidad en desarrollo)</p>
             </CardContent>
           </Card>
           
