@@ -17,7 +17,8 @@ import {
   PiggyBank,
   Snowflake,
   GraduationCap,
-  Clock
+  Clock,
+  BookUser
 } from 'lucide-react';
 
 export default function DireccionPage() {
@@ -240,6 +241,22 @@ export default function DireccionPage() {
               <p className="text-sm text-muted-foreground mb-4">Administra las solicitudes de congelación de matrícula de los estudiantes.</p>
               <Button asChild className="w-full">
                 <Link href="/direccion/congelacion-cuentas">Congelar Cuenta</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <BookUser className="mr-2 h-6 w-6 text-accent" />
+                Asignar Cursos a Alumnos
+              </CardTitle>
+              <CardDescription>Matricula a un estudiante en un nuevo curso ofertado.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Busca un estudiante y asígnale un curso de la lista de disponibles para el ciclo.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/asignar-cursos">Asignar Curso</Link>
               </Button>
             </CardContent>
           </Card>
