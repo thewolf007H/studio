@@ -22,14 +22,21 @@ const initialStudentData = {
     fechaInscripcion: "15/01/2025",
     fechaInicioClases: "19/05/2025",
     fechaUltimoPago: "10/05/2025",
-    curso: "ENGLISH FIRST 4.4",
+    curso: "ENGLISH FIRST 4.4 - Tarde (16:15 - 17:30)",
     profesor: "Prf. Ariel Berrios",
-    turno: "mañana",
+    turno: "tarde",
     status: "EPSILON - ACELERADO",
     modalidad: "ACELERADO",
     tarifa: "EPSILON-ACEL",
     matricula: "SIN MATRÍCULA",
 };
+
+const coursesWithSchedules = [
+    { id: "c1", name: "ENGLISH FIRST 4.4 - Mañana (08:00 - 09:15)" },
+    { id: "c2", name: "ENGLISH FIRST 4.4 - Tarde (16:15 - 17:30)" },
+    { id: "c3", name: "EPSILON - ACELERADO - Noche (20:45 - 22:00)" },
+    { id: "c4", name: "TOEFL Prep - Sábados (09:00 - 12:00)" },
+];
 
 export default function DireccionRegistroPagosPage() {
   const [studentData, setStudentData] = useState(initialStudentData);
@@ -141,7 +148,19 @@ export default function DireccionRegistroPagosPage() {
               <div className="space-y-1"><Label htmlFor="fechaInscripcion">Fecha de inscripción</Label><Input id="fechaInscripcion" value={studentData.fechaInscripcion} onChange={handleStudentDataChange} disabled={!isEditing} /></div>
               <div className="space-y-1"><Label htmlFor="fechaInicioClases">Fecha de inicio de clases</Label><Input id="fechaInicioClases" value={studentData.fechaInicioClases} onChange={handleStudentDataChange} disabled={!isEditing} /></div>
               <div className="space-y-1"><Label htmlFor="fechaUltimoPago">Fecha del último pago</Label><Input id="fechaUltimoPago" value={studentData.fechaUltimoPago} onChange={handleStudentDataChange} disabled={!isEditing} /></div>
-              <div className="space-y-1"><Label htmlFor="curso">Curso</Label><Input id="curso" value={studentData.curso} onChange={handleStudentDataChange} disabled={!isEditing} /></div>
+              
+              <div className="space-y-1">
+                  <Label htmlFor="curso">Curso y Horario</Label>
+                  <Select value={studentData.curso} onValueChange={(value) => setStudentData(prev => ({...prev, curso: value}))} disabled={!isEditing}>
+                      <SelectTrigger id="curso"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                          {coursesWithSchedules.map(course => (
+                              <SelectItem key={course.id} value={course.name}>{course.name}</SelectItem>
+                          ))}
+                      </SelectContent>
+                  </Select>
+              </div>
+
               <div className="space-y-1"><Label htmlFor="profesor">Profesor</Label><Input id="profesor" value={studentData.profesor} onChange={handleStudentDataChange} disabled={!isEditing} /></div>
               <div className="space-y-1">
                   <Label htmlFor="turno">Turno</Label>
