@@ -7,12 +7,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Link from 'next/link';
 import { ChevronLeft, Banknote, Search, Edit, Save, FileText } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
 
 const initialStudentData = {
     ci: "1234567",
@@ -36,13 +36,14 @@ export default function DireccionRegistroPagosPage() {
   const [paymentData, setPaymentData] = useState({
       mesPagado: 'JUNIO 2025',
       montoMensual: 500.00,
-      pagoAdelantado: "No",
+      mesesAdelantados: "1",
       numeroRecibo: "",
       numeroFactura: "",
       totalSeleccionado: 500.00,
       montoPagado: "",
       cambio: 0,
-      usuarioRegistro: "marian"
+      usuarioRegistro: "marian",
+      observaciones: "",
   });
   const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
@@ -57,12 +58,20 @@ export default function DireccionRegistroPagosPage() {
     }
   }, [paymentData.montoPagado, paymentData.totalSeleccionado]);
 
+  useEffect(() => {
+      const meses = parseInt(paymentData.mesesAdelantados, 10);
+      const monto = paymentData.montoMensual;
+      if (!isNaN(meses) && !isNaN(monto)) {
+          setPaymentData(prev => ({...prev, totalSeleccionado: meses * monto}));
+      }
+  }, [paymentData.mesesAdelantados, paymentData.montoMensual]);
+
   const handleStudentDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setStudentData(prev => ({...prev, [id]: value}));
   };
 
-  const handlePaymentDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePaymentDataChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setPaymentData(prev => ({...prev, [id]: value}));
   };
@@ -157,24 +166,41 @@ export default function DireccionRegistroPagosPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-4">
                   {/* Payment Fields */}
                   <div className="space-y-1 lg:col-span-2"><Label htmlFor="mesPagado">Mes pagado</Label><Input id="mesPagado" value={paymentData.mesPagado} onChange={handlePaymentDataChange} /></div>
-                  <div className="space-y-1"><Label htmlFor="montoMensual">Monto mensual</Label><Input type="number" id="montoMensual" value={paymentData.montoMensual} onChange={handlePaymentDataChange} /></div>
-                  <div className="space-y-2 pt-2">
-                      <Label>¿Pago adelantado?</Label>
-                      <RadioGroup value={paymentData.pagoAdelantado} onValueChange={(value) => setPaymentData(prev => ({...prev, pagoAdelantado: value}))} className="flex gap-4">
-                          <div className="flex items-center space-x-2"><RadioGroupItem value="Sí" id="adelantado-si" /><Label htmlFor="adelantado-si">Sí</Label></div>
-                          <div className="flex items-center space-x-2"><RadioGroupItem value="No" id="adelantado-no" /><Label htmlFor="adelantado-no">No</Label></div>
-                      </RadioGroup>
+                  <div className="space-y-1"><Label htmlFor="montoMensual">Monto mensual</Label><Input type="number" id="montoMensual" value={paymentData.montoMensual} onChange={(e) => setPaymentData(prev => ({ ...prev, montoMensual: parseFloat(e.target.value) || 0 }))} /></div>
+                  <div className="space-y-1">
+                      <Label htmlFor="mesesAdelantados">Pago Adelantado</Label>
+                      <Select value={paymentData.mesesAdelantados} onValueChange={(value) => setPaymentData(prev => ({...prev, mesesAdelantados: value}))}>
+                          <SelectTrigger id="mesesAdelantados"><SelectValue /></SelectTrigger>
+                          <SelectContent>
+                              <SelectItem value="1">1 Mes (Pago Regular)</SelectItem>
+                              <SelectItem value="2">2 Meses</SelectItem>
+                              <SelectItem value="3">3 Meses</SelectItem>
+                              <SelectItem value="4">4 Meses</SelectItem>
+                              <SelectItem value="5">5 Meses</SelectItem>
+                              <SelectItem value="6">6 Meses</SelectItem>
+                          </SelectContent>
+                      </Select>
                   </div>
                 </div>
                 <Separator/>
-                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-4">
+                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-4 items-start">
                   <div className="space-y-1"><Label htmlFor="numeroRecibo">Número de recibo</Label><Input id="numeroRecibo" value={paymentData.numeroRecibo} onChange={handlePaymentDataChange} /></div>
-                  <div className="space-y-1 lg:col-span-3"><Label htmlFor="numeroFactura">Número de factura</Label><Input id="numeroFactura" value={paymentData.numeroFactura} onChange={handlePaymentDataChange} /></div>
+                  <div className="space-y-1"><Label htmlFor="numeroFactura">Número de factura</Label><Input id="numeroFactura" value={paymentData.numeroFactura} onChange={handlePaymentDataChange} /></div>
                   
                   <div className="space-y-1"><Label htmlFor="totalSeleccionado">Total seleccionado</Label><Input id="totalSeleccionado" value={paymentData.totalSeleccionado.toFixed(2)} readOnly className="font-bold bg-secondary/30" /></div>
                   <div className="space-y-1"><Label htmlFor="montoPagado">Monto pagado</Label><Input type="number" id="montoPagado" value={paymentData.montoPagado} onChange={handlePaymentDataChange} placeholder="0.00"/></div>
                   <div className="space-y-1"><Label htmlFor="cambio">Cambio</Label><Input id="cambio" value={paymentData.cambio.toFixed(2)} readOnly className="font-bold bg-secondary/30"/></div>
                   <div className="space-y-1"><Label htmlFor="usuarioRegistro">Usuario registro</Label><Input id="usuarioRegistro" value={paymentData.usuarioRegistro} readOnly className="bg-secondary/30"/></div>
+                  
+                  <div className="space-y-1 lg:col-span-2">
+                    <Label htmlFor="observaciones">Observaciones del Pago</Label>
+                    <Textarea 
+                      id="observaciones" 
+                      placeholder="Ej: Descuento aplicado, pago parcial..." 
+                      value={paymentData.observaciones}
+                      onChange={handlePaymentDataChange}
+                    />
+                  </div>
                 </div>
             </CardContent>
             <CardFooter>
@@ -193,3 +219,5 @@ export default function DireccionRegistroPagosPage() {
     </div>
   );
 }
+
+    
