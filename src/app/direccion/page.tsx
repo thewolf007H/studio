@@ -261,6 +261,22 @@ export default function DireccionPage() {
             </CardContent>
           </Card>
 
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <Clock className="mr-2 h-6 w-6 text-accent" />
+                Cambio de Horario
+              </CardTitle>
+              <CardDescription>Asigna un nuevo horario a un estudiante para un curso.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Modifica el horario de un estudiante en su curso actual por motivos excepcionales.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/cambio-horario">Cambiar Horario</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
         </div>
         
       </main>
