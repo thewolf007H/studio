@@ -8,8 +8,6 @@ import {
   UsersRound, 
   FileSearch, 
   Megaphone, 
-  CreditCard, 
-  CalendarCog, 
   Banknote,
   ClipboardList,
   Replace,
@@ -104,22 +102,6 @@ export default function DireccionPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
-                <CreditCard className="mr-2 h-6 w-6 text-accent" />
-                Matrículas y Pagos
-              </CardTitle>
-              <CardDescription>Supervisa el proceso de inscripción y el estado de los pagos.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Visualiza matrículas, gestiona cobros y accede a reportes financieros básicos.</p>
-              <Button asChild className="w-full">
-                <Link href="/direccion/matriculas-pagos">Ver Matrículas y Pagos</Link>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl font-headline">
                 <Banknote className="mr-2 h-6 w-6 text-accent" />
                 Registro de Pagos
               </CardTitle>
@@ -133,22 +115,6 @@ export default function DireccionPage() {
             </CardContent>
           </Card>
           
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl font-headline">
-                <CalendarCog className="mr-2 h-6 w-6 text-accent" />
-                Ciclos Académicos
-              </CardTitle>
-              <CardDescription>Configura periodos lectivos y la estructura académica.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Define semestres, trimestres, fechas importantes y la oferta de cursos por ciclo.</p>
-              <Button asChild className="w-full">
-                <Link href="/direccion/ciclos-academicos">Configurar Ciclos</Link>
-              </Button>
-            </CardContent>
-          </Card>
-
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
