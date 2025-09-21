@@ -42,6 +42,7 @@ const formSchema = z.object({
     nombre_padre_tutor: z.string().optional(),
     medio_entero: z.string().optional(),
     turno: z.enum(['Mañana', 'Tarde', 'Noche'], { required_error: "Selecciona un turno." }),
+    modalidad: z.enum(['Presencial', 'Virtual', 'Híbrida'], { required_error: "Selecciona una modalidad." }),
     nivel: z.string().min(1, "El nivel es requerido."),
     curso: z.string().min(1, "El curso es requerido."),
     promocion: z.enum(['Sí', 'No'], { required_error: "Selecciona una opción." }),
@@ -204,6 +205,12 @@ export default function InscripcionAlumnosPage() {
                                     <SelectContent><SelectItem value="Mañana">Mañana</SelectItem><SelectItem value="Tarde">Tarde</SelectItem><SelectItem value="Noche">Noche</SelectItem></SelectContent>
                                     </Select><FormMessage /></FormItem>
                                 )} />
+                                <FormField control={form.control} name="modalidad" render={({ field }) => (
+                                    <FormItem><FormLabel>Modalidad</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Selecciona..." /></SelectTrigger></FormControl>
+                                    <SelectContent><SelectItem value="Presencial">Presencial</SelectItem><SelectItem value="Virtual">Virtual</SelectItem><SelectItem value="Híbrida">Híbrida</SelectItem></SelectContent>
+                                    </Select><FormMessage /></FormItem>
+                                )} />
                                 <FormField control={form.control} name="nivel" render={({ field }) => (
                                     <FormItem><FormLabel>Nivel</FormLabel><FormControl><Input placeholder="Ej: 3.0" {...field} /></FormControl><FormMessage /></FormItem>
                                 )} />
@@ -240,7 +247,7 @@ export default function InscripcionAlumnosPage() {
                                     </Select><FormMessage /></FormItem>
                                 )} />
                                 <FormField control={form.control} name="medio_entero" render={({ field }) => (
-                                    <FormItem className="md:col-span-2"><FormLabel>¿Cómo se enteró?</FormLabel><FormControl><Input placeholder="Ej: Redes sociales, recomendación" {...field} /></FormControl><FormMessage /></FormItem>
+                                    <FormItem className="lg:col-span-2"><FormLabel>¿Cómo se enteró?</FormLabel><FormControl><Input placeholder="Ej: Redes sociales, recomendación" {...field} /></FormControl><FormMessage /></FormItem>
                                 )} />
                                 <FormField control={form.control} name="comentarios" render={({ field }) => (
                                     <FormItem className="md:col-span-full"><FormLabel>Comentarios</FormLabel><FormControl><Textarea placeholder="Añade cualquier comentario adicional aquí..." {...field} /></FormControl><FormMessage /></FormItem>
@@ -265,3 +272,5 @@ export default function InscripcionAlumnosPage() {
         </div>
     );
 }
+
+    
