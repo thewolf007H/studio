@@ -15,6 +15,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { Textarea } from '@/components/ui/textarea';
 
 interface Alumno {
     id: string;
@@ -35,11 +36,14 @@ export default function CambioFechaPage() {
     const [selectedStudent, setSelectedStudent] = useState<Alumno | null>(null);
     const [fechaInicio, setFechaInicio] = useState<Date | undefined>();
     const [fechaFin, setFechaFin] = useState<Date | undefined>();
+    const [observaciones, setObservaciones] = useState('');
+
 
     const handleOpenDialog = (student: Alumno) => {
         setSelectedStudent(student);
         setFechaInicio(new Date(student.fechaInicio));
         setFechaFin(new Date(student.fechaFin));
+        setObservaciones('');
     };
     
     const handleSaveChanges = () => {
@@ -48,6 +52,8 @@ export default function CambioFechaPage() {
         console.log("Guardando cambios para:", selectedStudent.nombre);
         console.log("Nueva Fecha Inicio:", fechaInicio);
         console.log("Nueva Fecha Fin:", fechaFin);
+        console.log("Observaciones:", observaciones);
+
 
         toast({
             title: "Fechas Actualizadas (Simulación)",
@@ -55,6 +61,7 @@ export default function CambioFechaPage() {
         });
         
         // Aquí se cerraría el diálogo en una implementación real
+        document.querySelector('[aria-label="Close"]')?.click()
     };
 
     return (
@@ -122,26 +129,37 @@ export default function CambioFechaPage() {
                                                         <DialogHeader>
                                                             <DialogTitle>Cambiar Fechas para {selectedStudent?.nombre}</DialogTitle>
                                                             <DialogDescription>
-                                                                Selecciona las nuevas fechas de inicio y fin para el curso.
+                                                                Selecciona las nuevas fechas de inicio y fin, y añade una observación si es necesario.
                                                             </DialogDescription>
                                                         </DialogHeader>
-                                                        <div className="py-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                            <div className="space-y-2">
-                                                                <Label>Fecha de Inicio</Label>
-                                                                <Calendar 
-                                                                    mode="single"
-                                                                    selected={fechaInicio}
-                                                                    onSelect={setFechaInicio}
-                                                                    className="rounded-md border bg-background"
-                                                                />
+                                                        <div className="py-4 space-y-4">
+                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                                <div className="space-y-2">
+                                                                    <Label>Fecha de Inicio</Label>
+                                                                    <Calendar 
+                                                                        mode="single"
+                                                                        selected={fechaInicio}
+                                                                        onSelect={setFechaInicio}
+                                                                        className="rounded-md border bg-background"
+                                                                    />
+                                                                </div>
+                                                                <div className="space-y-2">
+                                                                    <Label>Fecha de Fin</Label>
+                                                                    <Calendar 
+                                                                        mode="single"
+                                                                        selected={fechaFin}
+                                                                        onSelect={setFechaFin}
+                                                                        className="rounded-md border bg-background"
+                                                                    />
+                                                                </div>
                                                             </div>
-                                                             <div className="space-y-2">
-                                                                <Label>Fecha de Fin</Label>
-                                                                <Calendar 
-                                                                    mode="single"
-                                                                    selected={fechaFin}
-                                                                    onSelect={setFechaFin}
-                                                                    className="rounded-md border bg-background"
+                                                            <div className="space-y-2">
+                                                                <Label htmlFor="observaciones">Observaciones (Opcional)</Label>
+                                                                <Textarea
+                                                                    id="observaciones"
+                                                                    placeholder="Ej: Ajuste por motivo de salud del estudiante."
+                                                                    value={observaciones}
+                                                                    onChange={(e) => setObservaciones(e.target.value)}
                                                                 />
                                                             </div>
                                                         </div>
