@@ -38,7 +38,6 @@ export default function DireccionRegistroPagosPage() {
       montoMensual: 500.00,
       pagoAdelantado: "No",
       numeroRecibo: "",
-      numeroAutorizacion: "",
       numeroFactura: "",
       totalSeleccionado: 500.00,
       montoPagado: "",
@@ -170,8 +169,7 @@ export default function DireccionRegistroPagosPage() {
                 <Separator/>
                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-4">
                   <div className="space-y-1"><Label htmlFor="numeroRecibo">Número de recibo</Label><Input id="numeroRecibo" value={paymentData.numeroRecibo} onChange={handlePaymentDataChange} /></div>
-                  <div className="space-y-1"><Label htmlFor="numeroAutorizacion">Número de autorización</Label><Input id="numeroAutorizacion" value={paymentData.numeroAutorizacion} onChange={handlePaymentDataChange} /></div>
-                  <div className="space-y-1 lg:col-span-2"><Label htmlFor="numeroFactura">Número de factura</Label><Input id="numeroFactura" value={paymentData.numeroFactura} onChange={handlePaymentDataChange} /></div>
+                  <div className="space-y-1 lg:col-span-3"><Label htmlFor="numeroFactura">Número de factura</Label><Input id="numeroFactura" value={paymentData.numeroFactura} onChange={handlePaymentDataChange} /></div>
                   
                   <div className="space-y-1"><Label htmlFor="totalSeleccionado">Total seleccionado</Label><Input id="totalSeleccionado" value={paymentData.totalSeleccionado.toFixed(2)} readOnly className="font-bold bg-secondary/30" /></div>
                   <div className="space-y-1"><Label htmlFor="montoPagado">Monto pagado</Label><Input type="number" id="montoPagado" value={paymentData.montoPagado} onChange={handlePaymentDataChange} placeholder="0.00"/></div>

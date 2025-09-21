@@ -46,6 +46,7 @@ const formSchema = z.object({
     curso: z.string().min(1, "El curso es requerido."),
     promocion: z.enum(['Sí', 'No'], { required_error: "Selecciona una opción." }),
     monto: z.coerce.number().positive("El monto debe ser un número positivo."),
+    meses_adelanto: z.string().optional(),
     sucursal: z.enum(['Zona Sur', 'Central', 'El Alto'], { required_error: "Selecciona una sucursal." }),
     comentarios: z.string().optional(),
 });
@@ -217,6 +218,20 @@ export default function InscripcionAlumnosPage() {
                                 )} />
                                 <FormField control={form.control} name="monto" render={({ field }) => (
                                     <FormItem><FormLabel>Monto</FormLabel><FormControl><Input type="number" {...field} /></FormControl><FormMessage /></FormItem>
+                                )} />
+                                <FormField control={form.control} name="meses_adelanto" render={({ field }) => (
+                                    <FormItem><FormLabel>Pago Adelantado</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl><SelectTrigger><SelectValue placeholder="1 Mes (Regular)" /></SelectTrigger></FormControl>
+                                        <SelectContent>
+                                            <SelectItem value="1">1 Mes (Pago Regular)</SelectItem>
+                                            <SelectItem value="2">2 Meses</SelectItem>
+                                            <SelectItem value="3">3 Meses</SelectItem>
+                                            <SelectItem value="4">4 Meses</SelectItem>
+                                            <SelectItem value="5">5 Meses</SelectItem>
+                                            <SelectItem value="6">6 Meses</SelectItem>
+                                        </SelectContent>
+                                    </Select><FormMessage /></FormItem>
                                 )} />
                                 <FormField control={form.control} name="sucursal" render={({ field }) => (
                                     <FormItem><FormLabel>Sucursal</FormLabel>
