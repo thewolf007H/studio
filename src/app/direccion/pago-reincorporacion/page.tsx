@@ -32,17 +32,17 @@ const initialFrozenStudents: AlumnoCongelado[] = [
     { id: "a5", nombre: "Ricardo Vega Soliz", cursoCongelado: "Inglés Intermedio B2 (2023-II)", fechaCongelacion: "2023-11-20", deuda: 1500 },
 ];
 
-export default function PagoRehabilitacionPage() {
+export default function PagoReincorporacionPage() {
     const { toast } = useToast();
     const [selectedStudent, setSelectedStudent] = useState<AlumnoCongelado | null>(null);
-    const [fechaRehabilitacion, setFechaRehabilitacion] = useState<Date>();
+    const [fechaReincorporacion, setFechaReincorporacion] = useState<Date>();
     const [fechaRetorno, setFechaRetorno] = useState<Date>();
 
     const handleRehabilitate = () => {
         // Logic to save the rehabilitation would go here
         toast({
-            title: "Cuenta Rehabilitada (Simulación)",
-            description: `La cuenta de ${selectedStudent?.nombre} ha sido marcada para rehabilitación.`
+            title: "Cuenta para Reincorporación (Simulación)",
+            description: `La cuenta de ${selectedStudent?.nombre} ha sido marcada para reincorporación.`
         });
         // Close dialog logic would be here
     }
@@ -64,7 +64,7 @@ export default function PagoRehabilitacionPage() {
                     <div className="absolute inset-0 opacity-[0.03] pattern-[0.8rem_0.8rem_#000000_radial-gradient(circle_at_center,_var(--tw-gradient-stops))] dark:opacity-[0.05] dark:pattern-[0.8rem_0.8rem_#ffffff_radial-gradient(circle_at_center,_var(--tw-gradient-stops))]"></div>
                     <PiggyBank className="mx-auto mb-4 h-14 w-14 md:h-16 md:w-16 text-primary" />
                     <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-headline mb-3 text-primary">
-                        Pago de Rehabilitación
+                        Pago de Reincorporación
                     </h1>
                     <p className="text-md md:text-lg text-muted-foreground max-w-3xl mx-auto">
                         Gestiona la reactivación de cuentas de estudiantes congeladas y registra los pagos correspondientes.
@@ -74,7 +74,7 @@ export default function PagoRehabilitacionPage() {
                 <Card className="shadow-lg bg-card">
                     <CardHeader>
                         <CardTitle>Cuentas Congeladas</CardTitle>
-                        <CardDescription>Lista de estudiantes con cuentas congeladas que son candidatos para rehabilitación.</CardDescription>
+                        <CardDescription>Lista de estudiantes con cuentas congeladas que son candidatos para reincorporación.</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="flex gap-2 mb-6">
@@ -105,27 +105,27 @@ export default function PagoRehabilitacionPage() {
                                                     <DialogTrigger asChild>
                                                         <Button variant="default" size="sm" onClick={() => setSelectedStudent(student)}>
                                                             <ShieldCheck className="mr-2 h-4 w-4"/>
-                                                            Rehabilitar Cuenta
+                                                            Reincorporar Cuenta
                                                         </Button>
                                                     </DialogTrigger>
                                                     <DialogContent className="sm:max-w-md bg-card">
                                                         <DialogHeader>
-                                                            <DialogTitle>Rehabilitar a: {selectedStudent?.nombre}</DialogTitle>
+                                                            <DialogTitle>Reincorporar a: {selectedStudent?.nombre}</DialogTitle>
                                                             <DialogDescription>
                                                                 Completa los campos para registrar el pago y la reactivación del estudiante.
                                                             </DialogDescription>
                                                         </DialogHeader>
                                                         <div className="py-4 space-y-4">
                                                             <div className="space-y-2">
-                                                                <Label htmlFor='rehab-date'>Fecha de Rehabilitación</Label>
+                                                                <Label htmlFor='rehab-date'>Fecha de Reincorporación</Label>
                                                                 <Popover>
                                                                     <PopoverTrigger asChild>
-                                                                        <Button variant={"outline"} className={cn("w-full justify-start text-left font-normal", !fechaRehabilitacion && "text-muted-foreground")}>
+                                                                        <Button variant={"outline"} className={cn("w-full justify-start text-left font-normal", !fechaReincorporacion && "text-muted-foreground")}>
                                                                             <CalendarIcon className="mr-2 h-4 w-4" />
-                                                                            {fechaRehabilitacion ? format(fechaRehabilitacion, "PPP", { locale: es }) : <span>Selecciona una fecha</span>}
+                                                                            {fechaReincorporacion ? format(fechaReincorporacion, "PPP", { locale: es }) : <span>Selecciona una fecha</span>}
                                                                         </Button>
                                                                     </PopoverTrigger>
-                                                                    <PopoverContent className="w-auto p-0"><Calendar mode="single" selected={fechaRehabilitacion} onSelect={setFechaRehabilitacion} initialFocus /></PopoverContent>
+                                                                    <PopoverContent className="w-auto p-0"><Calendar mode="single" selected={fechaReincorporacion} onSelect={setFechaReincorporacion} initialFocus /></PopoverContent>
                                                                 </Popover>
                                                             </div>
                                                             <div className="space-y-2">
@@ -151,7 +151,7 @@ export default function PagoRehabilitacionPage() {
                                                         </div>
                                                         <DialogFooter>
                                                             <Button type="button" variant="outline" onClick={() => document.querySelector('[aria-label="Close"]')?.click()}>Cancelar</Button>
-                                                            <Button type="submit" onClick={handleRehabilitate}>Confirmar Rehabilitación</Button>
+                                                            <Button type="submit" onClick={handleRehabilitate}>Confirmar Reincorporación</Button>
                                                         </DialogFooter>
                                                     </DialogContent>
                                                 </Dialog>
@@ -162,7 +162,7 @@ export default function PagoRehabilitacionPage() {
                             </Table>
                         </div>
                          <p className="text-xs text-muted-foreground mt-4 pt-3 border-t border-dashed">
-                          (La búsqueda y rehabilitación de cuentas son funcionalidades en desarrollo. Los datos son de ejemplo.)
+                          (La búsqueda y reincorporación de cuentas son funcionalidades en desarrollo. Los datos son de ejemplo.)
                         </p>
                     </CardContent>
                 </Card>
@@ -170,10 +170,9 @@ export default function PagoRehabilitacionPage() {
             </main>
             <footer className="py-8 border-t mt-16 bg-card">
                 <div className="container text-center text-sm text-muted-foreground">
-                    © {new Date().getFullYear()} First Class Institute. Gestión de Rehabilitaciones.
+                    © {new Date().getFullYear()} First Class Institute. Gestión de Reincorporaciones.
                 </div>
             </footer>
         </div>
     );
 }
-

@@ -183,14 +183,14 @@ export default function DireccionPage() {
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <PiggyBank className="mr-2 h-6 w-6 text-accent" />
-                Pago de Rehabilitación
+                Pago de Reincorporación
               </CardTitle>
               <CardDescription>Registra pagos para reactivar cuentas o cursos.</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Gestiona los pagos de estudiantes que desean reincorporarse tras una pausa.</p>
               <Button asChild className="w-full">
-                <Link href="/direccion/pago-rehabilitacion">Registrar Pago</Link>
+                <Link href="/direccion/pago-reincorporacion">Registrar Pago</Link>
               </Button>
             </CardContent>
           </Card>
