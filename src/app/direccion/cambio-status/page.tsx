@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -206,17 +205,17 @@ export default function DireccionCambioStatusPage() {
                             <Card key={nivel} className='bg-secondary/30'>
                                 <CardHeader className='p-4'>
                                     <CardTitle className='text-lg'>{nivel}</CardTitle>
-                                    {detalles.código && <CardDescription>Código: {detalles.código}</CardDescription>}
+                                    {'código' in detalles && <CardDescription>Código: {detalles.código}</CardDescription>}
                                 </CardHeader>
                                 <Separator />
                                 <CardContent className='p-4 space-y-2'>
                                      <div className="flex justify-between items-baseline">
                                         <span className="text-muted-foreground">Precio:</span>
-                                        <span className={`text-xl font-bold ${detalles.precio_descuento ? 'line-through text-muted-foreground' : 'text-primary'}`}>
+                                        <span className={`text-xl font-bold ${'precio_descuento' in detalles ? 'line-through text-muted-foreground' : 'text-primary'}`}>
                                             Bs {detalles.precio.toFixed(2)}
                                         </span>
                                     </div>
-                                    {detalles.precio_descuento && (
+                                    {'precio_descuento' in detalles && (
                                          <div className="flex justify-between items-baseline">
                                             <span className="text-muted-foreground">Con Descuento:</span>
                                             <span className="text-2xl font-bold text-green-600">Bs {detalles.precio_descuento.toFixed(2)}</span>
