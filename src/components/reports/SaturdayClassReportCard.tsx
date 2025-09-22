@@ -21,7 +21,7 @@ export interface SaturdayClassReportData {
   gestion: string;
   estructura_semanal: Semana[];
   observaciones: string;
-  total_horas_mes: number;
+  total_clases_mes: number;
 }
 
 interface SaturdayClassReportCardProps {
@@ -79,8 +79,8 @@ export function SaturdayClassReportCard({ data }: SaturdayClassReportCardProps) 
              <Separator/>
              <CardFooter className="p-4 flex justify-end">
                  <div className="p-3 bg-primary/10 rounded-lg border border-primary/20 text-center">
-                    <p className="text-sm font-semibold text-primary">Total Horas Mes</p>
-                    <p className="text-2xl font-bold text-primary">{data.total_horas_mes}h</p>
+                    <p className="text-sm font-semibold text-primary">Total Clases del Mes</p>
+                    <p className="text-2xl font-bold text-primary">{data.total_clases_mes}</p>
                 </div>
              </CardFooter>
         </Card>

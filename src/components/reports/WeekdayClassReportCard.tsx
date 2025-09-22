@@ -28,12 +28,12 @@ export interface WeekdayClassReportData {
     viernes: Tema[];
   };
   observaciones: string;
-  registro_horas: {
-    lunes: string;
-    martes: string;
-    miércoles: string;
-    jueves: string;
-    viernes: string;
+  clases_impartidas: {
+    lunes: number;
+    martes: number;
+    miércoles: number;
+    jueves: number;
+    viernes: number;
   };
 }
 
@@ -46,8 +46,7 @@ const dias = ["lunes", "martes", "miércoles", "jueves", "viernes"] as const;
 export function WeekdayClassReportCard({ data }: WeekdayClassReportCardProps) {
     const maxRows = Math.max(...dias.map(dia => data.estructura_semanal[dia].length));
 
-    const totalHorasMes = Object.values(data.registro_horas)
-        .map(h => parseFloat(h) || 0)
+    const totalClasesMes = Object.values(data.clases_impartidas)
         .reduce((acc, h) => acc + h, 0);
 
     return (
@@ -108,20 +107,20 @@ export function WeekdayClassReportCard({ data }: WeekdayClassReportCardProps) {
              <CardFooter className="p-4">
                 <div className="w-full space-y-4">
                      <div>
-                        <h4 className="font-semibold mb-2">Registro de Horas por Día</h4>
+                        <h4 className="font-semibold mb-2">Clases Impartidas por Día</h4>
                         <div className="grid grid-cols-5 gap-2 text-center">
                             {dias.map(dia => (
                                 <div key={dia} className="p-2 bg-secondary/30 rounded-md">
                                     <p className="text-xs capitalize text-muted-foreground">{dia}</p>
-                                    <p className="font-bold text-primary">{data.registro_horas[dia]}h</p>
+                                    <p className="font-bold text-primary">{data.clases_impartidas[dia]}</p>
                                 </div>
                             ))}
                         </div>
                      </div>
                      <div className="flex justify-end">
                         <div className="p-3 bg-primary/10 rounded-lg border border-primary/20">
-                            <p className="text-sm font-semibold text-primary">Total Horas Mes</p>
-                            <p className="text-2xl font-bold text-primary text-center">{totalHorasMes.toFixed(2)}h</p>
+                            <p className="text-sm font-semibold text-primary">Total Clases del Mes</p>
+                            <p className="text-2xl font-bold text-primary text-center">{totalClasesMes}</p>
                         </div>
                      </div>
                 </div>

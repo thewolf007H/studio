@@ -28,7 +28,7 @@ const reportData1: WeekdayClassReportData = {
     viernes: [ { tema: "The Sentence", pagina: 5 }, { tema: "Definite & Indefinite Articles", pagina: 10 }, { pagina: 15 }, { pagina: 20 }, { pagina: 25 }, { pagina: 30 } ]
   },
   observaciones: "Los estudiantes del nivel 1A están progresando adecuadamente, aunque algunos necesitan más práctica con los artículos definidos e indefinidos.",
-  registro_horas: { lunes: "1.25", martes: "1.25", miércoles: "1.25", jueves: "1.25", viernes: "1.25" }
+  clases_impartidas: { lunes: 2, martes: 2, miércoles: 2, jueves: 2, viernes: 2 }
 };
 
 
@@ -63,7 +63,7 @@ export default function ProfesorRegistroHorasPage() {
           <div className="absolute inset-0 opacity-[0.03] pattern-[0.8rem_0.8rem_#000000_radial-gradient(circle_at_center,_var(--tw-gradient-stops))] dark:opacity-[0.05] dark:pattern-[0.8rem_0.8rem_#ffffff_radial-gradient(circle_at_center,_var(--tw-gradient-stops))]"></div>
           <Clock className="mx-auto mb-4 h-14 w-14 md:h-16 md:w-16 text-primary" />
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-headline mb-3 text-primary">
-            Registro de Horas (Semanal)
+            Registro de Actividades (Semanal)
           </h1>
           <p className="text-md md:text-lg text-muted-foreground max-w-3xl mx-auto">
             Completa tu informe de clases de Lunes a Viernes. El informe debe enviarse al final de la jornada.

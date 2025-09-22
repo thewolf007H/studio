@@ -25,7 +25,7 @@ const reportDataSaturday: SaturdayClassReportData = {
     { semana: 4, fecha: "2024-09-28", tema: "Group Discussion: Current Events", paginas: "N/A" },
   ],
   observaciones: "El grupo muestra un excelente nivel de participación y fluidez. Se recomienda seguir fomentando el debate.",
-  total_horas_mes: 12,
+  total_clases_mes: 4,
 };
 
 export default function ProfesorRegistroHorasSabadoPage() {
