@@ -16,7 +16,8 @@ import {
   Snowflake,
   GraduationCap,
   Clock,
-  BookUser
+  BookUser,
+  Users
 } from 'lucide-react';
 
 export default function DireccionPage() {
@@ -239,6 +240,22 @@ export default function DireccionPage() {
               <p className="text-sm text-muted-foreground mb-4">Modifica el horario de un estudiante en su curso actual por motivos excepcionales.</p>
               <Button asChild className="w-full">
                 <Link href="/direccion/cambio-horario">Cambiar Horario</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+           <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <Users className="mr-2 h-6 w-6 text-accent" />
+                Reemplazos de Docentes
+              </CardTitle>
+              <CardDescription>Asigna un profesor sustituto para una clase específica.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Gestiona las sustituciones de profesores por ausencias o emergencias.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/reemplazos">Asignar Reemplazo</Link>
               </Button>
             </CardContent>
           </Card>
