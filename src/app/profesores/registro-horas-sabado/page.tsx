@@ -6,10 +6,14 @@ import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import Link from 'next/link';
-import { ChevronLeft, Clock, Save, Edit } from 'lucide-react';
+import { ChevronLeft, Clock, Save, Edit, PlusCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { SaturdayClassReportCard, type SaturdayClassReportData } from '@/components/reports/SaturdayClassReportCard';
 import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 
 const reportDataSaturday: SaturdayClassReportData = {
   tipo_documento: "Saturday Class Report",
@@ -32,6 +36,12 @@ export default function ProfesorRegistroHorasSabadoPage() {
     const { toast } = useToast();
     const [isEditing, setIsEditing] = useState(false);
     const [reportData, setReportData] = useState(reportDataSaturday);
+    const [registroClase, setRegistroClase] = useState({
+        dia: 'Sábado', // Pre-filled for this page
+        tipo: '',
+        cantidad: 1,
+    });
+
 
     const handleSave = () => {
         console.log("Enviando informe de horas (sábados) con:", reportData);
@@ -40,6 +50,30 @@ export default function ProfesorRegistroHorasSabadoPage() {
             description: "Tu informe ha sido enviado a revisión. Gracias.",
         });
         setIsEditing(false);
+    };
+
+    const handleRegistrarClase = () => {
+        const { tipo, cantidad } = registroClase;
+        if (!tipo) {
+            toast({
+                title: "Error",
+                description: "Debes seleccionar el tipo de clase.",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        setReportData(prevData => ({
+            ...prevData,
+            total_clases_mes: prevData.total_clases_mes + cantidad,
+        }));
+
+        toast({
+            title: "Clase Sabatina Registrada (Simulación)",
+            description: `Se añadieron ${cantidad} clase(s) de tipo "${tipo}" al total del mes.`,
+        });
+
+        document.querySelector('[aria-label="Close"]')?.click();
     };
 
   return (
@@ -92,7 +126,55 @@ export default function ProfesorRegistroHorasSabadoPage() {
                     />
                 </div>
             </CardContent>
-            <CardFooter className="flex justify-end pt-6 border-t">
+            <CardFooter className="flex flex-col sm:flex-row justify-end items-center gap-4 pt-6 border-t">
+                <Dialog>
+                    <DialogTrigger asChild>
+                         <Button variant="default">
+                            <PlusCircle className="mr-2 h-5 w-5" />
+                            Registrar Clase Impartida
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md bg-card">
+                        <DialogHeader>
+                            <DialogTitle>Registro de Clase Sabatina</DialogTitle>
+                            <DialogDescription>
+                                Registra el tipo de clase que impartiste este sábado.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="py-4 space-y-4">
+                             <div className="space-y-2">
+                                <Label htmlFor="dia-clase">Día de la Clase</Label>
+                                <Input id="dia-clase" value="Sábado" readOnly disabled />
+                            </div>
+                             <div className="space-y-2">
+                                <Label htmlFor="tipo-clase-sabado">Tipo de Clase</Label>
+                                <Select onValueChange={(value) => setRegistroClase(p => ({ ...p, tipo: value }))}>
+                                    <SelectTrigger id="tipo-clase-sabado"><SelectValue placeholder="Selecciona un tipo..." /></SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="Clase Normal">Clase Normal</SelectItem>
+                                        <SelectItem value="Clase Personalizada">Clase Personalizada</SelectItem>
+                                        <SelectItem value="Clase Acelerada">Clase Acelerada</SelectItem>
+                                        <SelectItem value="Clase Virtual">Clase Virtual</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="cantidad-clases-sabado">Cantidad a añadir</Label>
+                                <Input 
+                                    id="cantidad-clases-sabado" 
+                                    type="number"
+                                    min="1"
+                                    value={registroClase.cantidad} 
+                                    onChange={(e) => setRegistroClase(p => ({ ...p, cantidad: parseInt(e.target.value) || 1 }))}
+                                />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button type="button" variant="outline" onClick={() => document.querySelector('[aria-label="Close"]')?.click()}>Cancelar</Button>
+                            <Button type="submit" onClick={handleRegistrarClase}>Guardar Registro</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
                  <Button size="lg" onClick={handleSave}>
                     <Save className="mr-2 h-5 w-5" />
                     Enviar Informe a Dirección

@@ -6,10 +6,15 @@ import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import Link from 'next/link';
-import { ChevronLeft, Clock, Save, Edit } from 'lucide-react';
+import { ChevronLeft, Clock, Save, Edit, PlusCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { WeekdayClassReportCard, type WeekdayClassReportData } from '@/components/reports/WeekdayClassReportCard';
 import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+
 
 const reportData1: WeekdayClassReportData = {
   tipo_documento: "Weekday Class Report",
@@ -31,11 +36,18 @@ const reportData1: WeekdayClassReportData = {
   clases_impartidas: { lunes: 2, martes: 2, miércoles: 2, jueves: 2, viernes: 2 }
 };
 
+type DiaSemana = 'lunes' | 'martes' | 'miércoles' | 'jueves' | 'viernes';
 
 export default function ProfesorRegistroHorasPage() {
     const { toast } = useToast();
     const [isEditing, setIsEditing] = useState(false);
     const [reportData, setReportData] = useState(reportData1);
+
+    const [registroClase, setRegistroClase] = useState({
+        dia: '',
+        tipo: '',
+        cantidad: 1,
+    });
 
     const handleSave = () => {
         console.log("Enviando informe de horas con:", reportData);
@@ -44,6 +56,33 @@ export default function ProfesorRegistroHorasPage() {
             description: "Tu informe ha sido enviado a revisión. Gracias.",
         });
         setIsEditing(false);
+    };
+
+    const handleRegistrarClase = () => {
+        const { dia, tipo, cantidad } = registroClase;
+        if (!dia || !tipo) {
+            toast({
+                title: "Error",
+                description: "Debes seleccionar el día y el tipo de clase.",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        const diaKey = dia as DiaSemana;
+        
+        setReportData(prevData => {
+            const nuevasClases = { ...prevData.clases_impartidas };
+            nuevasClases[diaKey] += cantidad;
+            return { ...prevData, clases_impartidas: nuevasClases };
+        });
+
+        toast({
+            title: "Clase Registrada (Simulación)",
+            description: `Se añadieron ${cantidad} clase(s) de tipo "${tipo}" para el día ${dia}.`,
+        });
+
+        document.querySelector('[aria-label="Close"]')?.click();
     };
 
   return (
@@ -74,7 +113,7 @@ export default function ProfesorRegistroHorasPage() {
             <CardHeader className="flex-row justify-between items-center">
                 <div>
                     <CardTitle>Informe de Clases de Lunes a Viernes</CardTitle>
-                    <CardDescription>Revisa el informe planificado y añade tus observaciones antes de enviar.</CardDescription>
+                    <CardDescription>Revisa el informe, registra tus clases impartidas y añade observaciones antes de enviar.</CardDescription>
                 </div>
                  <Button variant="outline" onClick={() => setIsEditing(!isEditing)}>
                     <Edit className="mr-2 h-4 w-4"/>
@@ -96,7 +135,64 @@ export default function ProfesorRegistroHorasPage() {
                     />
                 </div>
             </CardContent>
-             <CardFooter className="flex justify-end pt-6 border-t">
+             <CardFooter className="flex flex-col sm:flex-row justify-end items-center gap-4 pt-6 border-t">
+                <Dialog>
+                    <DialogTrigger asChild>
+                         <Button variant="default">
+                            <PlusCircle className="mr-2 h-5 w-5" />
+                            Registrar Clase Impartida
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md bg-card">
+                        <DialogHeader>
+                            <DialogTitle>Registro de Clase Impartida</DialogTitle>
+                            <DialogDescription>
+                                Selecciona el día y el tipo de clase que impartiste.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="py-4 space-y-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="dia-clase">Día de la Clase</Label>
+                                <Select onValueChange={(value) => setRegistroClase(p => ({ ...p, dia: value }))}>
+                                    <SelectTrigger id="dia-clase"><SelectValue placeholder="Selecciona un día..." /></SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="lunes">Lunes</SelectItem>
+                                        <SelectItem value="martes">Martes</SelectItem>
+                                        <SelectItem value="miércoles">Miércoles</SelectItem>
+                                        <SelectItem value="jueves">Jueves</SelectItem>
+                                        <SelectItem value="viernes">Viernes</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                             <div className="space-y-2">
+                                <Label htmlFor="tipo-clase">Tipo de Clase</Label>
+                                <Select onValueChange={(value) => setRegistroClase(p => ({ ...p, tipo: value }))}>
+                                    <SelectTrigger id="tipo-clase"><SelectValue placeholder="Selecciona un tipo..." /></SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="Clase Normal">Clase Normal</SelectItem>
+                                        <SelectItem value="Clase Personalizada">Clase Personalizada</SelectItem>
+                                        <SelectItem value="Clase Acelerada">Clase Acelerada</SelectItem>
+                                        <SelectItem value="Clase Virtual">Clase Virtual</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="cantidad-clases">Cantidad a añadir</Label>
+                                <Input 
+                                    id="cantidad-clases" 
+                                    type="number"
+                                    min="1"
+                                    value={registroClase.cantidad} 
+                                    onChange={(e) => setRegistroClase(p => ({ ...p, cantidad: parseInt(e.target.value) || 1 }))}
+                                />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button type="button" variant="outline" onClick={() => document.querySelector('[aria-label="Close"]')?.click()}>Cancelar</Button>
+                            <Button type="submit" onClick={handleRegistrarClase}>Guardar Registro</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
                  <Button size="lg" onClick={handleSave}>
                     <Save className="mr-2 h-5 w-5" />
                     Enviar Informe a Dirección
