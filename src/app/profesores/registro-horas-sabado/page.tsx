@@ -40,6 +40,7 @@ export default function ProfesorRegistroHorasSabadoPage() {
         dia: 'Sábado', // Pre-filled for this page
         tipo: '',
         cantidad: 1,
+        informe: '',
     });
 
 
@@ -53,11 +54,21 @@ export default function ProfesorRegistroHorasSabadoPage() {
     };
 
     const handleRegistrarClase = () => {
-        const { tipo, cantidad } = registroClase;
+        const { tipo, cantidad, informe } = registroClase;
         if (!tipo) {
             toast({
                 title: "Error",
                 description: "Debes seleccionar el tipo de clase.",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        const wordCount = informe.trim().split(/\s+/).length;
+        if (wordCount < 8 || wordCount > 20) {
+             toast({
+                title: "Error en el Informe",
+                description: "El informe debe contener entre 8 y 20 palabras.",
                 variant: "destructive",
             });
             return;
@@ -167,6 +178,16 @@ export default function ProfesorRegistroHorasSabadoPage() {
                                     value={registroClase.cantidad} 
                                     onChange={(e) => setRegistroClase(p => ({ ...p, cantidad: parseInt(e.target.value) || 1 }))}
                                 />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="informe-clase-sabado">Informe</Label>
+                                <Textarea
+                                    id="informe-clase-sabado"
+                                    placeholder="¿Qué enseñaste en esta clase?"
+                                    value={registroClase.informe}
+                                    onChange={(e) => setRegistroClase(p => ({ ...p, informe: e.target.value }))}
+                                />
+                                <p className="text-xs text-muted-foreground">Breve descripción de lo enseñado (8-20 palabras).</p>
                             </div>
                         </div>
                         <DialogFooter>

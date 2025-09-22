@@ -47,6 +47,7 @@ export default function ProfesorRegistroHorasPage() {
         dia: '',
         tipo: '',
         cantidad: 1,
+        informe: '',
     });
 
     const handleSave = () => {
@@ -59,11 +60,21 @@ export default function ProfesorRegistroHorasPage() {
     };
 
     const handleRegistrarClase = () => {
-        const { dia, tipo, cantidad } = registroClase;
+        const { dia, tipo, cantidad, informe } = registroClase;
         if (!dia || !tipo) {
             toast({
                 title: "Error",
                 description: "Debes seleccionar el día y el tipo de clase.",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        const wordCount = informe.trim().split(/\s+/).length;
+        if (wordCount < 8 || wordCount > 20) {
+             toast({
+                title: "Error en el Informe",
+                description: "El informe debe contener entre 8 y 20 palabras.",
                 variant: "destructive",
             });
             return;
@@ -185,6 +196,16 @@ export default function ProfesorRegistroHorasPage() {
                                     value={registroClase.cantidad} 
                                     onChange={(e) => setRegistroClase(p => ({ ...p, cantidad: parseInt(e.target.value) || 1 }))}
                                 />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="informe-clase">Informe</Label>
+                                <Textarea
+                                    id="informe-clase"
+                                    placeholder="¿Qué enseñaste en esta clase?"
+                                    value={registroClase.informe}
+                                    onChange={(e) => setRegistroClase(p => ({ ...p, informe: e.target.value }))}
+                                />
+                                <p className="text-xs text-muted-foreground">Breve descripción de lo enseñado (8-20 palabras).</p>
                             </div>
                         </div>
                         <DialogFooter>
