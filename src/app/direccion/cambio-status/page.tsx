@@ -1,11 +1,18 @@
 
+'use client';
+
+import { useState, useMemo } from 'react';
 import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
-import { ChevronLeft, Replace, Edit, UserPlus, Tag } from 'lucide-react';
+import { ChevronLeft, Replace, Edit, UserPlus, Tag, Search, User, CheckCircle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const tarifasData = {
   "REGULAR": {
@@ -30,8 +37,74 @@ const tarifasData = {
   }
 };
 
+const studentPlaceholder = {
+    id: "a1",
+    nombre: "Javier Sánchez Gómez",
+    ci: "9876543 LP",
+    statusActual: "REGULAR - ZETA",
+};
+
 
 export default function DireccionCambioStatusPage() {
+  const { toast } = useToast();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [foundStudent, setFoundStudent] = useState<typeof studentPlaceholder | null>(null);
+  const [selectedStatus, setSelectedStatus] = useState('');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const flatTarifas = useMemo(() => {
+    return Object.entries(tarifasData).flatMap(([modalidad, tarifas]) => 
+      Object.keys(tarifas).map(nivel => `${modalidad} - ${nivel}`)
+    );
+  }, []);
+
+  const handleSearch = () => {
+    if(searchTerm) {
+      setFoundStudent(studentPlaceholder);
+    } else {
+      setFoundStudent(null);
+      toast({
+        title: "Búsqueda vacía",
+        description: "Por favor, introduce un término de búsqueda.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleAssignStatus = () => {
+    if(!foundStudent || !selectedStatus) {
+      toast({
+        title: "Error",
+        description: "Debes buscar un alumno y seleccionar un nuevo status.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    console.log(`Asignando status ${selectedStatus} a ${foundStudent.nombre}`);
+    toast({
+      title: "Status Asignado Exitosamente (Simulación)",
+      description: `${foundStudent.nombre} ahora tiene el status ${selectedStatus}.`
+    });
+
+    // Reset and close dialog
+    setFoundStudent(null);
+    setSearchTerm('');
+    setSelectedStatus('');
+    setIsDialogOpen(false);
+  };
+
+  const handleOpenChange = (open: boolean) => {
+    setIsDialogOpen(open);
+    if (!open) {
+      // Reset state when closing dialog
+      setFoundStudent(null);
+      setSearchTerm('');
+      setSelectedStatus('');
+    }
+  }
+
+
   return (
     <div className="flex flex-col min-h-screen bg-secondary/20">
       <Header />
@@ -57,7 +130,64 @@ export default function DireccionCambioStatusPage() {
         </div>
         
         <div className='flex justify-end gap-2 mb-6'>
-            <Button disabled><UserPlus className="mr-2 h-4 w-4"/>Asignar Tarifa a Alumno</Button>
+            <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
+              <DialogTrigger asChild>
+                <Button><UserPlus className="mr-2 h-4 w-4"/>Asignar Tarifa a Alumno</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-lg bg-card">
+                  <DialogHeader>
+                      <DialogTitle>Asignar Tarifa a Alumno</DialogTitle>
+                      <DialogDescription>Busca un estudiante para asignarle una nueva tarifa.</DialogDescription>
+                  </DialogHeader>
+                  <div className="py-4 space-y-6">
+                    <div className="space-y-4">
+                      <Label htmlFor="search-student">Paso 1: Buscar Estudiante</Label>
+                      <div className="flex gap-2">
+                        <Input 
+                            id="search-student"
+                            placeholder="Buscar por nombre o CI..." 
+                            className="bg-background"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <Button onClick={handleSearch}><Search className="h-4 w-4"/></Button>
+                      </div>
+                    </div>
+
+                    {foundStudent && (
+                      <div className="space-y-4 pt-4 border-t animate-in fade-in-50">
+                        <div className="p-4 border rounded-lg bg-secondary/30">
+                            <p className="text-lg font-semibold flex items-center"><User className="mr-2 h-5 w-5"/>{foundStudent.nombre}</p>
+                            <p className="text-sm text-muted-foreground">CI: {foundStudent.ci}</p>
+                            <p className="text-sm text-muted-foreground">Status Actual: <span className="font-semibold text-primary">{foundStudent.statusActual}</span></p>
+                        </div>
+                        
+                        <div className="space-y-2">
+                            <Label htmlFor="status-select">Paso 2: Seleccionar Nueva Tarifa</Label>
+                            <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+                                <SelectTrigger id="status-select">
+                                    <SelectValue placeholder="Elige una tarifa para asignar..." />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {flatTarifas.map(status => (
+                                        <SelectItem key={status} value={status}>{status}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <DialogFooter>
+                      <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>Cancelar</Button>
+                      <Button type="submit" onClick={handleAssignStatus} disabled={!foundStudent || !selectedStatus}>
+                        <CheckCircle className="mr-2 h-4 w-4" />
+                        Confirmar Asignación
+                      </Button>
+                  </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
             <Button variant="outline" disabled><Edit className="mr-2 h-4 w-4"/>Crear/Editar Tarifas</Button>
         </div>
 
