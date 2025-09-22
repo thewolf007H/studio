@@ -6,81 +6,45 @@ import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import Link from 'next/link';
-import { ChevronLeft, Clock, Save, PlusCircle } from 'lucide-react';
+import { ChevronLeft, Clock, Save, Edit } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { WeekdayClassReportCard, type WeekdayClassReportData } from '@/components/reports/WeekdayClassReportCard';
 import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
-import { Calendar } from '@/components/ui/calendar';
-import { Input } from '@/components/ui/input';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-interface ActividadDiaria {
-    fecha: Date;
-    actividad: string;
-    horas: number;
-}
+const reportData1: WeekdayClassReportData = {
+  tipo_documento: "Weekday Class Report",
+  facilitador: "Pamela Altamirano Pozo",
+  nivel: "EF 1A",
+  modalidad: "Accelerated",
+  horario: "20:45–22:00",
+  fecha_inicio: "2024-08-25",
+  fecha_fin: "2024-10-22",
+  mes: "September",
+  estructura_semanal: {
+    lunes: [ { tema: "Verbs", pagina: 1 }, { tema: "Time", pagina: 6 }, { pagina: 11 }, { pagina: 16 }, { pagina: 21 }, { pagina: 26 } ],
+    martes: [ { tema: "School Stuff", pagina: 2 }, { tema: "Days & Months", pagina: 7 }, { pagina: 12 }, { pagina: 17 }, { pagina: 22 }, { pagina: 27 } ],
+    miércoles: [ { tema: "Subject Pronouns", pagina: 3 }, { tema: "The Weather", pagina: 8 }, { pagina: 13 }, { pagina: 18 }, { pagina: 23 }, { pagina: 28 } ],
+    jueves: [ { tema: "Clothes and Accessories", pagina: 4 }, { tema: "Computers and More", pagina: 9 }, { pagina: 14 }, { pagina: 19 }, { pagina: 24 }, { pagina: 29 } ],
+    viernes: [ { tema: "The Sentence", pagina: 5 }, { tema: "Definite & Indefinite Articles", pagina: 10 }, { pagina: 15 }, { pagina: 20 }, { pagina: 25 }, { pagina: 30 } ]
+  },
+  observaciones: "Los estudiantes del nivel 1A están progresando adecuadamente, aunque algunos necesitan más práctica con los artículos definidos e indefinidos.",
+  registro_horas: { lunes: "1.25", martes: "1.25", miércoles: "1.25", jueves: "1.25", viernes: "1.25" }
+};
+
 
 export default function ProfesorRegistroHorasPage() {
     const { toast } = useToast();
-    const [observaciones, setObservaciones] = useState('');
-    
-    // State for the new daily activity form
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [fechaActividad, setFechaActividad] = useState<Date | undefined>(new Date());
-    const [descripcionActividad, setDescripcionActividad] = useState('');
-    const [horasActividad, setHorasActividad] = useState<number | ''>('');
-    const [actividadesRegistradas, setActividadesRegistradas] = useState<ActividadDiaria[]>([]);
+    const [isEditing, setIsEditing] = useState(false);
+    const [reportData, setReportData] = useState(reportData1);
 
     const handleSave = () => {
-        if (actividadesRegistradas.length === 0) {
-             toast({
-                title: "No hay actividades para enviar",
-                description: "Por favor, registra al menos una actividad antes de enviar el informe.",
-                variant: "destructive",
-            });
-            return;
-        }
-        console.log("Enviando informe de horas con:", {actividades: actividadesRegistradas, observaciones});
+        console.log("Enviando informe de horas con:", reportData);
         toast({
             title: "Informe de Horas Enviado",
             description: "Tu informe ha sido enviado a revisión. Gracias.",
         });
+        setIsEditing(false);
     };
-    
-    const handleSaveActividad = () => {
-        if (!fechaActividad || !descripcionActividad || horasActividad === '' || horasActividad <= 0) {
-            toast({
-                title: "Error de Validación",
-                description: "Por favor, completa todos los campos del formulario.",
-                variant: "destructive",
-            });
-            return;
-        }
-
-        const nuevaActividad: ActividadDiaria = {
-            fecha: fechaActividad,
-            actividad: descripcionActividad,
-            horas: horasActividad,
-        };
-        
-        setActividadesRegistradas(prev => [...prev, nuevaActividad].sort((a,b) => b.fecha.getTime() - a.fecha.getTime()));
-        
-        toast({
-            title: "Actividad Registrada",
-            description: `Se guardó la actividad para el ${format(fechaActividad, "PPP", { locale: es })}.`
-        });
-
-        // Reset form and close dialog
-        setFechaActividad(new Date());
-        setDescripcionActividad('');
-        setHorasActividad('');
-        setIsDialogOpen(false);
-    };
-
-    const totalHoras = actividadesRegistradas.reduce((acc, act) => acc + act.horas, 0);
 
   return (
     <div className="flex flex-col min-h-screen bg-secondary/20">
@@ -99,113 +63,40 @@ export default function ProfesorRegistroHorasPage() {
           <div className="absolute inset-0 opacity-[0.03] pattern-[0.8rem_0.8rem_#000000_radial-gradient(circle_at_center,_var(--tw-gradient-stops))] dark:opacity-[0.05] dark:pattern-[0.8rem_0.8rem_#ffffff_radial-gradient(circle_at_center,_var(--tw-gradient-stops))]"></div>
           <Clock className="mx-auto mb-4 h-14 w-14 md:h-16 md:w-16 text-primary" />
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-headline mb-3 text-primary">
-            Registro de Actividades (Semanal)
+            Registro de Horas (Semanal)
           </h1>
           <p className="text-md md:text-lg text-muted-foreground max-w-3xl mx-auto">
-            Registra tus clases y otras actividades de Lunes a Viernes. El informe debe enviarse al final de la jornada.
+            Completa tu informe de clases de Lunes a Viernes. El informe debe enviarse al final de la jornada.
           </p>
         </div>
 
-        <Card className="shadow-lg bg-card max-w-4xl mx-auto mb-8">
+        <Card className="shadow-lg bg-card max-w-4xl mx-auto">
             <CardHeader className="flex-row justify-between items-center">
                 <div>
-                    <CardTitle>Registro de Actividad Diaria</CardTitle>
-                    <CardDescription>Añade un nuevo registro por cada día trabajado para llevar un conteo.</CardDescription>
+                    <CardTitle>Informe de Clases de Lunes a Viernes</CardTitle>
+                    <CardDescription>Revisa el informe planificado y añade tus observaciones antes de enviar.</CardDescription>
                 </div>
-                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                    <DialogTrigger asChild>
-                        <Button><PlusCircle className="mr-2 h-5 w-5"/>Registrar Actividad</Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px] bg-card">
-                        <DialogHeader>
-                            <DialogTitle>Registrar Nueva Actividad</DialogTitle>
-                            <DialogDescription>
-                                Selecciona la fecha, describe la clase o actividad y las horas dedicadas.
-                            </DialogDescription>
-                        </DialogHeader>
-                        <div className="grid gap-4 py-4">
-                            <div className="space-y-2">
-                                <Label>Fecha</Label>
-                                <Calendar 
-                                    mode="single"
-                                    selected={fechaActividad}
-                                    onSelect={setFechaActividad}
-                                    className="rounded-md border bg-background"
-                                    disabled={(date) => date > new Date()}
-                                />
-                            </div>
-                             <div className="space-y-2">
-                                <Label htmlFor="actividad">Clase o Actividad Realizada</Label>
-                                <Textarea 
-                                    id="actividad"
-                                    placeholder="Ej: Clase EF 1A (Units 1-2), Corrección de exámenes..."
-                                    value={descripcionActividad}
-                                    onChange={(e) => setDescripcionActividad(e.target.value)}
-                                />
-                            </div>
-                             <div className="space-y-2">
-                                <Label htmlFor="horas">Horas Trabajadas</Label>
-                                <Input 
-                                    id="horas"
-                                    type="number"
-                                    placeholder="Ej: 1.25"
-                                    value={horasActividad}
-                                    onChange={(e) => setHorasActividad(e.target.value === '' ? '' : parseFloat(e.target.value))}
-                                />
-                            </div>
-                        </div>
-                        <DialogFooter>
-                            <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>Cancelar</Button>
-                            <Button type="submit" onClick={handleSaveActividad}>Guardar Actividad</Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
+                 <Button variant="outline" onClick={() => setIsEditing(!isEditing)}>
+                    <Edit className="mr-2 h-4 w-4"/>
+                    {isEditing ? "Cancelar Edición" : "Editar Observaciones"}
+                </Button>
             </CardHeader>
             <CardContent>
-                {actividadesRegistradas.length > 0 ? (
-                     <div className="overflow-x-auto border rounded-lg">
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Fecha</TableHead>
-                                    <TableHead>Actividad / Clase</TableHead>
-                                    <TableHead className="text-right">Horas</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {actividadesRegistradas.map((act, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell className="font-medium">{format(act.fecha, "PPP", { locale: es })}</TableCell>
-                                        <TableCell className="text-muted-foreground">{act.actividad}</TableCell>
-                                        <TableCell className="text-right font-bold text-primary">{act.horas.toFixed(2)}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </div>
-                ) : (
-                    <div className="text-center py-6 border border-dashed rounded-md">
-                        <p className="text-muted-foreground">Aún no has registrado actividades.</p>
-                        <p className="text-sm text-muted-foreground">Usa el botón "Registrar Actividad" para empezar.</p>
-                    </div>
-                )}
+                <WeekdayClassReportCard data={reportData} />
                  <div className="mt-6">
-                    <Label htmlFor="observaciones" className="font-semibold">Observaciones Generales del Informe</Label>
-                    <Textarea 
+                    <label htmlFor="observaciones" className="block text-sm font-medium text-muted-foreground mb-1">Observaciones del Informe</label>
+                    <Textarea
                         id="observaciones"
-                        placeholder="Añade aquí cualquier comentario relevante sobre el informe..."
-                        value={observaciones}
-                        onChange={(e) => setObservaciones(e.target.value)}
-                        className="mt-2"
+                        placeholder="Añade aquí cualquier comentario relevante sobre la semana..."
+                        value={reportData.observaciones}
+                        onChange={(e) => setReportData({...reportData, observaciones: e.target.value})}
+                        disabled={!isEditing}
+                        className="mt-1"
                         rows={3}
                     />
                 </div>
             </CardContent>
-             <CardFooter className="flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t">
-                <div className="p-3 bg-primary/10 rounded-lg border border-primary/20 text-center">
-                    <p className="text-sm font-semibold text-primary">Total Horas Registradas</p>
-                    <p className="text-2xl font-bold text-primary">{totalHoras.toFixed(2)}h</p>
-                </div>
+             <CardFooter className="flex justify-end pt-6 border-t">
                  <Button size="lg" onClick={handleSave}>
                     <Save className="mr-2 h-5 w-5" />
                     Enviar Informe a Dirección
