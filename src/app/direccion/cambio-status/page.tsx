@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
 
 const tarifasData = {
   "REGULAR": {
@@ -211,11 +212,11 @@ export default function DireccionCambioStatusPage() {
                                 <CardContent className='p-4 space-y-2'>
                                      <div className="flex justify-between items-baseline">
                                         <span className="text-muted-foreground">Precio:</span>
-                                        <span className={`text-xl font-bold ${'precio_descuento' in detalles ? 'line-through text-muted-foreground' : 'text-primary'}`}>
+                                        <span className={`text-xl font-bold ${'precio_descuento' in detalles && detalles.precio_descuento ? 'line-through text-muted-foreground' : 'text-primary'}`}>
                                             Bs {detalles.precio.toFixed(2)}
                                         </span>
                                     </div>
-                                    {'precio_descuento' in detalles && (
+                                    {'precio_descuento' in detalles && detalles.precio_descuento && (
                                          <div className="flex justify-between items-baseline">
                                             <span className="text-muted-foreground">Con Descuento:</span>
                                             <span className="text-2xl font-bold text-green-600">Bs {detalles.precio_descuento.toFixed(2)}</span>
