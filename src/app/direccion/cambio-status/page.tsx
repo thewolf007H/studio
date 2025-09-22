@@ -33,7 +33,7 @@ export default function DireccionCambioStatusPage() {
           <div className="absolute inset-0 opacity-[0.03] pattern-[0.8rem_0.8rem_#000000_radial-gradient(circle_at_center,_var(--tw-gradient-stops))] dark:opacity-[0.05] dark:pattern-[0.8rem_0.8rem_#ffffff_radial-gradient(circle_at_center,_var(--tw-gradient-stops))]"></div>
           <Replace className="mx-auto mb-4 h-14 w-14 md:h-16 md:w-16 text-primary" />
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-headline mb-3 text-primary">
-            Gestión de Status de Alumnos
+            Gestión de Estados de Alumnos
           </h1>
           <p className="text-md md:text-lg text-muted-foreground max-w-3xl mx-auto">
             Crea y administra los diferentes estados que puede tener un alumno en el sistema (ej. Activo, Retirado, Congelado).
@@ -43,12 +43,12 @@ export default function DireccionCambioStatusPage() {
         <Card className="shadow-lg bg-card">
           <CardHeader className="flex flex-row justify-between items-center">
             <div>
-              <CardTitle className="text-xl font-headline">Listado de Status</CardTitle>
+              <CardTitle className="text-xl font-headline">Listado de Estados</CardTitle>
               <CardDescription>Visualiza y gestiona los estados de los alumnos.</CardDescription>
             </div>
             <Button disabled>
               <PlusCircle className="mr-2 h-5 w-5" />
-              Crear Nuevo Status
+              Crear Nuevo Estado
             </Button>
           </CardHeader>
           <CardContent>
@@ -57,7 +57,7 @@ export default function DireccionCambioStatusPage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Nombre del Status</TableHead>
+                      <TableHead>Nombre del Estado</TableHead>
                       <TableHead>Descripción</TableHead>
                       <TableHead className="text-right">Acciones</TableHead>
                     </TableRow>
@@ -85,10 +85,10 @@ export default function DireccionCambioStatusPage() {
                 </Table>
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground text-center py-6">No hay status definidos.</p>
+              <p className="text-sm text-muted-foreground text-center py-6">No hay estados definidos.</p>
             )}
              <p className="text-xs text-muted-foreground mt-4 pt-3 border-t border-dashed">
-              (Funcionalidad para crear, editar y eliminar status en desarrollo.)
+              (Funcionalidad para crear, editar y eliminar estados en desarrollo.)
             </p>
           </CardContent>
         </Card>
@@ -96,9 +96,11 @@ export default function DireccionCambioStatusPage() {
       </main>
       <footer className="py-8 border-t mt-16 bg-card">
         <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} First Class Institute. Gestión de Status.
+          © {new Date().getFullYear()} First Class Institute. Gestión de Estados.
         </div>
       </footer>
     </div>
   );
 }
+
+    

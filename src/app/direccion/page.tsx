@@ -152,14 +152,14 @@ export default function DireccionPage() {
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <Replace className="mr-2 h-6 w-6 text-accent" />
-                Cambio de Status
+                Gestión de Estados
               </CardTitle>
               <CardDescription>Modifica el estado de un alumno (activo, retirado, etc.).</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Actualiza la condición académica o administrativa de un estudiante en el sistema.</p>
               <Button asChild className="w-full">
-                <Link href="/direccion/cambio-status">Cambiar Status</Link>
+                <Link href="/direccion/cambio-status">Gestionar Estados</Link>
               </Button>
             </CardContent>
           </Card>
@@ -260,6 +260,22 @@ export default function DireccionPage() {
             </CardContent>
           </Card>
 
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <PiggyBank className="mr-2 h-6 w-6 text-accent" />
+                Gestión de Tarifas
+              </CardTitle>
+              <CardDescription>Administra las tarifas y precios de los cursos y modalidades.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Visualiza y asigna las diferentes tarifas a los estudiantes.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/gestion-tarifas">Gestionar Tarifas</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
         </div>
         
       </main>
@@ -271,3 +287,5 @@ export default function DireccionPage() {
     </div>
   );
 }
+
+    
