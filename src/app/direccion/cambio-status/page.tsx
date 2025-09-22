@@ -1,21 +1,37 @@
 
 import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import Link from 'next/link';
-import { ChevronLeft, Replace, PlusCircle, Edit3, Trash2 } from 'lucide-react';
+import { ChevronLeft, Replace, Edit, UserPlus, Tag } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Separator } from '@/components/ui/separator';
+
+const tarifasData = {
+  "REGULAR": {
+    "KAPPA": { "código": "K", "precio": 450 },
+    "ZETA": { "código": "Z", "precio": 350 },
+    "ALFA": { "código": "A", "precio": 300 },
+    "EPSILON": { "código": "E", "precio": 250 },
+    "FLI": { "código": "FLI", "precio": 12600, "precio_descuento": 11000 },
+    "OMEGA": { "precio": 0 }
+  },
+  "ACELERADO": {
+    "KAPPA": { "código": "K", "precio": 900 },
+    "ZETA": { "código": "Z", "precio": 700 },
+    "ALFA": { "código": "A", "precio": 600 },
+    "EPSILON": { "código": "E", "precio": 500 },
+    "FLI": { "código": "FLI", "precio": 12600, "precio_descuento": 11000 },
+    "OMEGA": { "precio": 0 }
+  },
+  "ESPECIALES": {
+    "SPEAKING": { "precio": 125 },
+    "PERSONALIZADO": { "precio": 1250 }
+  }
+};
+
 
 export default function DireccionCambioStatusPage() {
-  const statusPlaceholder = [
-    { id: "s1", nombre: "Activo", descripcion: "El alumno está cursando activamente.", color: "bg-green-500/80" },
-    { id: "s2", nombre: "Retirado", descripcion: "El alumno ha abandonado el curso.", color: "bg-red-500/80" },
-    { id: "s3", nombre: "Congelado", descripcion: "El alumno ha pausado sus estudios temporalmente.", color: "bg-blue-500/80" },
-    { id: "s4", nombre: "Egresado", descripcion: "El alumno ha completado satisfactoriamente el programa.", color: "bg-yellow-500/80" },
-    { id: "s5", nombre: "Potencial", descripcion: "Persona registrada, aún no inscrita en un curso.", color: "bg-gray-500/80" },
-  ];
-
   return (
     <div className="flex flex-col min-h-screen bg-secondary/20">
       <Header />
@@ -33,74 +49,67 @@ export default function DireccionCambioStatusPage() {
           <div className="absolute inset-0 opacity-[0.03] pattern-[0.8rem_0.8rem_#000000_radial-gradient(circle_at_center,_var(--tw-gradient-stops))] dark:opacity-[0.05] dark:pattern-[0.8rem_0.8rem_#ffffff_radial-gradient(circle_at_center,_var(--tw-gradient-stops))]"></div>
           <Replace className="mx-auto mb-4 h-14 w-14 md:h-16 md:w-16 text-primary" />
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-headline mb-3 text-primary">
-            Gestión de Estados de Alumnos
+            Cambio de Status (Tarifas)
           </h1>
           <p className="text-md md:text-lg text-muted-foreground max-w-3xl mx-auto">
-            Crea y administra los diferentes estados que puede tener un alumno en el sistema (ej. Activo, Retirado, Congelado).
+            Visualiza, asigna y gestiona las tarifas de las diferentes modalidades y cursos de la institución.
           </p>
         </div>
         
-        <Card className="shadow-lg bg-card">
-          <CardHeader className="flex flex-row justify-between items-center">
-            <div>
-              <CardTitle className="text-xl font-headline">Listado de Estados</CardTitle>
-              <CardDescription>Visualiza y gestiona los estados de los alumnos.</CardDescription>
-            </div>
-            <Button disabled>
-              <PlusCircle className="mr-2 h-5 w-5" />
-              Crear Nuevo Estado
-            </Button>
-          </CardHeader>
-          <CardContent>
-            {statusPlaceholder.length > 0 ? (
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Nombre del Estado</TableHead>
-                      <TableHead>Descripción</TableHead>
-                      <TableHead className="text-right">Acciones</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {statusPlaceholder.map(status => (
-                      <TableRow key={status.id} className="hover:bg-secondary/50 transition-colors">
-                        <TableCell>
-                          <Badge variant="default" className={`${status.color} text-primary-foreground`}>
-                            {status.nombre}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="text-muted-foreground">{status.descripcion}</TableCell>
-                        <TableCell className="text-right">
-                           <Button variant="ghost" size="icon" className="mr-1 hover:bg-accent/20" title="Editar" disabled>
-                            <Edit3 className="h-4 w-4" />
-                          </Button>
-                          <Button variant="ghost" size="icon" className="text-destructive/70 hover:text-destructive hover:bg-destructive/10" title="Eliminar" disabled>
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            ) : (
-              <p className="text-sm text-muted-foreground text-center py-6">No hay estados definidos.</p>
-            )}
-             <p className="text-xs text-muted-foreground mt-4 pt-3 border-t border-dashed">
-              (Funcionalidad para crear, editar y eliminar estados en desarrollo.)
-            </p>
-          </CardContent>
-        </Card>
+        <div className='flex justify-end gap-2 mb-6'>
+            <Button disabled><UserPlus className="mr-2 h-4 w-4"/>Asignar Tarifa a Alumno</Button>
+            <Button variant="outline" disabled><Edit className="mr-2 h-4 w-4"/>Crear/Editar Tarifas</Button>
+        </div>
+
+        <div className="space-y-8">
+            {Object.entries(tarifasData).map(([modalidad, tarifas]) => (
+                <Card key={modalidad} className="shadow-lg bg-card">
+                    <CardHeader>
+                        <CardTitle className="text-2xl font-headline flex items-center">
+                            <Tag className="mr-3 h-6 w-6 text-accent"/>
+                            Modalidad: <span className="text-primary ml-2">{modalidad}</span>
+                        </CardTitle>
+                        <CardDescription>Tarifas y precios para la modalidad {modalidad.toLowerCase()}.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {Object.entries(tarifas).map(([nivel, detalles]) => (
+                            <Card key={nivel} className='bg-secondary/30'>
+                                <CardHeader className='p-4'>
+                                    <CardTitle className='text-lg'>{nivel}</CardTitle>
+                                    {detalles.código && <CardDescription>Código: {detalles.código}</CardDescription>}
+                                </CardHeader>
+                                <Separator />
+                                <CardContent className='p-4 space-y-2'>
+                                     <div className="flex justify-between items-baseline">
+                                        <span className="text-muted-foreground">Precio:</span>
+                                        <span className={`text-xl font-bold ${detalles.precio_descuento ? 'line-through text-muted-foreground' : 'text-primary'}`}>
+                                            Bs {detalles.precio.toFixed(2)}
+                                        </span>
+                                    </div>
+                                    {detalles.precio_descuento && (
+                                         <div className="flex justify-between items-baseline">
+                                            <span className="text-muted-foreground">Con Descuento:</span>
+                                            <span className="text-2xl font-bold text-green-600">Bs {detalles.precio_descuento.toFixed(2)}</span>
+                                        </div>
+                                    )}
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </CardContent>
+                </Card>
+            ))}
+        </div>
+        
+        <p className="text-xs text-muted-foreground mt-8 pt-4 text-center border-t border-dashed">
+            (La asignación y edición de tarifas son funcionalidades en desarrollo.)
+        </p>
 
       </main>
       <footer className="py-8 border-t mt-16 bg-card">
         <div className="container text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} First Class Institute. Gestión de Estados.
+          © {new Date().getFullYear()} First Class Institute. Gestión de Tarifas.
         </div>
       </footer>
     </div>
   );
 }
-
-    
