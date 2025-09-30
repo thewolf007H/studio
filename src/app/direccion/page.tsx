@@ -55,22 +55,6 @@ export default function DireccionPage() {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
-                <FileSearch className="mr-2 h-6 w-6 text-accent" />
-                Supervisión de Cursos
-              </CardTitle>
-              <CardDescription>Revisa el contenido y el progreso de los cursos ofertados.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Accede a temarios, estadísticas de finalización y feedback general de los cursos.</p>
-              <Button asChild className="w-full">
-                <Link href="/direccion/supervision-cursos">Supervisar Cursos</Link>
-              </Button>
-            </CardContent>
-          </Card>
-          
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl font-headline">
                 <GraduationCap className="mr-2 h-6 w-6 text-accent" />
                 Evaluaciones y Calificaciones
               </CardTitle>
