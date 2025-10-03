@@ -89,7 +89,7 @@ export function WorkAssessmentCard({ data }: WorkAssessmentCardProps) {
                                 <TableRow key={index}>
                                     <TableCell className="font-medium">{criterio.nombre}</TableCell>
                                     <TableCell className="text-center">{criterio.porcentaje}%</TableCell>
-                                    <TableCell className="text-center text-xs text-muted-foreground">{criterio.notas.join(' + ')}</TableCell>
+                                    <TableCell className="text-center text-xs text-muted-foreground">{criterio.notas.join(', ')}</TableCell>
                                     <TableCell className="text-right font-semibold">{getCriterioSum(criterio.notas)}</TableCell>
                                 </TableRow>
                             ))}
