@@ -8,11 +8,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import Link from 'next/link';
-import { ChevronLeft, Clock, Search, Edit, User, BookOpen } from 'lucide-react';
+import { ChevronLeft, Clock, Search, Edit, User, BookOpen, DollarSign } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import { Switch } from '@/components/ui/switch';
 
 interface AlumnoHorario {
     id: string;
@@ -40,10 +41,19 @@ export default function CambioHorarioPage() {
     const { toast } = useToast();
     const [selectedStudent, setSelectedStudent] = useState<AlumnoHorario | null>(null);
     const [nuevoHorario, setNuevoHorario] = useState<string>('');
+    const [pagoRealizado, setPagoRealizado] = useState(false);
+    const [montoPagado, setMontoPagado] = useState('');
+    const [cambioDeNivel, setCambioDeNivel] = useState(false);
+    const [nuevoNivel, setNuevoNivel] = useState('');
+
 
     const handleOpenDialog = (student: AlumnoHorario) => {
         setSelectedStudent(student);
         setNuevoHorario('');
+        setPagoRealizado(false);
+        setMontoPagado('');
+        setCambioDeNivel(false);
+        setNuevoNivel('');
     };
     
     const handleSaveChanges = () => {
@@ -58,6 +68,11 @@ export default function CambioHorarioPage() {
 
         console.log("Guardando cambio de horario para:", selectedStudent.nombre);
         console.log("Nuevo Horario ID:", nuevoHorario);
+        console.log("Pago Realizado:", pagoRealizado);
+        console.log("Monto Pagado:", montoPagado);
+        console.log("Cambio de Nivel:", cambioDeNivel);
+        console.log("Nuevo Nivel:", nuevoNivel);
+
 
         const horarioSeleccionado = horariosDisponibles.find(h => h.id === nuevoHorario);
 
@@ -66,7 +81,6 @@ export default function CambioHorarioPage() {
             description: `El horario de ${selectedStudent.nombre} ha sido cambiado a ${horarioSeleccionado?.nombre}.`,
         });
         
-        // Aquí se cerraría el diálogo en una implementación real
         document.querySelector('[aria-label="Close"]')?.click()
     };
 
@@ -135,11 +149,11 @@ export default function CambioHorarioPage() {
                                                         <DialogHeader>
                                                             <DialogTitle>Cambiar Horario para {selectedStudent?.nombre}</DialogTitle>
                                                             <DialogDescription>
-                                                                Selecciona el nuevo horario para el curso actual del estudiante.
+                                                                Completa los campos para modificar el horario y otros detalles.
                                                             </DialogDescription>
                                                         </DialogHeader>
-                                                        <div className="py-4 space-y-4">
-                                                            <div className="p-4 border rounded-lg bg-secondary/30 space-y-2">
+                                                        <div className="py-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                            <div className="p-4 border rounded-lg bg-secondary/30 space-y-2 sm:col-span-2">
                                                                 <div className='flex items-center text-sm'>
                                                                     <User className="mr-2 h-4 w-4 text-muted-foreground"/>
                                                                     <span className='font-semibold'>{selectedStudent?.nombre}</span>
@@ -149,6 +163,7 @@ export default function CambioHorarioPage() {
                                                                     <span className='text-muted-foreground'>{selectedStudent?.curso}</span>
                                                                 </div>
                                                             </div>
+
                                                             <div className="space-y-2">
                                                                 <Label htmlFor="horario-select">Seleccionar Nuevo Horario</Label>
                                                                 <Select value={nuevoHorario} onValueChange={setNuevoHorario}>
@@ -164,6 +179,43 @@ export default function CambioHorarioPage() {
                                                                     </SelectContent>
                                                                 </Select>
                                                             </div>
+                                                            
+                                                            <div className="space-y-2">
+                                                                <Label htmlFor="montoPagado">Monto Pagado</Label>
+                                                                <div className="relative">
+                                                                    <DollarSign className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                                                                    <Input 
+                                                                        id="montoPagado"
+                                                                        type="number"
+                                                                        placeholder="0.00"
+                                                                        className="pl-8"
+                                                                        value={montoPagado}
+                                                                        onChange={(e) => setMontoPagado(e.target.value)}
+                                                                    />
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="flex items-center space-x-2 p-3 border rounded-md">
+                                                                <Switch id="pago-realizado" checked={pagoRealizado} onCheckedChange={setPagoRealizado} />
+                                                                <Label htmlFor="pago-realizado">¿Pagó por el cambio?</Label>
+                                                            </div>
+                                                            
+                                                            <div className="flex items-center space-x-2 p-3 border rounded-md">
+                                                                <Switch id="cambio-nivel" checked={cambioDeNivel} onCheckedChange={setCambioDeNivel} />
+                                                                <Label htmlFor="cambio-nivel">¿Cambió de Nivel?</Label>
+                                                            </div>
+                                                            
+                                                            {cambioDeNivel && (
+                                                                <div className="space-y-2 sm:col-span-2 animate-in fade-in-50">
+                                                                    <Label htmlFor="nuevoNivel">Especificar Nuevo Nivel</Label>
+                                                                    <Input
+                                                                        id="nuevoNivel"
+                                                                        placeholder="Ej: Inglés Intermedio B2"
+                                                                        value={nuevoNivel}
+                                                                        onChange={(e) => setNuevoNivel(e.target.value)}
+                                                                    />
+                                                                </div>
+                                                            )}
                                                         </div>
                                                         <DialogFooter>
                                                             <Button type="button" variant="outline" onClick={() => document.querySelector('[aria-label="Close"]')?.click()}>Cancelar</Button>
@@ -192,3 +244,5 @@ export default function CambioHorarioPage() {
         </div>
     );
 }
+
+    
