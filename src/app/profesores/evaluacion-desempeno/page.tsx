@@ -82,7 +82,6 @@ export default function EvaluacionDesempenoPage() {
          
          const midTerm = assessment.evaluacion.examen_medio || 0;
          const finalTerm = assessment.evaluacion.examen_final || 0;
-         const average = (totalScore + midTerm + finalTerm) / (assessment.evaluacion.criterios.length + (midTerm > 0 ? 1 : 0) + (finalTerm > 0 ? 1 : 0));
          const finalAverage = (totalScore + midTerm + finalTerm) / 3;
 
          setAssessment(prev => ({
@@ -90,7 +89,7 @@ export default function EvaluacionDesempenoPage() {
              evaluacion: {
                 ...prev.evaluacion,
                 puntaje_total: parseFloat(totalScore.toFixed(2)),
-                promedio: parseFloat(finalAverage.toFixed(2)),
+                promedio: Math.round(finalAverage),
              },
              estado: {
                  aprobado: finalAverage >= 51,
@@ -100,7 +99,7 @@ export default function EvaluacionDesempenoPage() {
 
         toast({
             title: "Cálculo Realizado",
-            description: `Puntaje total actualizado a ${totalScore.toFixed(2)} y promedio a ${finalAverage.toFixed(2)}.`,
+            description: `Puntaje total actualizado a ${totalScore.toFixed(2)} y promedio redondeado a ${Math.round(finalAverage)}.`,
         });
     }
 
