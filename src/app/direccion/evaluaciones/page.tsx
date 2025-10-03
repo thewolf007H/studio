@@ -6,10 +6,12 @@ import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
-import { ChevronLeft, GraduationCap, Search, Printer, Download } from 'lucide-react';
+import { ChevronLeft, GraduationCap, Search, Printer, Download, CheckCircle, XCircle, Users } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { WorkAssessmentCard, type WorkAssessmentData } from '@/components/assessment/WorkAssessmentCard';
 import { Separator } from '@/components/ui/separator';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
 
 const assessmentData1: WorkAssessmentData = {
   tipo_documento: "Work Assessment",
@@ -72,6 +74,15 @@ const assessmentData2: WorkAssessmentData = {
 
 const allAssessments = [assessmentData1, assessmentData2];
 
+const dailyReportsStatus = [
+    { teacher: "Dr. David Lee", status: "Enviado", date: "2024-08-01" },
+    { teacher: "Laura Martínez", status: "Pendiente", date: "2024-08-01" },
+    { teacher: "Carlos Gómez", status: "Enviado", date: "2024-08-01" },
+    { teacher: "Pamela Altamirano Pozo", status: "Pendiente", date: "2024-08-01" },
+    { teacher: "Ariel Berrios", status: "Enviado", date: "2024-08-01" },
+];
+
+
 export default function DireccionEvaluacionesPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredAssessments, setFilteredAssessments] = useState(allAssessments);
@@ -110,67 +121,115 @@ export default function DireccionEvaluacionesPage() {
             Supervisión de Evaluaciones
           </h1>
           <p className="text-md md:text-lg text-muted-foreground max-w-3xl mx-auto">
-            Busca y visualiza las evaluaciones de desempeño y las calificaciones de todos los estudiantes del instituto.
+            Busca evaluaciones de estudiantes y supervisa el estado de los reportes diarios de los profesores.
           </p>
         </div>
+        
+        <div className="grid lg:grid-cols-3 gap-8 items-start">
+            <div className="lg:col-span-2 space-y-8">
+                <Card className="shadow-lg bg-card">
+                  <CardHeader>
+                    <CardTitle>Buscar Evaluación de Estudiante</CardTitle>
+                    <CardDescription>Busca por nombre, apellido o código del estudiante.</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex gap-2">
+                    <Input 
+                        id="student-search" 
+                        placeholder="Ingresa nombre o código..." 
+                        className="max-w-xs bg-background" 
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                    />
+                    <Button onClick={handleSearch}><Search className="mr-2 h-4 w-4"/>Buscar</Button>
+                  </CardContent>
+                </Card>
 
-        <Card className="shadow-lg bg-card mb-8">
-          <CardHeader>
-            <CardTitle>Buscar Evaluación de Estudiante</CardTitle>
-            <CardDescription>Busca por nombre, apellido o código del estudiante.</CardDescription>
-          </CardHeader>
-          <CardContent className="flex gap-2">
-            <Input 
-                id="student-search" 
-                placeholder="Ingresa nombre o código..." 
-                className="max-w-xs bg-background" 
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-            />
-            <Button onClick={handleSearch}><Search className="mr-2 h-4 w-4"/>Buscar</Button>
-          </CardContent>
-        </Card>
-
-        <div className="space-y-8">
-            {filteredAssessments.length > 0 ? (
-                filteredAssessments.map((data, index) => (
-                    <Card key={index} className="shadow-lg bg-card">
-                        <CardHeader className="flex flex-row justify-between items-center">
-                            <div>
-                                <CardTitle className='text-xl'>
-                                    {data.estudiante.nombres} {data.estudiante.apellidos} - <span className='text-primary'>{data.estudiante.nivel_actual}</span>
-                                </CardTitle>
-                                <CardDescription>Facilitador: {data.facilitador} - Finalización: {data.fecha_finalizacion}</CardDescription>
-                            </div>
-                            <div className="flex gap-2">
-                                <Button variant="outline" disabled>
-                                    <Printer className="mr-2 h-4 w-4"/>
-                                    Imprimir
-                                </Button>
-                                <Button disabled>
-                                    <Download className="mr-2 h-4 w-4"/>
-                                    Descargar PDF
-                                </Button>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <WorkAssessmentCard data={data} />
+                {filteredAssessments.length > 0 ? (
+                    filteredAssessments.map((data, index) => (
+                        <Card key={index} className="shadow-lg bg-card">
+                            <CardHeader className="flex flex-row justify-between items-center">
+                                <div>
+                                    <CardTitle className='text-xl'>
+                                        {data.estudiante.nombres} {data.estudiante.apellidos} - <span className='text-primary'>{data.estudiante.nivel_actual}</span>
+                                    </CardTitle>
+                                    <CardDescription>Facilitador: {data.facilitador} - Finalización: {data.fecha_finalizacion}</CardDescription>
+                                </div>
+                                <div className="flex gap-2">
+                                    <Button variant="outline" disabled>
+                                        <Printer className="mr-2 h-4 w-4"/>
+                                        Imprimir
+                                    </Button>
+                                    <Button disabled>
+                                        <Download className="mr-2 h-4 w-4"/>
+                                        Descargar PDF
+                                    </Button>
+                                </div>
+                            </CardHeader>
+                            <CardContent>
+                                <WorkAssessmentCard data={data} />
+                            </CardContent>
+                        </Card>
+                    ))
+                ) : (
+                    <Card className="shadow-lg bg-card">
+                        <CardContent className="p-10 text-center">
+                            <p className="text-xl font-semibold text-muted-foreground">No se encontraron evaluaciones.</p>
+                            <p className="text-sm text-muted-foreground">Intenta con otro término de búsqueda o verifica que haya evaluaciones registradas.</p>
                         </CardContent>
                     </Card>
-                ))
-            ) : (
+                )}
+            </div>
+            
+            <div className="lg:col-span-1 space-y-8 sticky top-24">
                 <Card className="shadow-lg bg-card">
-                    <CardContent className="p-10 text-center">
-                        <p className="text-xl font-semibold text-muted-foreground">No se encontraron evaluaciones.</p>
-                        <p className="text-sm text-muted-foreground">Intenta con otro término de búsqueda o verifica que haya evaluaciones registradas.</p>
+                    <CardHeader>
+                        <CardTitle className="flex items-center text-xl">
+                            <Users className="mr-2 h-5 w-5 text-accent"/>
+                            Estado de Reportes de Asistencia
+                        </CardTitle>
+                        <CardDescription>Estado de envío del reporte diario de los profesores.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Profesor</TableHead>
+                                    <TableHead className="text-right">Estado</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {dailyReportsStatus.map((report) => (
+                                    <TableRow key={report.teacher}>
+                                        <TableCell className="font-medium">{report.teacher}</TableCell>
+                                        <TableCell className="text-right">
+                                            {report.status === 'Enviado' ? (
+                                                <Badge className="bg-green-100 text-green-800 border-green-200 hover:bg-green-200">
+                                                    <CheckCircle className="mr-1 h-3 w-3" />
+                                                    Enviado
+                                                </Badge>
+                                            ) : (
+                                                <Badge variant="destructive">
+                                                    <XCircle className="mr-1 h-3 w-3" />
+                                                    Pendiente
+                                                </Badge>
+                                            )}
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                         <p className="text-xs text-muted-foreground mt-4 pt-3 border-t border-dashed">
+                            (La lista de reportes es un ejemplo y se actualizará en tiempo real.)
+                        </p>
                     </CardContent>
                 </Card>
-            )}
-             <p className="text-xs text-muted-foreground mt-4 pt-3 text-center">
-                (Los datos mostrados son de ejemplo. La funcionalidad de búsqueda e impresión está en desarrollo.)
-            </p>
+            </div>
         </div>
+
+        <p className="text-xs text-muted-foreground mt-8 pt-4 text-center">
+            (Los datos de evaluaciones mostrados son de ejemplo. La funcionalidad de búsqueda e impresión está en desarrollo.)
+        </p>
 
 
       </main>
