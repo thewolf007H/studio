@@ -11,6 +11,9 @@ interface Tema {
   pagina: number;
 }
 
+export type ClaseTipo = 'normal' | 'personalizada' | 'acelerada' | 'virtual' | 'hibrida';
+export type ClasesPorDia = { [key in ClaseTipo]?: number };
+
 export interface WeekdayClassReportData {
   tipo_documento: string;
   facilitador: string;
@@ -29,11 +32,11 @@ export interface WeekdayClassReportData {
   };
   observaciones: string;
   clases_impartidas: {
-    lunes: number;
-    martes: number;
-    miércoles: number;
-    jueves: number;
-    viernes: number;
+    lunes: ClasesPorDia;
+    martes: ClasesPorDia;
+    miércoles: ClasesPorDia;
+    jueves: ClasesPorDia;
+    viernes: ClasesPorDia;
   };
 }
 
@@ -46,8 +49,11 @@ const dias = ["lunes", "martes", "miércoles", "jueves", "viernes"] as const;
 export function WeekdayClassReportCard({ data }: WeekdayClassReportCardProps) {
     const maxRows = Math.max(...dias.map(dia => data.estructura_semanal[dia].length));
 
-    const totalClasesMes = Object.values(data.clases_impartidas)
-        .reduce((acc, h) => acc + h, 0);
+    const totalClasesMes = dias.reduce((total, dia) => {
+        const clasesDelDia = data.clases_impartidas[dia];
+        const sumaDia = Object.values(clasesDelDia).reduce((acc, count) => acc + (count || 0), 0);
+        return total + sumaDia;
+    }, 0);
 
     return (
         <Card className="w-full mx-auto shadow-lg border-primary/10 bg-card font-sans text-sm">
@@ -108,11 +114,23 @@ export function WeekdayClassReportCard({ data }: WeekdayClassReportCardProps) {
                 <div className="w-full space-y-4">
                      <div>
                         <h4 className="font-semibold mb-2">Clases Impartidas por Día</h4>
-                        <div className="grid grid-cols-5 gap-2 text-center">
+                        <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 text-center">
                             {dias.map(dia => (
                                 <div key={dia} className="p-2 bg-secondary/30 rounded-md">
-                                    <p className="text-xs capitalize text-muted-foreground">{dia}</p>
-                                    <p className="font-bold text-primary">{data.clases_impartidas[dia]}</p>
+                                    <p className="text-sm capitalize font-bold text-muted-foreground">{dia}</p>
+                                    <Separator className="my-1"/>
+                                    <div className="text-left text-xs space-y-1 mt-2">
+                                        {Object.entries(data.clases_impartidas[dia]).length > 0 ? (
+                                            Object.entries(data.clases_impartidas[dia]).map(([tipo, cantidad]) => (
+                                                <div key={tipo} className="flex justify-between">
+                                                    <span className="capitalize">{tipo}:</span>
+                                                    <span className="font-bold text-primary">{cantidad}</span>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <p className="text-muted-foreground italic">Sin clases</p>
+                                        )}
+                                    </div>
                                 </div>
                             ))}
                         </div>

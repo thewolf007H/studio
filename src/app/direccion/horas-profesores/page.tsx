@@ -31,7 +31,13 @@ const reportData1: WeekdayClassReportData = {
     viernes: [ { tema: "The Sentence", pagina: 5 }, { tema: "Definite & Indefinite Articles", pagina: 10 }, { pagina: 15 }, { pagina: 20 }, { pagina: 25 }, { pagina: 30 } ]
   },
   observaciones: "Los estudiantes del nivel 1A están progresando adecuadamente, aunque algunos necesitan más práctica con los artículos definidos e indefinidos.",
-  clases_impartidas: { lunes: 2, martes: 2, miércoles: 2, jueves: 2, viernes: 2 }
+  clases_impartidas: {
+    lunes: { normal: 2 },
+    martes: { normal: 2 },
+    miércoles: { normal: 1, personalizada: 1 },
+    jueves: { normal: 2 },
+    viernes: { acelerada: 2 },
+  },
 };
 
 const reportData2: WeekdayClassReportData = {
@@ -51,7 +57,13 @@ const reportData2: WeekdayClassReportData = {
     viernes: [ { tema: "Practice", pagina: 49 }, { pagina: 54 } ]
   },
   observaciones: "No se han registrado observaciones para este mes.",
-  clases_impartidas: { lunes: 1.25, martes: 1.25, miércoles: 1.25, jueves: 1.25, viernes: 1.25 }
+  clases_impartidas: {
+    lunes: { normal: 1.25 },
+    martes: { normal: 1.25 },
+    miércoles: { normal: 1.25 },
+    jueves: { normal: 1.25 },
+    viernes: { normal: 1.25 },
+  },
 };
 
 const reportsPlaceholder = [

@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import Link from 'next/link';
 import { ChevronLeft, Clock, Save, Edit, PlusCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { WeekdayClassReportCard, type WeekdayClassReportData } from '@/components/reports/WeekdayClassReportCard';
+import { WeekdayClassReportCard, type WeekdayClassReportData, type ClasesPorDia, type ClaseTipo } from '@/components/reports/WeekdayClassReportCard';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -33,7 +33,13 @@ const reportData1: WeekdayClassReportData = {
     viernes: [ { tema: "The Sentence", pagina: 5 }, { tema: "Definite & Indefinite Articles", pagina: 10 }, { pagina: 15 }, { pagina: 20 }, { pagina: 25 }, { pagina: 30 } ]
   },
   observaciones: "Los estudiantes del nivel 1A están progresando adecuadamente, aunque algunos necesitan más práctica con los artículos definidos e indefinidos.",
-  clases_impartidas: { lunes: 2, martes: 2, miércoles: 2, jueves: 2, viernes: 2 }
+  clases_impartidas: {
+    lunes: { normal: 2 },
+    martes: { normal: 2 },
+    miércoles: { normal: 1, personalizada: 1 },
+    jueves: { normal: 2 },
+    viernes: { acelerada: 2 },
+  },
 };
 
 type DiaSemana = 'lunes' | 'martes' | 'miércoles' | 'jueves' | 'viernes';
@@ -81,11 +87,18 @@ export default function ProfesorRegistroHorasPage() {
         }
 
         const diaKey = dia as DiaSemana;
+        const tipoKey = tipo as ClaseTipo;
         
         setReportData(prevData => {
-            const nuevasClases = { ...prevData.clases_impartidas };
-            nuevasClases[diaKey] += cantidad;
-            return { ...prevData, clases_impartidas: nuevasClases };
+            const nuevasClasesDia = { ...prevData.clases_impartidas[diaKey] };
+            nuevasClasesDia[tipoKey] = (nuevasClasesDia[tipoKey] || 0) + cantidad;
+
+            const nuevasClasesImpartidas = {
+                ...prevData.clases_impartidas,
+                [diaKey]: nuevasClasesDia,
+            };
+            
+            return { ...prevData, clases_impartidas: nuevasClasesImpartidas };
         });
 
         toast({
@@ -180,10 +193,11 @@ export default function ProfesorRegistroHorasPage() {
                                 <Select onValueChange={(value) => setRegistroClase(p => ({ ...p, tipo: value }))}>
                                     <SelectTrigger id="tipo-clase"><SelectValue placeholder="Selecciona un tipo..." /></SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="Clase Normal">Clase Normal</SelectItem>
-                                        <SelectItem value="Clase Personalizada">Clase Personalizada</SelectItem>
-                                        <SelectItem value="Clase Acelerada">Clase Acelerada</SelectItem>
-                                        <SelectItem value="Clase Virtual">Clase Virtual</SelectItem>
+                                        <SelectItem value="normal">Clase Normal</SelectItem>
+                                        <SelectItem value="personalizada">Clase Personalizada</SelectItem>
+                                        <SelectItem value="acelerada">Clase Acelerada</SelectItem>
+                                        <SelectItem value="virtual">Clase Virtual</SelectItem>
+                                        <SelectItem value="hibrida">Clase Híbrida</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
