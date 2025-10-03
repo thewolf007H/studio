@@ -38,8 +38,7 @@ export default function ProfesorRegistroHorasSabadoPage() {
     const [reportData, setReportData] = useState(reportDataSaturday);
     const [registroClase, setRegistroClase] = useState({
         dia: 'Sábado', // Pre-filled for this page
-        tipo: '',
-        cantidad: 1,
+        horario: '',
         informe: '',
     });
 
@@ -54,11 +53,11 @@ export default function ProfesorRegistroHorasSabadoPage() {
     };
 
     const handleRegistrarClase = () => {
-        const { tipo, cantidad, informe } = registroClase;
-        if (!tipo) {
+        const { horario, informe } = registroClase;
+        if (!horario) {
             toast({
                 title: "Error",
-                description: "Debes seleccionar el tipo de clase.",
+                description: "Debes seleccionar el horario.",
                 variant: "destructive",
             });
             return;
@@ -76,12 +75,12 @@ export default function ProfesorRegistroHorasSabadoPage() {
 
         setReportData(prevData => ({
             ...prevData,
-            total_clases_mes: prevData.total_clases_mes + cantidad,
+            total_clases_mes: prevData.total_clases_mes + 1,
         }));
 
         toast({
             title: "Clase Sabatina Registrada (Simulación)",
-            description: `Se añadieron ${cantidad} clase(s) de tipo "${tipo}" al total del mes.`,
+            description: `Se añadió 1 clase para el horario de ${horario} al total del mes.`,
         });
 
         document.querySelector('[aria-label="Close"]')?.click();
@@ -149,7 +148,7 @@ export default function ProfesorRegistroHorasSabadoPage() {
                         <DialogHeader>
                             <DialogTitle>Registro de Clase Sabatina</DialogTitle>
                             <DialogDescription>
-                                Registra el tipo de clase que impartiste este sábado.
+                                Registra el horario e informe de la clase que impartiste este sábado.
                             </DialogDescription>
                         </DialogHeader>
                         <div className="py-4 space-y-4">
@@ -158,26 +157,14 @@ export default function ProfesorRegistroHorasSabadoPage() {
                                 <Input id="dia-clase" value="Sábado" readOnly disabled />
                             </div>
                              <div className="space-y-2">
-                                <Label htmlFor="tipo-clase-sabado">Tipo de Clase</Label>
-                                <Select onValueChange={(value) => setRegistroClase(p => ({ ...p, tipo: value }))}>
-                                    <SelectTrigger id="tipo-clase-sabado"><SelectValue placeholder="Selecciona un tipo..." /></SelectTrigger>
+                                <Label htmlFor="horario-clase-sabado">Horario de la Clase</Label>
+                                <Select onValueChange={(value) => setRegistroClase(p => ({ ...p, horario: value }))}>
+                                    <SelectTrigger id="horario-clase-sabado"><SelectValue placeholder="Selecciona un horario..." /></SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="Clase Normal">Clase Normal</SelectItem>
-                                        <SelectItem value="Clase Personalizada">Clase Personalizada</SelectItem>
-                                        <SelectItem value="Clase Acelerada">Clase Acelerada</SelectItem>
-                                        <SelectItem value="Clase Virtual">Clase Virtual</SelectItem>
+                                        <SelectItem value="Mañana">Mañana</SelectItem>
+                                        <SelectItem value="Tarde">Tarde</SelectItem>
                                     </SelectContent>
                                 </Select>
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="cantidad-clases-sabado">Cantidad a añadir</Label>
-                                <Input 
-                                    id="cantidad-clases-sabado" 
-                                    type="number"
-                                    min="1"
-                                    value={registroClase.cantidad} 
-                                    onChange={(e) => setRegistroClase(p => ({ ...p, cantidad: parseInt(e.target.value) || 1 }))}
-                                />
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="informe-clase-sabado">Informe</Label>
