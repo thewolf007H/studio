@@ -19,7 +19,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Label } from '@/components/ui/label';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import Link from 'next/link';
-import { ChevronLeft, Users, Save, CalendarIcon } from 'lucide-react';
+import { ChevronLeft, Users, Save, CalendarIcon, Download } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
@@ -195,9 +195,15 @@ export default function ReemplazosPage() {
                     </Card>
 
                     <Card className="shadow-lg bg-card">
-                        <CardHeader>
-                            <CardTitle>Historial de Reemplazos</CardTitle>
-                            <CardDescription>Últimas sustituciones registradas en el sistema.</CardDescription>
+                        <CardHeader className="flex flex-row justify-between items-start">
+                            <div>
+                                <CardTitle>Historial de Reemplazos del Mes</CardTitle>
+                                <CardDescription>Sustituciones registradas en el mes actual.</CardDescription>
+                            </div>
+                            <Button variant="outline" size="sm" disabled>
+                                <Download className="mr-2 h-4 w-4" />
+                                Descargar Informe
+                            </Button>
                         </CardHeader>
                         <CardContent>
                              <div className="overflow-x-auto border rounded-lg">
