@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -6,7 +5,7 @@ import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import Link from 'next/link';
-import { ChevronLeft, Clock, Save, Edit, PlusCircle } from 'lucide-react';
+import { ChevronLeft, Clock, Save, Edit, PlusCircle, UserCheck } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { SaturdayClassReportCard, type SaturdayClassReportData } from '@/components/reports/SaturdayClassReportCard';
 import { Textarea } from '@/components/ui/textarea';
@@ -37,11 +36,14 @@ export default function ProfesorRegistroHorasSabadoPage() {
     const [isEditing, setIsEditing] = useState(false);
     const [reportData, setReportData] = useState(reportDataSaturday);
     const [registroClase, setRegistroClase] = useState({
-        dia: 'Sábado', // Pre-filled for this page
         horario: '',
         informe: '',
     });
-
+    const [registroPersonalizada, setRegistroPersonalizada] = useState({
+        dia: '',
+        horas: 1,
+        informe: ''
+    });
 
     const handleSave = () => {
         console.log("Enviando informe de horas (sábados) con:", reportData);
@@ -83,7 +85,38 @@ export default function ProfesorRegistroHorasSabadoPage() {
             description: `Se añadió 1 clase para el horario de ${horario} al total del mes.`,
         });
 
-        document.querySelector('[aria-label="Close"]')?.click();
+        document.querySelector('[data-radix-dialog-content][aria-describedby="dialog-sabado-desc"] [aria-label="Close"]')?.click();
+    };
+
+    const handleRegistrarClasePersonalizada = () => {
+        const { dia, horas, informe } = registroPersonalizada;
+        if (!dia || horas <= 0) {
+            toast({
+                title: "Error",
+                description: "Debes seleccionar un día y una cantidad de horas válida.",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        const wordCount = informe.trim().split(/\s+/).length;
+        if (wordCount < 8 || wordCount > 20) {
+             toast({
+                title: "Error en el Informe",
+                description: "El informe de clase personalizada debe contener entre 8 y 20 palabras.",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        console.log("Registrando clase personalizada:", registroPersonalizada);
+
+        toast({
+            title: "Clase Personalizada Registrada (Simulación)",
+            description: `Se registraron ${horas} horas para el día ${dia}.`,
+        });
+
+        document.querySelector('[data-radix-dialog-content][aria-describedby="dialog-personalizada-desc"] [aria-label="Close"]')?.click();
     };
 
   return (
@@ -139,15 +172,15 @@ export default function ProfesorRegistroHorasSabadoPage() {
             <CardFooter className="flex flex-col sm:flex-row justify-end items-center gap-4 pt-6 border-t">
                 <Dialog>
                     <DialogTrigger asChild>
-                         <Button variant="default">
+                         <Button variant="outline">
                             <PlusCircle className="mr-2 h-5 w-5" />
-                            Registrar Clase Impartida
+                            Registrar Clase Sabatina
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-md bg-card">
+                    <DialogContent className="sm:max-w-md bg-card" aria-describedby="dialog-sabado-desc">
                         <DialogHeader>
                             <DialogTitle>Registro de Clase Sabatina</DialogTitle>
-                            <DialogDescription>
+                            <DialogDescription id="dialog-sabado-desc">
                                 Registra el horario e informe de la clase que impartiste este sábado.
                             </DialogDescription>
                         </DialogHeader>
@@ -178,11 +211,70 @@ export default function ProfesorRegistroHorasSabadoPage() {
                             </div>
                         </div>
                         <DialogFooter>
-                            <Button type="button" variant="outline" onClick={() => document.querySelector('[aria-label="Close"]')?.click()}>Cancelar</Button>
+                            <Button type="button" variant="outline" onClick={() => document.querySelector('[data-radix-dialog-content][aria-describedby="dialog-sabado-desc"] [aria-label="Close"]')?.click()}>Cancelar</Button>
                             <Button type="submit" onClick={handleRegistrarClase}>Guardar Registro</Button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
+
+                <Dialog>
+                    <DialogTrigger asChild>
+                         <Button variant="default">
+                            <UserCheck className="mr-2 h-5 w-5" />
+                            Registrar Clase Personalizada
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md bg-card" aria-describedby="dialog-personalizada-desc">
+                        <DialogHeader>
+                            <DialogTitle>Registro de Clase Personalizada</DialogTitle>
+                            <DialogDescription id="dialog-personalizada-desc">
+                                Registra las horas y el día de una clase personalizada impartida.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="py-4 space-y-4">
+                             <div className="space-y-2">
+                                <Label htmlFor="dia-clase-personalizada">Día de la Clase</Label>
+                                <Select onValueChange={(value) => setRegistroPersonalizada(p => ({ ...p, dia: value }))}>
+                                    <SelectTrigger id="dia-clase-personalizada"><SelectValue placeholder="Selecciona un día..." /></SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="Lunes">Lunes</SelectItem>
+                                        <SelectItem value="Martes">Martes</SelectItem>
+                                        <SelectItem value="Miércoles">Miércoles</SelectItem>
+                                        <SelectItem value="Jueves">Jueves</SelectItem>
+                                        <SelectItem value="Viernes">Viernes</SelectItem>
+                                        <SelectItem value="Sábado">Sábado</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="horas-personalizada">Cantidad de Horas</Label>
+                                <Input 
+                                    id="horas-personalizada" 
+                                    type="number"
+                                    min="1"
+                                    max="20"
+                                    value={registroPersonalizada.horas} 
+                                    onChange={(e) => setRegistroPersonalizada(p => ({ ...p, horas: parseInt(e.target.value) || 1 }))}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="informe-clase-personalizada">Informe</Label>
+                                <Textarea
+                                    id="informe-clase-personalizada"
+                                    placeholder="¿Qué enseñaste en esta clase?"
+                                    value={registroPersonalizada.informe}
+                                    onChange={(e) => setRegistroPersonalizada(p => ({ ...p, informe: e.target.value }))}
+                                />
+                                <p className="text-xs text-muted-foreground">Breve descripción de lo enseñado (8-20 palabras).</p>
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button type="button" variant="outline" onClick={() => document.querySelector('[data-radix-dialog-content][aria-describedby="dialog-personalizada-desc"] [aria-label="Close"]')?.click()}>Cancelar</Button>
+                            <Button type="submit" onClick={handleRegistrarClasePersonalizada}>Guardar Registro</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+
                  <Button size="lg" onClick={handleSave}>
                     <Save className="mr-2 h-5 w-5" />
                     Enviar Informe a Dirección
