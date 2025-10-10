@@ -126,7 +126,7 @@ export default function ProfesorRegistroHorasPage() {
           <div className="absolute inset-0 opacity-[0.03] pattern-[0.8rem_0.8rem_#000000_radial-gradient(circle_at_center,_var(--tw-gradient-stops))] dark:opacity-[0.05] dark:pattern-[0.8rem_0.8rem_#ffffff_radial-gradient(circle_at_center,_var(--tw-gradient-stops))]"></div>
           <Clock className="mx-auto mb-4 h-14 w-14 md:h-16 md:w-16 text-primary" />
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-headline mb-3 text-primary">
-            Registro de Actividades (Semanal)
+            Class Reports (Lunes a Viernes)
           </h1>
           <p className="text-md md:text-lg text-muted-foreground max-w-3xl mx-auto">
             Completa tu informe de clases de Lunes a Viernes. El informe debe enviarse al final de la jornada.

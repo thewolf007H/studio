@@ -57,14 +57,14 @@ export default function ProfesorPage() {
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <Clock className="mr-2 h-6 w-6 text-accent" />
-                Registro de Horas (Semanal)
+                Class Reports (Lunes a Viernes)
               </CardTitle>
               <CardDescription>Completa tu informe de clases de lunes a viernes.</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Registra tu avance y horas para la gestión administrativa.</p>
               <Button asChild variant="outline">
-                <Link href="/profesores/registro-horas">Registrar Horas (L-V)</Link>
+                <Link href="/profesores/registro-horas">Registrar Class Reports (L-V)</Link>
               </Button>
             </CardContent>
           </Card>
@@ -73,14 +73,14 @@ export default function ProfesorPage() {
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <Clock className="mr-2 h-6 w-6 text-accent" />
-                Registro de Horas (Sábados)
+                Class Reports (Sábados)
               </CardTitle>
               <CardDescription>Completa tu informe de clases de los sábados.</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Registra tus actividades y horas de las clases sabatinas.</p>
               <Button asChild variant="outline">
-                <Link href="/profesores/registro-horas-sabado">Registrar Horas (Sáb.)</Link>
+                <Link href="/profesores/registro-horas-sabado">Registrar Class Reports (Sáb.)</Link>
               </Button>
             </CardContent>
           </Card>
