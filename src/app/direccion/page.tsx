@@ -17,7 +17,8 @@ import {
   GraduationCap,
   Clock,
   BookUser,
-  Users
+  Users,
+  FileClock
 } from 'lucide-react';
 
 export default function DireccionPage() {
@@ -64,6 +65,22 @@ export default function DireccionPage() {
               <p className="text-sm text-muted-foreground mb-4">Busca por alumno, revisa y descarga los boletines de notas y evaluaciones.</p>
               <Button asChild className="w-full">
                 <Link href="/direccion/evaluaciones">Supervisar Evaluaciones</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+           <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <FileClock className="mr-2 h-6 w-6 text-accent" />
+                Recepción de Informes
+              </CardTitle>
+              <CardDescription>Revisa los informes de asistencia y avance de los profesores.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Centraliza y gestiona los informes diarios y semanales del cuerpo docente.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/recepcion-informes">Revisar Informes</Link>
               </Button>
             </CardContent>
           </Card>
