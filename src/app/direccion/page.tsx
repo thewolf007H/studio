@@ -31,7 +31,7 @@ export default function DireccionPage() {
     { href: "/direccion/gestion-profesores", icon: UsersRound, title: "Gestión de Profesores", description: "Administra el personal docente y sus asignaciones." },
     { href: "/direccion/evaluaciones", icon: GraduationCap, title: "Evaluaciones y Calificaciones", description: "Supervisa todas las evaluaciones y notas de los estudiantes." },
     { href: "/direccion/recepcion-informes", icon: FileClock, title: "Recepción de Informes", description: "Revisa los informes de asistencia y avance de los profesores." },
-    { href: "/direccion/horas-profesores", icon: Clock, title: "Horas Profesores", description: "Supervisa los registros de horas y actividades de los profesores." },
+    { href: "/direccion/horas-profesores", icon: Clock, title: "Class Reports", description: "Supervisa los registros de horas y actividades de los profesores." },
     { href: "/direccion/asignar-cursos", icon: BookUser, title: "Asignar Cursos a Alumnos", description: "Matricula a un estudiante en un nuevo curso ofertado." },
     { href: "/direccion/reemplazos", icon: Users, title: "Reemplazos de Docentes", description: "Asigna un profesor sustituto para una clase específica." },
     { href: "/direccion/informe-asistencias", icon: CheckSquare, title: "Informe de Asistencias", description: "Supervisa la asistencia de los alumnos en detalle." },
