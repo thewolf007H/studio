@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -177,14 +178,6 @@ export default function KardexPage() {
                                 )} />
                                 <FormField control={form.control} name="general_obs" render={({ field }) => (
                                     <FormItem><FormLabel>Observaciones Generales</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
-                                )} />
-                                <FormField control={form.control} name="signature" render={({ field }) => (
-                                     <FormItem>
-                                        <FormLabel>Firma del Facilitador</FormLabel>
-                                        <div className="w-full h-24 bg-secondary/40 rounded-md border-2 border-dashed flex items-center justify-center">
-                                            <p className="text-muted-foreground text-sm">(Funcionalidad de firma digital en desarrollo)</p>
-                                        </div>
-                                     </FormItem>
                                 )} />
                                 <Separator />
                                 <div className="flex items-center space-x-8">
