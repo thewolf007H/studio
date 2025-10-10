@@ -19,7 +19,8 @@ import {
   BookUser,
   Users,
   FileClock,
-  CheckSquare
+  CheckSquare,
+  Archive
 } from 'lucide-react';
 
 export default function DireccionPage() {
@@ -274,6 +275,22 @@ export default function DireccionPage() {
               <p className="text-sm text-muted-foreground mb-4">Filtra por curso y mes para generar y visualizar reportes detallados de asistencia.</p>
               <Button asChild className="w-full">
                 <Link href="/direccion/informe-asistencias">Ver Informes</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <Archive className="mr-2 h-6 w-6 text-accent" />
+                Supervisión de Kardex
+              </CardTitle>
+              <CardDescription>Consulta las evaluaciones finales de los alumnos.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Busca un estudiante y visualiza su historial de evaluaciones finales (Kardex).</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/supervision-kardex">Ver Kardex</Link>
               </Button>
             </CardContent>
           </Card>
