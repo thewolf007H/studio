@@ -1,4 +1,3 @@
-
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -157,7 +156,7 @@ export default function KardexPage() {
                                     <FormItem><FormLabel>Comunicación Verbal</FormLabel><FormControl><Input type="number" {...field} /></FormControl><FormMessage /></FormItem>
                                 )} />
                                 <FormField control={form.control} name="written_comm" render={({ field }) => (
-                                    <FormItem><FormLabel>Comunicación Escrita</FormLabel><FormControl><Input type="number" {...field} /></FormControl><FormMessage /></Form_Item>
+                                    <FormItem><FormLabel>Comunicación Escrita</FormLabel><FormControl><Input type="number" {...field} /></FormControl><FormMessage /></FormItem>
                                 )} />
                                 <FormField control={form.control} name="practice" render={({ field }) => (
                                     <FormItem><FormLabel>Práctica</FormLabel><FormControl><Input type="number" {...field} /></FormControl><FormMessage /></FormItem>
