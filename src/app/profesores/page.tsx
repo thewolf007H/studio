@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { UserCog, ClipboardCheck, Clock, CalendarCheck, UserCheck } from 'lucide-react';
+import { UserCog, ClipboardCheck, Clock, CalendarCheck, UserCheck, Archive } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 export default function ProfesorPage() {
@@ -102,6 +102,22 @@ export default function ProfesorPage() {
           </Card>
 
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <Archive className="mr-2 h-6 w-6 text-accent" />
+                Kardex del Alumno
+              </CardTitle>
+              <CardDescription>Registra la evaluación final y observaciones de un estudiante.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Accede al formulario de evaluación final del participante.</p>
+              <Button asChild variant="outline">
+                <Link href="/profesores/kardex">Llenar Kardex</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow lg:col-span-1">
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <UserCog className="mr-2 h-6 w-6 text-accent" />
