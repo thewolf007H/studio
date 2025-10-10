@@ -18,7 +18,8 @@ import {
   Clock,
   BookUser,
   Users,
-  FileClock
+  FileClock,
+  CheckSquare
 } from 'lucide-react';
 
 export default function DireccionPage() {
@@ -257,6 +258,22 @@ export default function DireccionPage() {
               <p className="text-sm text-muted-foreground mb-4">Gestiona las sustituciones de profesores por ausencias o emergencias.</p>
               <Button asChild className="w-full">
                 <Link href="/direccion/reemplazos">Asignar Reemplazo</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <CheckSquare className="mr-2 h-6 w-6 text-accent" />
+                Informe de Asistencias
+              </CardTitle>
+              <CardDescription>Supervisa la asistencia de los alumnos en detalle.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Filtra por curso y mes para generar y visualizar reportes detallados de asistencia.</p>
+              <Button asChild className="w-full">
+                <Link href="/direccion/informe-asistencias">Ver Informes</Link>
               </Button>
             </CardContent>
           </Card>
