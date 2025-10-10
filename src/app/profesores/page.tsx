@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { UserCog, ClipboardCheck, Clock, CalendarCheck } from 'lucide-react';
+import { UserCog, ClipboardCheck, Clock, CalendarCheck, UserCheck } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 export default function ProfesorPage() {
@@ -81,6 +81,22 @@ export default function ProfesorPage() {
               <p className="text-sm text-muted-foreground mb-4">Registra tus actividades y horas de las clases sabatinas.</p>
               <Button asChild variant="outline">
                 <Link href="/profesores/registro-horas-sabado">Registrar Class Reports (Sáb.)</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+           <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-xl font-headline">
+                <UserCheck className="mr-2 h-6 w-6 text-accent" />
+                Class Reports (Personalizadas)
+              </CardTitle>
+              <CardDescription>Registra las clases personalizadas impartidas.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">Añade cada sesión personalizada con el detalle de horas y el estudiante.</p>
+              <Button asChild variant="outline">
+                <Link href="/profesores/registro-horas-personalizadas">Registrar Clases Personalizadas</Link>
               </Button>
             </CardContent>
           </Card>
