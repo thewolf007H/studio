@@ -84,7 +84,7 @@ export default function DireccionPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-4 h-12">{func.description}</p>
-                  <Button asChild className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">
+                  <Button asChild className="w-full bg-primary hover:bg-primary/90">
                     <Link href={func.href}>Ir a {func.title.split(' ')[0]}</Link>
                   </Button>
                 </CardContent>
@@ -114,7 +114,7 @@ export default function DireccionPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-4 h-12">{func.description}</p>
-                  <Button asChild className="w-full bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600">
+                  <Button asChild className="w-full bg-primary hover:bg-primary/90">
                     <Link href={func.href}>Ir a {func.title.split(' ')[0]}</Link>
                   </Button>
                 </CardContent>
