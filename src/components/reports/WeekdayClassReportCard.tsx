@@ -49,11 +49,14 @@ const dias = ["lunes", "martes", "miércoles", "jueves", "viernes"] as const;
 export function WeekdayClassReportCard({ data }: WeekdayClassReportCardProps) {
     const maxRows = Math.max(...dias.map(dia => data.estructura_semanal[dia].length));
 
-    const totalClasesMes = dias.reduce((total, dia) => {
+    const totalClasesPorTipo = dias.reduce((acc, dia) => {
         const clasesDelDia = data.clases_impartidas[dia];
-        const sumaDia = Object.values(clasesDelDia).reduce((acc, count) => acc + (count || 0), 0);
-        return total + sumaDia;
-    }, 0);
+        for (const tipo in clasesDelDia) {
+            const tipoClase = tipo as ClaseTipo;
+            acc[tipoClase] = (acc[tipoClase] || 0) + (clasesDelDia[tipoClase] || 0);
+        }
+        return acc;
+    }, {} as ClasesPorDia);
 
     return (
         <Card className="w-full mx-auto shadow-lg border-primary/10 bg-card font-sans text-sm">
@@ -111,7 +114,7 @@ export function WeekdayClassReportCard({ data }: WeekdayClassReportCardProps) {
             </CardContent>
              <Separator/>
              <CardFooter className="p-4">
-                <div className="w-full space-y-4">
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
                      <div>
                         <h4 className="font-semibold mb-2">Clases Impartidas por Día</h4>
                         <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 text-center">
@@ -135,10 +138,19 @@ export function WeekdayClassReportCard({ data }: WeekdayClassReportCardProps) {
                             ))}
                         </div>
                      </div>
-                     <div className="flex justify-end">
-                        <div className="p-3 bg-primary/10 rounded-lg border border-primary/20">
-                            <p className="text-sm font-semibold text-primary">Total Clases del Mes</p>
-                            <p className="text-2xl font-bold text-primary text-center">{totalClasesMes}</p>
+                     <div className="p-3 bg-primary/10 rounded-lg border border-primary/20">
+                        <p className="text-sm font-semibold text-primary mb-2">Resumen Mensual de Clases</p>
+                        <div className="space-y-1 text-sm">
+                        {Object.keys(totalClasesPorTipo).length > 0 ? (
+                            Object.entries(totalClasesPorTipo).map(([tipo, cantidad]) => (
+                                <div key={tipo} className="flex justify-between items-center">
+                                    <span className="capitalize text-muted-foreground">{tipo.replace('_', ' ')}:</span>
+                                    <span className="font-bold text-primary text-base">{cantidad}</span>
+                                </div>
+                            ))
+                        ) : (
+                             <p className="text-muted-foreground italic text-center">No hay clases registradas.</p>
+                        )}
                         </div>
                      </div>
                 </div>
