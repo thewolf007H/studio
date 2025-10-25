@@ -41,7 +41,7 @@ export default function ProfesorPage() {
             <CardHeader>
               <CardTitle className="flex items-center text-xl font-headline">
                 <ClipboardCheck className="mr-2 h-6 w-6 text-accent" />
-                Grades
+                Calificaciones
               </CardTitle>
               <CardDescription>Revisa el rendimiento y proporciona comentarios a tus alumnos.</CardDescription>
             </CardHeader>
