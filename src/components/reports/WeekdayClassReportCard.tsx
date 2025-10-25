@@ -114,30 +114,7 @@ export function WeekdayClassReportCard({ data }: WeekdayClassReportCardProps) {
             </CardContent>
              <Separator/>
              <CardFooter className="p-4">
-                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-                     <div>
-                        <h4 className="font-semibold mb-2">Clases Impartidas por Día</h4>
-                        <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 text-center">
-                            {dias.map(dia => (
-                                <div key={dia} className="p-2 bg-secondary/30 rounded-md">
-                                    <p className="text-sm capitalize font-bold text-muted-foreground">{dia}</p>
-                                    <Separator className="my-1"/>
-                                    <div className="text-left text-xs space-y-1 mt-2">
-                                        {Object.entries(data.clases_impartidas[dia]).length > 0 ? (
-                                            Object.entries(data.clases_impartidas[dia]).map(([tipo, cantidad]) => (
-                                                <div key={tipo} className="flex justify-between">
-                                                    <span className="capitalize">{tipo}:</span>
-                                                    <span className="font-bold text-primary">{cantidad}</span>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <p className="text-muted-foreground italic">Sin clases</p>
-                                        )}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                     </div>
+                <div className="w-full">
                      <div className="p-3 bg-primary/10 rounded-lg border border-primary/20">
                         <p className="text-sm font-semibold text-primary mb-2">Resumen Mensual de Clases</p>
                         <div className="space-y-1 text-sm">
